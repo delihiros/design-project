@@ -3,7 +3,8 @@
   :url "http://example.com/FIXME"
   :dependencies [[org.clojure/clojure "1.5.1"]
                  [compojure "1.1.6"]
-                 [hiccup "1.0.4"]]
+                 [hiccup "1.0.4"]
+                 [sandbar/sandbar "0.4.0-SNAPSHOT"]]
   :plugins [[lein-ring "0.8.8"]]
   :ring {:handler design-project.handler/app}
   :profiles
