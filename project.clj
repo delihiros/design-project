@@ -5,7 +5,7 @@
                  [compojure "1.1.6"]
                  [hiccup "1.0.4"]
                  [sandbar/sandbar "0.4.0-SNAPSHOT"]
-                 [clojure.java.jdbc "0.3.0-beta1"]
+                 [org.clojure/java.jdbc "0.3.0-beta1"]
                  [mysql/mysql-connector-java "5.1.6"]]
   :plugins [[lein-ring "0.8.8"]]
   :ring {:handler design-project.handler/app}
