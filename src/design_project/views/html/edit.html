@@ -1,0 +1,61 @@
+﻿<!DOCTYPE html>
+<html lang="ja">
+	<head>
+    	<meta charset="utf-8">
+    	<title>edit</title>
+    	<link rel="stylesheet" type="text/css" href="main.css" media="all" />
+	</head>
+<body>
+<div id ="wrap">
+
+	<ul id = "menu">
+		<a href ="profile.html"><li>Profile</li></a>
+		<a href ="event.html"><li>Event</li></a>
+		<a href ="edit.html"><li>Edit</li></a>
+		<a href ="logout.html"><li>Logout</li></a>
+	</ul>
+
+<p>名前:</p>
+
+<p>メールアドレス：</p>
+
+国籍
+
+
+
+<p>状態：
+<input type="radio" name="状態" value="在学" tabindex="2" accesskey="c">在学
+<input type="radio" name="状態" value="修了" tabindex="3" accesskey="d">修了<br>
+
+職業：
+<input type="checkbox" name="job" value="Student" tabindex="4" accesskey="e">学生
+<input type="checkbox" name="job" value="worker" tabindex="5" accesskey="f">会社員
+<input type="checkbox" name="job" value="official" tabindex="6" accesskey="g">公務員
+<input type="checkbox" name="job" value="etc" tabindex="7" accesskey="h">その他
+</p>
+
+<p>性別：
+<input type="radio" name="sex" value="man" tabindex="2" accesskey="c">在学
+<input type="radio" name="sex" value="woman" tabindex="3" accesskey="d">修了<br>
+
+<p>年代：<select name="age" tabindex="8">
+<option value="10ages">10代</option><option value="20ages">20代</option>
+<option value="30ages">30代</option><option value="40ages">40代</option>
+<option value="50ages">50代</option><option value="60ages">60代</option>
+<option value="age" selected>お選びください</option>
+</select></p>
+
+<p><label>お問合せ<br>
+<textarea name="title" rows="5" cols="60" tabindex="9" accesskey="i">
+</textarea>
+</label></p>
+
+<p>
+<input type="reset" value="送信" tabindex="10" accesskey="s">
+<input type="reset" value="取消" tabindex="11" accesskey="r">
+</p>
+</form>
+
+</div>
+</body>
+</html>

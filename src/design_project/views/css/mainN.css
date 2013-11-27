@@ -1,0 +1,49 @@
+﻿*{
+	margin:0; padding:0; 	/*全要素のマージン・パディングをリセット*/
+	line-height:1.5;	/*全要素の行の高さを1.5倍にする*/
+	color:#333333;		/*文字色*/
+
+} 
+
+#title-top{
+    width :900px;
+    height:60px;
+    background-color:gold;
+    margin:0;
+    border-radius:10;
+    padding-top:10px;
+}
+.title-top topname{
+    text-align:left;
+    
+}
+
+#wrap{width:900px;height :800px;padding :0px 0px; text-align:left; margin:auto;background-color:greenyellow;
+    }
+
+#menu li{
+	display: block;
+	width: 200px; height: 35px;
+	color: #ffffff;
+	background-color:skyblue;
+	padding-top:15px;
+	text-align: center;
+	text-decoration: none; 
+    display:inline-block;
+    margin:0;
+    border-radius:10;
+    
+    
+}
+#calendar{
+    width:500px;
+    height :500px;
+    background-color:gray;
+	float :left;
+}
+#main-con{
+	width :400px;
+	height :500px;
+	background-color :red;
+	float :right;
+}
