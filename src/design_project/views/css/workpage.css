@@ -1,0 +1,84 @@
+@charset "utf-8"
+
+/* cssの初期化 */
+
+html, body, div, span, h1, h2, h3, h4, h5, h6, p,
+a, img, dl, dt, dd, ol, ul, li, form, label, table,
+tbody, tfoot, thead, tr, th, td {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-style:normal;
+    font-weight: normal;
+    font-size: 100%;
+	vartical-align: baseline;
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+a:link {
+	color: #000000;
+}
+
+a:visited {
+	color: #000000;
+}
+
+a:hover {
+	color: #ff0000;
+}
+
+a:active {
+	color: #000000;
+}
+
+#warpper {
+	margin: 30px auto;
+	padding: 0;
+	width: 800px;
+}
+
+ul {
+	list-style: none;
+}
+
+#header {
+	margin: 0 0 10px 0;
+	padding: 0;
+	width: 800px;
+	border-bottom: 2px solid #6b6b6b;
+}
+
+#header ul {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+}
+
+#header li {
+	margin: 0 20px;
+	padding: 0;
+	display: inline;
+	width: 100px;
+	text-align: center;
+	font-size: 25px;;
+}
+
+#header a {
+	margin: 0;
+	padding: 0;
+	text-align: center;
+	text-decoration: none;
+}
+
+#main {
+	margin: 0;
+	padding: 0;
+	width: 800px;
+	height: 1200px;
+	background-color: #000;
+}
