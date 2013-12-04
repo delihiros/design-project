@@ -1,0 +1,111 @@
+*{
+	margin:0; padding:0; 	/*全要素のマージン・パディングをリセット*/
+	line-height:1.5;	/*全要素の行の高さを1.5倍にする*/
+	color:#333333;		/*文字色*/
+
+} 
+
+a:hover{
+	color:#ff0000;
+}
+a:active{
+	color:#000000;
+}
+
+#title-top{
+    width :900px;
+    height:60px;
+    background-color:gold;
+    margin:0;
+    border-radius:10;
+    padding-top:10px;
+}
+.title-top topname{
+    text-align:left;
+    
+}
+
+#wrap{width:800px;height :800px;padding :0px 0px; text-align:left; margin:auto;
+    }
+
+#header {
+	margin:0 0 10px 0;
+	padding:0;
+	width:800px;
+	border-bottom: 2px solid #6b6b6b;
+}
+
+#header ul{
+	margin:0;
+	padding:0;
+	text-align:center;
+}
+
+#header ul li{
+	margin:0 20px;
+	padding:0;
+	display:inline;
+	width:100px;
+	text-align:center;
+	font-size: 25px;
+	position: relative;
+}
+#header ul li a{
+	text-decoration: none;
+	text-align:center;
+	padding: 0;
+	margin: 0;
+}
+
+
+
+
+#calendar{
+    width:490px;
+    height :500px;
+    //background-color:grey;
+	float :left;
+	margin: 0;
+}
+#main-con{
+	width :300px;
+	height :500px;
+	margin:0;
+	border-left: 1px solid #6b6b6b;
+	border-right:1px solid #6b6b6b;
+	float:right;
+	
+}
+
+#baseprofile{
+	width :800px;
+	height: 450px;
+	margin :0;
+	border-top :1px solid #6b6b6b;
+	border-bottom:1px solid #6b6b6b;
+	background-color: #FFFFE0;
+}
+
+#editprofile{
+	width :800px;
+	height: 200px;
+	margin-top:10px;
+	border :1px solid #6b6b6b;
+	outline: solid 2px #999;
+	background-color: #FFFFE0;
+
+}
+.editbtn {
+	background: -moz-linear-gradient(top,#FFF 0%,#EEE);
+	background: -webkit-gradient(linear, left top, left bottom, from(#FFF), to(#EEE));
+	border: 1px solid #DDD;
+	color:#111;
+	width: 80px;
+	padding: 10px 0;
+}
+.editbtn:active{
+	color:#111;
+}
+.editbtn:hover{
+	color:#21f;
+}

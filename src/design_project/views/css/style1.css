@@ -1,6 +1,6 @@
 body,p,form,input{margin: 0}
 
-#wrap{width:700px;height:400px; text-align:left; margin:0 auto; background-color: lightblue;}
+#wrap{width:700px;height:400px; text-align:left; margin:0 auto; }
 
 #inner { margin:0 10px; } 
 
@@ -18,9 +18,10 @@ body,p,form,input{margin: 0}
 .welcome-w{
 	font-size: 50px;
 	font-weight: bold;
-	text-shadow: 2px 2px 1px #021;
+	//text-shadow: 2px 2px 1px #021;
 	text-align: center;
-	color:green;
+	color:#000;
+	font-family:'Arial Black';
 }
 
 
