@@ -1,0 +1,38 @@
+body,p,form,input{margin: 0}
+
+#wrap{width:700px;height:400px; text-align:left; margin:0 auto; }
+
+#inner { margin:0 10px; } 
+
+#welcome{
+	width: 300px;
+	height: 325px;
+	float: left;
+	line-height: 20em;
+
+}
+.welcom img{
+	float:left;
+}
+	
+.welcome-w{
+	font-size: 50px;
+	font-weight: bold;
+	//text-shadow: 2px 2px 1px #021;
+	text-align: center;
+	color:#000;
+	font-family:'Arial Black';
+}
+
+
+#form{
+    width: 400px;
+    padding: 40px;
+    float:right;
+   border: 2px solid #555;
+	border-radius:10px;
+	background-color :lightyellow;
+
+    }
+	
+
