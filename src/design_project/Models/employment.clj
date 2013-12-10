@@ -8,6 +8,13 @@
 
 
 ;; insert
+;; id
+;; ユーザーid
+;; 会社id
+;; 役職
+;; 業種id
+;; その他特記事項
+;; 変更時間
 (defn insert [employment]
   (jdbc/insert! my-db :employment
                 {:user_id (:user_id employment),
@@ -22,6 +29,6 @@
   (jdbc/query my-db
               ["select * from company"]))
 
-(insert {:name "t"})
+(insert {:user_id 1})
 
 ( select)
