@@ -14,7 +14,7 @@
 	(jdbc/insert! my-db :course course-map))
 
 ;; select
-(defn db-select []
+(defn select []
   "select from course table.
   return
    select data in map."

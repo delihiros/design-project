@@ -42,7 +42,7 @@
   (jdbc/update! my-db :employment employment-map ["id=?" id]))
 
 ;; select
-(defn db-select 
+(defn select 
   "select from employment table.
   return
    select data in map."

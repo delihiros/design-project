@@ -36,7 +36,7 @@
 
 
 ;; select
-(defn db-select []
+(defn select []
   (jdbc/query my-db
               ["select * from event"]))
 

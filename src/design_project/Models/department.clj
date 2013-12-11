@@ -13,7 +13,7 @@
 	(jdbc/insert! my-db :department department-map))
 
 ;; select
-(defn db-select []
+(defn select []
   "select from department table.
   return
    select data in map."

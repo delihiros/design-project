@@ -14,7 +14,7 @@
 	(jdbc/insert! my-db :curriculum curriculum-map))
 
 ;; select
-(defn db-select 
+(defn select 
   "select from curriculum table.
   return 
    select data in map."

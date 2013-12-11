@@ -1,17 +1,24 @@
-(ns design-project.Models.industry_type
+(ns design-project.Models.industry-type
 	(:use [design-project.Models.database])
 	(:require [clojure.java.jdbc :as jdbc]))
 
 ;; insert
-(defn insert [industry]
-	(jdbc/insert! my-db :industry_type
-		{:name (:name industry)}))
+(defn insert 
+  "insert industry-type table.
+  parameter
+   industry-type-map attribute
+    :name
+  return 
+   generate id"
+  [industry-type-map]
+	(jdbc/insert! my-db :industry_type industry-type-map))
 
 ;; select
-(defn db-select []
+(defn select 
+  "select from industry-type table.
+  return
+   select data in map."
+  []
 	(jdbc/query my-db
 		["select * from industry_type"]))
 
-(insert {:name "s"})
-
-(db-select)

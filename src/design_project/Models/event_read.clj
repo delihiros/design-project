@@ -22,7 +22,7 @@
   (jdbc/insert! my-db :event_read event-read-map))
 
 ;; select
-(defn db-select 
+(defn select 
   "select from event-read table.
   return
    select data in map"

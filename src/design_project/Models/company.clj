@@ -20,7 +20,7 @@
 
 ;; select
 ;; filter かけれるようにする予定
-(defn db-select 
+(defn select 
   "select from company table.
   return
    select data in map."

@@ -14,7 +14,7 @@
   (jdbc/insert! my-db :event_type event-type-map))
 
 ;; select
-(defn db-select 
+(defn select 
   "select from event-type table.
   return
    select data in map."
