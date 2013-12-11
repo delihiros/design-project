@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 	`university_id` INT,
 	`status` INT NOT NULL,
 	`name` VARCHAR(32) NOT NULL,
-	`password_hash` VARCHAR(255) NOT NULL,
+	`password` VARCHAR(255) NOT NULL,
 	`hash_method` VARCHAR(255) NOT NULL,
 	`country` VARCHAR(32) NOT NULL,
 	`address` VARCHAR(255) NOT NULL,

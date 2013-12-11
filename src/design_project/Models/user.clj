@@ -39,7 +39,7 @@
                 {:university_id (:university_id user-set),
                  :status (:status user-set),
                  :name (:name user-set),
-                 :password_hash (:password_hash user-set),
+                 :password (:password user-set),
                  :hash_method (:hash_method user-set),
                  :country (:country user-set),
                  :address (:address user-set),
