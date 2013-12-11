@@ -8,13 +8,23 @@
 
 
 ;; insert
-(defn insert [histroy-set]
-  (jdbc/insert! my-db :join_event_history
-                {:event_id (:event_id history-set)
-                 :user_id (:user_id history-set)}))
+(defn insert 
+  "insert join_event_history table.
+  parameter
+   history-map attribute
+    :event_id foreign key references event table.
+    :user_id foreign key references user table.
+  return 
+   generate id"
+  [history-map]
+  (jdbc/insert! my-db :join_event_history history-map))
 
 ;; select
-(defn db-select []
+(defn select 
+  "select from join_event_history table.
+  return
+   select data in map."
+  []
   (jdbc/query my-db
               ["select * from join_event_history"]))
 
