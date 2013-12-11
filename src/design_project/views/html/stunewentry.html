@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+		<meta name="keyword" content="">
+		<meta name="description" content="">
+		<meta http-equiv="Content-Style-Type" content="text/css">
+		<link href="../css/details.css" rel="stylesheet" type="text/css" media="all">
+		<script src="../js/jquery-1.10.2.min.js"></script>
+		<script src="../js/departSet.js"></script>
+		<title>新規学生登録ページ</title>
+	</head>
+	<body>
+		<div id="stuEditMain"><form>
+			<div id="basisInfo">
+				<div id="personImgPlace">
+					<img src="../pic/image.jpg" />
+					<form>
+						<input type="file" name="student photo">
+					</form>
+				</div><!-- #personImgPlace end -->
+				<div id="stuInfo">
+					<p>基本情報</p>
+					<p>氏名 : <input type="text" name="name" placeholder="name" size="40"></p>
+					<p>国籍 : <input type="text" name="citizenship" placeholder="citizenship" size="40"></p>
+					<p>住所 : <input type="text" name="address" placeholder="address" size="40"></p>
+					<p>電話番号 : <input type="text" name="phone" placeholder="phone number" size="40"></p>
+					<p>職業 : <input type="text" name="occupation" placeholder="occupation" size="40"></p>
+					<p>業種 : <input type="text" name="category" placeholder="business category" size="40"></p>
+					<p>生年月日 : </p>
+					<p>性別 : 
+						<select name="sex" size="1">
+							<option value="0">-----</option>
+							<option value="1">男性</option>
+							<option value="2">女性</option>
+						</select>
+					</p>
+				</div><!-- #stuInfo end -->
+			</div><!-- #basisInfo end -->
+			<div id="compInfo">
+				<p>在学生情報</p>
+				<p>学年 : 
+					<select name="grade" size="1">
+						<option value="0">-------</option>
+						<option value="1">学部１年</option>
+						<option value="2">学部２年</option>
+						<option value="3">学部３年</option>
+						<option value="4">学部４年</option>
+						<option value="5">大学院１年</option>
+						<option value="6">大学院２年</option>
+					</select>
+				</p>
+				<p>学籍番号 : <input type="text" name="stunumber" placeholder="student number" size="30"></p>
+				<p>学部 : 
+					<select name="depart" size="1">
+						<option value="0">-------</option>
+						<option value="1">人文学部</option>
+						<option value="2">教育学部</option>
+						<option value="3">経済学部</option>
+						<option value="4">理学部</option>
+						<option value="5">医学部</option>
+						<option value="6">工学部</option>
+						<option value="7">農学部</option>
+						<option value="8">繊維学部</option>
+					</select>
+				</p>
+				<p>研究室 : <input type="text" name="study" placeholder="study room" size="30"></p>
+				<p>学科 : 
+					<select name="depart2" size="1">
+						<option value="0">-------</option>
+						<option value="1"></option>
+						<option value="2"></option>
+						<option value="3"></option>
+						<option value="4"></option>
+						<option value="5"></option>
+						<option value="6"></option>
+						<option value="7"></option>
+						<option value="8"></option>
+					</select>
+				</p>
+				<p>保証人氏名 : <input type="text" name="surety" placeholder="surety" size="30"></p>
+				<p>保証人住所 : <input type="text" name="surety address" placeholder="surety address" size="30"></p>
+				<p>保証人連絡先 : 
+					<input type="text" name="surety phone" placeholder="surety phone" size="30">
+				</p>
+				<p>入学日 : <input type="text" name="entry day" placeholder="entry day" size="30"></p>
+				<p>修了日 : <input type="text" name="completion day" placeholder="completion day" size="30"></p>
+			</div><!-- #compInfo end -->
+			<div id="partInfo">
+				<p>参加者情報</p>
+				<p>希望課程 : </p>
+				<p>志望コース : 
+					<select name="course" size="1">
+						<option value="0">-----</option>
+						<option value="1">SE</option>
+						<option value="2">CE</option>
+					</select>
+				</p>
+				<p>志望指導教員名 : <input type="text" name="teacher" placeholder="teacher" size="25"></p>
+				<p>入学ステータス : 
+					<select name="status" size="1">
+						<option value="0">-----</option>
+						<option value="1">入学</option>
+						<option value="2">否入学</option>
+					</select>
+				</p>
+				<p>入学日 : <input type="text" name="entry day" placeholder="entry day" size="30"></p>
+			</div><!-- #partInfo end -->
+			<div id="stuEditButton">
+				<p class="editButtons"><input type="reset" value="リセット"></p>
+				<p class="editButtons"><input type="submit" value="登録"></p>
+			</div><!-- stuEditButton end -->
+		</div><form><!-- #stuDetailMain end -->
+	</body>
+</html>

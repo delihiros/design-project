@@ -7,6 +7,12 @@
 		<meta http-equiv="Content-Style-Type" content="text/css">
 		<link href="../css/workpage.css" rel="stylesheet" type="text/css" media="all">
 		<script src="../js/jquery-1.10.2.min.js"></script>
+		<script src="../js/rowClick.1.0.js"></script>
+		<script>
+			$(document).ready(function(){
+				$('#stuTable').rowClick();
+			});
+		</script>
 		<title>学生関連ページ</title>
 	</head>
 	<body>
@@ -19,13 +25,77 @@
 					<li><a href="#">logout</a></li>
 				</ul>
 			</div><!-- #header end -->
-			<div id="main">
-				<div id="stu-search">
-					
-				</div><!-- #search end -->
-				<div id="contents">
-				</div><!-- #contents end -->
-			</div><!-- #main end -->
+			<div id="stuMain">
+				<form name="stuSearch" class="stuSearch">
+					<p>名前 : <input type="text" name="name" placeholder="name" size="40"></p>
+					<p>学籍番号 : <input type="text" name="number" placeholder="number" size="40"></p>
+					<p>性別 : 男性<input type="checkbox" name="sex" value="0">  女性<input type="checkbox" name="sex" value="1"></p>
+					<p>所属 : 学部生<input type="checkbox" name="belong" value="0">  大学院生<input type="checkbox" name="belong" value="1"></p>
+					<p>学部 : 
+						<select name="depart" size="1">
+							<option value="0">-------</option>
+							<option value="1">人文学部</option>
+							<option value="2">教育学部</option>
+							<option value="3">経済学部</option>
+							<option value="4">理学部</option>
+							<option value="5">医学部</option>
+							<option value="6">工学部</option>
+							<option value="7">農学部</option>
+							<option value="8">繊維学部</option>
+						</select>
+						学科 : 
+						<select name="depart2" size="1">
+							<option value="0">-------</option>
+							<option value="1"></option>
+							<option value="2"></option>
+							<option value="3"></option>
+							<option value="4"></option>
+							<option value="5"></option>
+							<option value="6"></option>
+							<option value="7"></option>
+							<option value="8"></option>
+						</select>
+					</p>
+					<input type="submit" value="検索" class="searchbutton">
+				</form><!-- #stuSearch end -->
+				<div id="stuContents">
+					<p id="newStuEntry"><a href="./stunewentry.html">新規学生登録</a></p><!-- #newentry end -->
+					<table id="stuTable">
+						<thead>
+							<tr class="stuHead">
+								<th scope="col">学籍番号</th>
+								<th scope="col">氏名</th>
+								<th scope="col">所属</th>
+								<th scope="col">学部</th>
+								<th scope="col">学科</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><a href="./studetails.html">11t50**</a></td>
+								<td>delihiros</td>
+								<td>学部生</td>
+								<td>工学部</td>
+								<td>情報工学科</td>
+							</tr>
+							<tr>
+								<td><a href="./studetails.html">11t50**</a></td>
+								<td>delihiros</td>
+								<td>学部生</td>
+								<td>工学部</td>
+								<td>情報工学科</td>
+							</tr>
+							<tr>
+								<td><a href="./studetails.html">11t50**</a></td>
+								<td>delihiros</td>
+								<td>学部生</td>
+								<td>工学部</td>
+								<td>情報工学科</td>
+							</tr>
+						</tbody>
+					</table><!-- #stuTable end -->
+				</div><!-- #stuContents end -->
+			</div><!-- #stMain end -->
 		</div><!-- #warpper end -->
 	</body>
 </html>
