@@ -17,6 +17,7 @@
   [com-map]
   (jdbc/insert! my-db :company com-map))
 
+
 ;; select
 ;; filter かけれるようにする予定
 (defn db-select 

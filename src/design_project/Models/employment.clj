@@ -34,7 +34,10 @@
 (defn update 
   "update employment table.
   parameter
-   want update id and change attribute."
+   want update id and change attribute.
+  return
+   1 is accept
+   exception is fail"
   [id employment-map]
   (jdbc/update! my-db :employment employment-map ["id=?" id]))
 

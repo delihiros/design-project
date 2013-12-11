@@ -43,9 +43,10 @@
   parameter
    want update id and change attribute.
   return
-   generate id."
+   1 is accept.
+   exception is fail"
   [id user-set]
-  (jdbc/update! my-db :company user-set ["id=?" id]))
+  (jdbc/update! my-db :user user-set ["id=?" id]))
 
 
 

@@ -11,11 +11,29 @@
 ;; 日時
 ;; 場所
 ;; イベント種類
-(defn insert [event-set]
-  (jdbc/insert! my-db :event
-                {:day (:day event-set),
-                 :place (:place event-set),
-                 :type_id (:type_id event-set)}))
+(defn insert 
+  "insert event table.
+  parameter
+   event-map attribute
+   :day
+   :place
+   :type_id foreign key references event_type table.
+  return
+   generate id"
+  [event-map]
+  (jdbc/insert! my-db :event event-map))
+
+
+(defn update 
+  "update event table.
+  parameter
+   want update id and change attribute.
+  return
+   1 is accept.
+   exception is fail"
+  [id event-map]
+  (jdbc/update! my-db :event event-map ["id=?" id]))
+
 
 ;; select
 (defn db-select []
