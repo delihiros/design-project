@@ -1,11 +1,17 @@
-(ns design-project.Models.event_type
+(ns design-project.Models.event-type
 	(:use [design-project.Models.database])
 	(:require [clojure.java.jdbc :as jdbc]))
 
 ;; insert
-(defn insert [event]
-	(jdbc/insert! my-db :event_type
-		{:name (:name event)}))
+(defn insert 
+  "insert event-type table.
+  parameter
+   event-map attribute
+   :name
+  return
+   generate id"
+  [event-map]
+	(jdbc/insert! my-db :event_type event-map))
 
 ;; select
 (defn db-select []
