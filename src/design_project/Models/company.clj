@@ -31,6 +31,3 @@
 (db-select)
 
 
-(update 1 {:name "update"})
-
-
