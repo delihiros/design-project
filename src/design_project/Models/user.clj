@@ -35,8 +35,39 @@
 ;; 保証人住所
 ;; 保証人電話番号
 ;; 修了日
-(defn insert [user-set]
-  (jdbc/insert! my-db :user user-set))
+(defn insert 
+  "insert user table.
+  parameter 
+   user-map attribute
+    :university_id foreign key references university table.
+    :status state and authority are expressed.
+    :image hes image file.
+    :name
+    :password
+    :hash_method 本当に実装するのか？
+    :country
+    :address
+    :phone phonenumber.
+    :job_id foreign key references job table.
+    :industry_id foreign key references industry-type table.
+    :birthday
+    :sex
+    :wish_curriculum_id foreign key references curriculum table.
+    :wish_course_id foreign key references course table.
+    :wish_teacher
+    :class 学年
+    :department_id foreign key references department table.
+    :study_course_id foreign key references study table.
+    :laboratory_id foreign key references lab table.
+    :student_id 
+    :guarantor_name 保証人
+    :guarantor_address
+    :guarantor_phone
+    :finish_course_day
+  return
+   generate id"
+  [user-map]
+  (jdbc/insert! my-db :user user-map))
 
 (defn update 
   "update user table.
@@ -51,9 +82,11 @@
 
 
 ;; select
-(defn db-select []
+(defn select 
+  "select from user table.
+  return
+   select data in map."
+  []
   (jdbc/query my-db
               ["select * from user"]))
-
-
 

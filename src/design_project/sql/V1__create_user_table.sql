@@ -21,7 +21,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 	`entrance_day` DATE,
 	`class` INT,
 	`department_id` INT,
-	`graduate_course_id` INT,
+	`study_course_id` INT,
 	`laboratory_id` INT,
 	`student_id` VARCHAR(16),
 	`guarantor_name` VARCHAR(32),
@@ -35,7 +35,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 	FOREIGN KEY (`wish_curriculum_id`) REFERENCES `curriculum` (`id`),
 	FOREIGN KEY (`wish_course_id`) REFERENCES `course` (`id`),
 	FOREIGN KEY (`department_id`) REFERENCES `department` (`id`),
-	FOREIGN KEY (`graduate_course_id`) REFERENCES `study` (`id`),
+	FOREIGN KEY (`study_course_id`) REFERENCES `study` (`id`),
 	FOREIGN KEY (`laboratory_id`) REFERENCES `lab` (`id`) )
 
 ENGINE = InnoDB;
