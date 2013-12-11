@@ -9,16 +9,13 @@
 ;; insert
 (defn insert 
   "insert company table.
-  com-map attribute 
-   :name company name.
+  parameter
+   com-map attribute 
+    :name company name.
   return 
    generate id"
   [com-map]
   (jdbc/insert! my-db :company com-map))
-
-;; update
-(defn update [id com-map]
-  (jdbc/update! my-db :company com-map ["id=?" id]))
 
 ;; select
 ;; filter かけれるようにする予定
