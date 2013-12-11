@@ -1,0 +1,164 @@
+/* cssの初期化 */
+html, body, span, h1, h2, h3, h4,
+h5, h6, p, a, dl, dt, dd, ol, ul,
+li, form, tr, th, td, {
+	padding: 0;
+	margin: 0;
+	border: 0;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 100%;
+	vartical-align: baseline;
+	font-family: 'Helvetica';
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+	width: 100%;
+	font-family: 'Helvetica';
+}
+
+a:link {
+	color: #000000;
+	text-decoration: none;
+}
+
+a:visited {
+	color: #000000;
+}
+
+a:hover {
+	color: #ff0000;
+}
+
+a:active {
+	color: #000000;
+}
+
+#stuDetailMain, #stuEditMain {
+	margin: 0 auto;
+	padding: 0;
+	width: 800px;
+	height: 1000px;
+}
+
+#basisInfo {
+	margin: 30px 0 0 0;
+	padding: 0 10px;
+	width: 780px;
+	height: 346px;
+	border-top: 2px solid #6d6d6d;
+	border-bottom: 2px solid #6b6b6b;
+}
+
+#personImgPlace {
+	margin: 0;
+	padding: 10px 0 0 0;
+	width: 192px;
+	height: 336px;
+	float: left;
+}
+
+#personImgPlace input {
+	margin: 0 50px;
+	padding: 0;
+	width: 95px;
+}
+
+#stuInfo {
+	margin: 0 0 0 20px;
+	padding: 0;
+	width: 568px;
+	height: 100%;
+	float: left;
+}
+
+#stuInfo p {
+	margin: 10px;
+	padding: 0;
+}
+
+#stuInfo p:nth-of-type(1) {
+	font-size: 30px;
+	margin: 10px;
+	padding: 0;
+}
+
+#compInfo {
+	margin: 0;
+	padding: 0 10px;
+	width: 780px;
+	height: 300px;
+	border-bottom: 2px solid #6d6d6d;
+}
+
+#compInfo p {
+	margin: 10px 40px 0 10px;
+	padding: 0;
+	width: 300px;
+	float: left;
+}
+
+#compInfo p:nth-of-type(1) {
+	font-size: 30px;
+	margin: 10px 0 0 0;
+	padding: 0;
+	width: 100%;
+}
+
+#partInfo {
+	margin: 0;
+	padding: 0 10px;
+	width: 780px;
+	height: 200px;
+	border-bottom: 2px solid #6d6d6d;
+}
+
+#partInfo p {
+	margin: 10px 40px 0 10px;
+	padding: 0;
+	width: 300px;
+	float: left;
+}
+
+#partInfo p:nth-of-type(1) {
+	font-size: 30px;
+	margin: 10px 0 0 0;
+	padding: 0;
+	width: 100%;
+}
+
+#stuEditButton {
+	margin: 10px 0 0 0;
+	padding: 0 10px;
+	text-align: right;
+	width: 780px;
+	height: 30px;
+}
+
+.editButtons {
+	margin: 0;
+	padding: 0;
+	width: 80px;
+	height: 24px;
+	float: right;
+	text-align: center;
+}
+
+.editButtons:nth-of-type(1) {
+	margin: 0 0 0 10px;
+	padding: 0;
+}
+
+.editButtons a {
+	text-decoration: none;
+	display: block;
+}
+.editButtons input {
+	margin: 0;
+	padding: 0;
+	width: 80px;
+	height: 24px;
+	bordre: 0;
+}

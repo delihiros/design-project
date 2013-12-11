@@ -7,6 +7,12 @@
 		<meta http-equiv="Content-Style-Type" content="text/css">
 		<link href="../css/workpage.css" rel="stylesheet" type="text/css" media="all">
 		<script src="../js/jquery-1.10.2.min.js"></script>
+		<script src="../js/rowClick.1.0.js"></script>
+		<script>
+			$(document).ready(function(){
+				$('#eveTable').rowClick();
+			});
+		</script>
 		<title>イベント情報ページ</title>
 	</head>
 	<body>
@@ -19,6 +25,87 @@
 					<li><a href="#">logout</a></li>
 				</ul>
 			</div><!-- #header end -->
+			<div id="eveMain">
+				<form name="eveSearch" class="eveSearch">
+					<p>イベント名 : <input type="text" name="event-name" placeholder="event name" size="40"></p>
+					<p>場所 : <input type="text" name="location" placeholder="location" size="40"></p>
+					<p>日付 : 
+						<select name="year" size="1">
+							<option value="0">----</option>
+							<option value="1">2009</option>
+							<option value="2">2010</option>
+							<option value="3">2011</option>
+							<option value="4">2012</option>
+							<option value="5">2013</option>
+							<option value="6">2014</option>
+						</select>
+						<select name="month" size="1">
+							<option value="0">---</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+						</select>
+						<select name="day" size="1">
+							<option value="0">---</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+						</select>
+					</p>
+					<input type="submit" value="検索" class="searchbutton">
+				</form><!-- #eveSearch end -->
+				<div id="eveContents">
+					<p id="newEveEntry"><a href="./evenewentry.html">新規イベント登録</a></p><!-- #newentry end -->
+					<table id="eveTable">
+						<thead>
+							<tr class="eveHead">
+								<th scope="col">イベント名</th>
+								<th scope="col">開催日</th>
+								<th scope="col">開催地区</th>
+								<th scope="col">開催時間</th>
+								<th scope="col">会場</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td><a href="./evedetails.html">カエル界忘年会</a></td>
+								<td>2013/12/20</td>
+								<td>長野県長野市</td>
+								<td>18:00~</td>
+								<td>でりひろのお家</td>
+							</tr>
+							<tr>
+								<td><a href="./evedetails.html">カエル界忘年会</a></td>
+								<td>2013/12/20</td>
+								<td>長野県長野市</td>
+								<td>18:00~</td>
+								<td>でりひろのお家</td>
+							</tr>
+							<tr>
+								<td><a href="./evedetails.html">カエル界忘年会</a></td>
+								<td>2013/12/20</td>
+								<td>長野県長野市</td>
+								<td>18:00~</td>
+								<td>でりひろのお家</td>
+							</tr>
+						</tbody>
+					</table><!-- #eveTable end -->
+				</div><!-- #eveContents end -->
+			</div><!-- #eveMain end -->
 		</div><!-- #warpper end -->
 	</body>
 </html>

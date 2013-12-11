@@ -18,10 +18,12 @@ html, body {
 	margin: 0;
 	padding: 0;
 	width: 100%;
+	font-family: 'Helvetica';
 }
 
 a:link {
 	color: #000000;
+	text-decoration: none;
 }
 
 a:visited {
@@ -75,10 +77,83 @@ ul {
 	text-decoration: none;
 }
 
-#main {
+.stuSearch, .eveSearch {
+	margin: 20px 0 0 0;
+	padding: 0 0 0 10px;
+	border: 0;
+	width: 800px;
+	height: 230px;
+	background-color: #ffffff;
+	border-bottom: 2px solid #6f6f6f;
+}
+
+.eveSearch {
+	height: 150px;
+}
+
+.searchbutton {
+	margin: 0;
+	padding: 0;
+	width: 80px;
+}
+
+#stuMain, #eveMain {
 	margin: 0;
 	padding: 0;
 	width: 800px;
-	height: 1200px;
-	background-color: #000;
+	height: 1500px;
+	background-color: #fffff;
+}
+
+#stuContents, #eveContents {
+	margin: 20px 0 0 0;
+	padding: 0;
+	width: 800px;
+	height: 1000px;
+}
+
+#newStuEntry, #newEveEntry{
+	margin: 0 20px 10px 0;
+	padding: 0;
+	font-size: 20px;
+	width: 780px;
+	float: right;
+	text-align: right;
+}
+
+/*--- テーブルの設定 ---*/
+#stuTable, #eveTable{
+	margin: 0 50px;
+	padding: 0;
+	width: 700px;
+	text-align: left;
+	border-collapse: collapse;
+	border-spacing: 0;
+	border: 1px solid #c1dad7;
+}
+
+th {
+	margin: 0;
+	padding: 0 0 0 10px;
+	border: 1px solid #c1dad7;
+	letter-spacing: 2px;
+}
+
+thead th {
+	border-bottom: 4px double #c1dad7;
+}
+
+td {
+	margin: 0;
+	padding: 0 0 0 10px;
+	border: 1px solid #c1dad7;
+}
+
+tbody tr:hover{
+	background-color: #ffffaa;
+}
+
+/*--- rowClick.1.0.jsの設定 ---*/
+.rowClick {
+	cursor: pointer;
 }
