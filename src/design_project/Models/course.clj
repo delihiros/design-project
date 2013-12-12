@@ -21,4 +21,3 @@
 	(jdbc/query my-db
 		["select * from course"]))
 
-(db-select)

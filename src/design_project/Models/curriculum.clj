@@ -22,6 +22,3 @@
 	(jdbc/query my-db
 		["select * from curriculum"]))
 
-(insert {:name "t"})
-
-(db-select)
