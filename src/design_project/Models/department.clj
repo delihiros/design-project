@@ -20,6 +20,3 @@
 	(jdbc/query my-db
 		["select * from department"]))
 
-(insert {:name "dep"})
-
-(db-select)
