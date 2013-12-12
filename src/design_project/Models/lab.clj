@@ -3,15 +3,22 @@
 	(:require [clojure.java.jdbc :as jdbc]))
 
 ;; insert
-(defn insert [lab]
-	(jdbc/insert! my-db :lab
-		{:name (:name lab)}))
+(defn insert 
+  "insert lab table.
+  parameter 
+   lab-map attribute
+    :name
+  return 
+   generate id"
+  [lab-map]
+	(jdbc/insert! my-db :lab lab-map))
 
 ;; select
-(defn db-select []
+(defn select 
+  "select from lab table.
+  return 
+   select data in map."
+  []
 	(jdbc/query my-db
 		["select * from lab"]))
 
-(insert {:name "l"})
-
-(db-select)

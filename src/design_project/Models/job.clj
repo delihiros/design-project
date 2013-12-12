@@ -3,15 +3,22 @@
 	(:require [clojure.java.jdbc :as jdbc]))
 
 ;; insert
-(defn insert [job]
-	(jdbc/insert! my-db :job
-		{:name (:name job)}))
+(defn insert 
+  "insert job table.
+  parameter
+   job-map attribute
+    :name 
+  return
+   generate id"
+  [job-map]
+	(jdbc/insert! my-db :job job-map))
 
 ;; select
-(defn db-select []
+(defn select 
+  "select from job table.
+  return
+   select data in map"
+  []
 	(jdbc/query my-db
 		["select * from job"]))
 
-(insert {:name "Dr"})
-
-(db-select)

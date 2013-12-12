@@ -3,15 +3,22 @@
 	(:require [clojure.java.jdbc :as jdbc]))
 
 ;; insert
-(defn insert [curriculum]
-	(jdbc/insert! my-db :curriculum
-		{:name (:name curriculum)}))
+(defn insert 
+  "insert curriculum table.
+  parameter
+   curriculum attribute
+   :name curriculum name.
+  return
+   generate id."
+  [curriculum-map]
+	(jdbc/insert! my-db :curriculum curriculum-map))
 
 ;; select
-(defn db-select []
+(defn select 
+  "select from curriculum table.
+  return 
+   select data in map."
+  []
 	(jdbc/query my-db
 		["select * from curriculum"]))
 
-(insert {:name "t"})
-
-(db-select)

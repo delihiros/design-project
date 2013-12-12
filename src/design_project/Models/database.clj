@@ -4,7 +4,7 @@
 ;;
 (def my-db {:subprotocol "mysql"
             :subname "//127.0.0.1:3306/test"
-            :user "root"
-            :password "dpbd" })
+            :user "user"
+            :password "password"})
 
 
