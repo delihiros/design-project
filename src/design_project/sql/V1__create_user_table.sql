@@ -27,7 +27,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 	`guarantor_name` VARCHAR(32),
 	`guarantor_address` VARCHAR(255),
 	`guarantor_phone` VARCHAR(16),
-	`finish_course_day date,
+	`finish_course_day` DATE,
 	PRIMARY KEY (`id`),
 	FOREIGN KEY (`university_id`) REFERENCES `university` (`id`),
 	FOREIGN KEY (`job_id`) REFERENCES `job` (`id`),
