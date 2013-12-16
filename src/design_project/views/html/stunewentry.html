@@ -15,9 +15,7 @@
 			<div id="basisInfo">
 				<div id="personImgPlace">
 					<img src="../pic/image.jpg" />
-					<form>
-						<input type="file" name="student photo">
-					</form>
+					<input type="file" name="student photo">
 				</div><!-- #personImgPlace end -->
 				<div id="stuInfo">
 					<p>基本情報</p>
@@ -27,7 +25,70 @@
 					<p>電話番号 : <input type="text" name="phone" placeholder="phone number" size="40"></p>
 					<p>職業 : <input type="text" name="occupation" placeholder="occupation" size="40"></p>
 					<p>業種 : <input type="text" name="category" placeholder="business category" size="40"></p>
-					<p>生年月日 : </p>
+					<p>生年月日 : 
+						<select name="year" size="1">
+							<option value="0">-----</option>
+							<option value="1">1985</option>
+							<option value="2">1986</option>
+							<option value="3">1987</option>
+							<option value="4">1988</option>
+							<option value="5">1989</option>
+							<option value="6">1990</option>
+							<option value="7">1991</option>
+							<option value="8">1992</option>
+							<option value="9">1993</option>
+							<option value="10">1994</option>
+							<option value="11">1995</option>
+						</select>
+<select name="month" size="1">
+							<option value="0">---</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">8</option>
+							<option value="9">9</option>
+							<option value="10">10</option>
+							<option value="11">11</option>
+							<option value="12">12</option>
+						</select>
+						<select name="day" size="1">
+							<option value="0">---</option>
+							<option value="1">1</option>
+							<option value="2">2</option>
+							<option value="3">3</option>
+							<option value="4">4</option>
+							<option value="5">5</option>
+							<option value="6">6</option>
+							<option value="7">7</option>
+							<option value="8">9</option>
+							<option value="8">10</option>
+							<option value="8">11</option>
+							<option value="8">12</option>
+							<option value="8">13</option>
+							<option value="8">14</option>
+							<option value="8">15</option>
+							<option value="8">16</option>
+							<option value="8">17</option>
+							<option value="8">18</option>
+							<option value="8">19</option>
+							<option value="8">20</option>
+							<option value="8">21</option>
+							<option value="8">22</option>
+							<option value="8">23</option>
+							<option value="8">24</option>
+							<option value="8">25</option>
+							<option value="8">26</option>
+							<option value="8">27</option>
+							<option value="8">28</option>
+							<option value="8">29</option>
+							<option value="8">30</option>
+							<option value="8">31</option>
+						</select>
+					</p>
 					<p>性別 : 
 						<select name="sex" size="1">
 							<option value="0">-----</option>
@@ -50,7 +111,7 @@
 						<option value="6">大学院２年</option>
 					</select>
 				</p>
-				<p>学籍番号 : <input type="text" name="stunumber" placeholder="student number" size="30"></p>
+				<p>保証人氏名 : <input type="text" name="surety" placeholder="surety" size="30"></p>
 				<p>学部 : 
 					<select name="depart" size="1">
 						<option value="0">-------</option>
@@ -64,7 +125,7 @@
 						<option value="8">繊維学部</option>
 					</select>
 				</p>
-				<p>研究室 : <input type="text" name="study" placeholder="study room" size="30"></p>
+				<p>保証人連絡先 : <input type="text" name="surety phone" placeholder="surety phone" size="30">
 				<p>学科 : 
 					<select name="depart2" size="1">
 						<option value="0">-------</option>
@@ -78,17 +139,15 @@
 						<option value="8"></option>
 					</select>
 				</p>
-				<p>保証人氏名 : <input type="text" name="surety" placeholder="surety" size="30"></p>
 				<p>保証人住所 : <input type="text" name="surety address" placeholder="surety address" size="30"></p>
-				<p>保証人連絡先 : 
-					<input type="text" name="surety phone" placeholder="surety phone" size="30">
-				</p>
+				<p>学籍番号 : <input type="text" name="stunumber" placeholder="student number" size="30"></p>
 				<p>入学日 : <input type="text" name="entry day" placeholder="entry day" size="30"></p>
+				<p>研究室 : <input type="text" name="study" placeholder="study room" size="30"></p>
 				<p>修了日 : <input type="text" name="completion day" placeholder="completion day" size="30"></p>
 			</div><!-- #compInfo end -->
 			<div id="partInfo">
 				<p>参加者情報</p>
-				<p>希望課程 : </p>
+				<p>希望課程 : <input type="text" name="course" placeholder="course" size="30"></p>
 				<p>志望コース : 
 					<select name="course" size="1">
 						<option value="0">-----</option>
@@ -110,6 +169,6 @@
 				<p class="editButtons"><input type="reset" value="リセット"></p>
 				<p class="editButtons"><input type="submit" value="登録"></p>
 			</div><!-- stuEditButton end -->
-		</div><form><!-- #stuDetailMain end -->
+		</div></form><!-- #stuDetailMain end -->
 	</body>
 </html>
