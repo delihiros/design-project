@@ -51,7 +51,7 @@
     :job_id foreign key references job table.
     :industry_id foreign key references industry-type table.
     :birthday
-    :sex
+    :sex 1:man 2:woman
     :wish_curriculum_id foreign key references curriculum table.
     :wish_course_id foreign key references course table.
     :wish_teacher
