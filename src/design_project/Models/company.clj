@@ -24,6 +24,7 @@
   "select from company table.
   return
    select data in map."
+  []
   (jdbc/query my-db
               ["select * from company"]))
 
