@@ -1,9 +1,13 @@
 *{
-	margin:0; padding:0; 	/*全要素のマージン・パディングをリセット*/
-	line-height:1.5;	/*全要素の行の高さを1.5倍にする*/
-	color:#333333;		/*文字色*/
+	margin:0; padding:0; 
+	line-height:1.5;	
+	color:#333333;		
 
 } 
+
+body{
+	font-family:'Helvetica';
+}
 
 a:hover{
 	color:#ff0000;
@@ -79,11 +83,39 @@ a:active{
 
 #baseprofile{
 	width :800px;
-	height: 450px;
+	height: 300px;
 	margin :0;
-	border-top :1px solid #6b6b6b;
-	border-bottom:1px solid #6b6b6b;
-	background-color: #FFFFE0;
+	border-top :2px solid #6b6b6b;
+	border-bottom:2px solid #6b6b6b;
+	
+}
+#profilefont{
+	width :600px;
+	height:300px;
+	
+	float:left;
+	margin: 0;
+
+	font-size: 20px;
+}
+#profilefont p{
+	width :300px;
+	margin: 0;
+	float:left;
+}
+
+#profilephoto{
+	width:200px;
+	height:250px;
+	background-color: black;
+	float:right;
+	margin: 0;
+}
+#profilebtn{
+	float:right;
+	width:200px;
+	height:50px;
+	background-color: red;
 }
 
 #editprofile{
@@ -92,8 +124,15 @@ a:active{
 	margin-top:10px;
 	border :1px solid #6b6b6b;
 	outline: solid 2px #999;
-	background-color: #FFFFE0;
 
+
+}
+#editprofile p{
+	width:400px;
+	height: 200px;
+	
+	font-size: 20px;
+	float:left;
 }
 .editbtn {
 	background: -moz-linear-gradient(top,#FFF 0%,#EEE);
@@ -109,3 +148,10 @@ a:active{
 .editbtn:hover{
 	color:#21f;
 }
+#profileedit{
+	width:800px;
+	height: 500px;
+	background-color: #000;
+	font-size: 20px;
+}
+
