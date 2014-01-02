@@ -5,12 +5,68 @@
 		<meta name="keyword" content="">
 		<meta name="description" content="">
 		<meta http-equiv="Content-Style-Type" content="text/css">
-		<link href="../css/workpage.css" rel="stylesheet" type="text/css" media="all">
+		<link href="../css/details.css" rel="stylesheet" type="text/css" media="all">
 		<script src="../js/jquery-1.10.2.min.js"></script>
 		<script src="../js/departSet.js"></script>
 		<title>新規イベント登録ページ</title>
 	</head>
 	<body>
-		新規イベント登録ページ
+		<div id="eveEditMain"><form>
+			<div id="eventInfo">
+				<p>イベント詳細</p>
+				<p>イベント名 : <input type="text" name="eventname" placeholder="event name" size="30" required></p>
+				<p>開催日 : <input type="text" name="year" placeholder="year" size="10">
+						   <input type="text" name="month" placeholder="month" size="5">
+						   <input type="text" name="day" placeholder="day" size="5">
+				</p>
+				<p>開催地区 : <input type="text" name="place1" placeholder="place" size="30"></p>
+				<p>開催時間 : 
+					<select name="hour">
+						<option>---</option>
+						<option>00</option>
+						<option>1</option>
+						<option>2</option>
+						<option>3</option>
+						<option>4</option>
+						<option>5</option>
+						<option>6</option>
+						<option>7</option>
+						<option>8</option>
+						<option>9</option>
+						<option>10</option>
+						<option>11</option>
+						<option>12</option>
+						<option>13</option>
+						<option>14</option>
+						<option>15</option>
+						<option>16</option>
+						<option>17</option>
+						<option>18</option>
+						<option>19</option>
+						<option>20</option>
+						<option>21</option>
+						<option>22</option>
+						<option>23</option>
+					</select>
+					 : 
+					<select name="minute">
+						<option>---</option>
+						<option>00</option>
+						<option>15</option>
+						<option>30</option>
+						<option>45</option>
+					</select>
+				</p>
+				<p>開催会場 : <input type="text" name="place2" placeholder="place" size="30"></p>
+			</div><!-- #eventInfo -->
+			<div id="mapEdit">
+				<p>アクセスマップ</p>
+				<p>google map 埋め込み用URL : <input type="url" name="url" placeholder="url " size="50"></p>
+			</div><!-- #map end -->
+			<div id="eveEditButton">
+				<input type="submit" value="登録" class="editButtons">
+				<input type="reset" value="リセット" class="editButtons">
+			</div><!-- #eveEditButtom -->
+		</div></form><!-- #eveEditMain end -->
 	</body>
 </html>

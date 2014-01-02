@@ -36,14 +36,18 @@ a:active {
 	color: #000000;
 }
 
-#stuDetailMain, #stuEditMain {
+#stuDetailMain, #stuEditMain, #eveDetailMain {
 	margin: 0 auto;
 	padding: 0;
 	width: 800px;
 	height: 1000px;
 }
 
-#basisInfo {
+#eveDetailMain {
+	height: 100%;
+}
+
+#basisInfo, #eventInfo{
 	margin: 30px 0 0 0;
 	padding: 0 10px;
 	width: 780px;
@@ -51,6 +55,47 @@ a:active {
 	border-top: 2px solid #6d6d6d;
 	border-bottom: 2px solid #6b6b6b;
 }
+
+#eventInfo {
+	height: 200px;
+}
+
+#eventInfo p {
+	margin: 10px 40px 0 10px;
+	padding: 0;
+	width: 300px;
+	float: left;
+}
+
+#eventInfo p:nth-of-type(1) {
+	font-size: 30px;
+	margin: 10px 0 0 0;
+	padding: 0;
+	width: 100%;
+}
+
+#map {
+	margin: 20px auto;
+	padding: 0;
+	width: 100%;
+	height: 500px;
+}
+
+#map p {
+	font-size: 30px;
+	margin: 0;
+	padding: 0;
+	width: 100%;
+}
+
+#map iframe {
+	margin: 0;
+	padding: 0;
+	width: 800px;
+	height: 400px;
+	border: 0;
+}
+
 
 #personImgPlace {
 	margin: 0;
