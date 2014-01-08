@@ -38,6 +38,10 @@ a:active {
 	color: #000000;
 }
 
+td a:hover {
+	color: #000000;
+}
+
 #warpper {
 	margin: 30px auto;
 	padding: 0;
@@ -82,7 +86,7 @@ ul {
 	padding: 0 0 0 10px;
 	border: 0;
 	width: 800px;
-	height: 230px;
+	height: 270px;
 	background-color: #ffffff;
 	border-bottom: 2px solid #6f6f6f;
 }
