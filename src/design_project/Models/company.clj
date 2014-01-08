@@ -2,13 +2,10 @@
   (:use [design-project.Models.database])
   (:require [clojure.java.jdbc :as jdbc]))
 
-;; エージェントを使ってオンメモリで
-;; 欲しいデータを取り出しやすくする
 ;; ちゃんと値のチェックもする
 
 ;;  Listで
 (def company-data (agent ()))
-(def id (agent 0))
 
 ;; onMemoryで管理するためのリストにデータを追加する
 (defn add-company-data
@@ -16,9 +13,8 @@
   when add list, inclement id
   return
   list in campany data."
-  [com]
-  (send id inc)
-  (send company-data conj (assoc com :id @id)))
+  [com id]
+  (send company-data conj (assoc com :id id)))
 
 
 ;; insert
@@ -30,9 +26,10 @@
   return 
    generate id"
   [com-map]
-  (add-company-data com-map)
-  (jdbc/insert! my-db :company com-map))
+  (add-company-data com-map (:generated_key (first (jdbc/insert! my-db :company com-map)))))
 
+(insert {:name "ts"})
+(select)
 
 ;; select
 ;; filter かけれるようにする予定
