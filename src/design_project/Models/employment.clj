@@ -48,6 +48,8 @@
    select data in map."
   []
   (jdbc/query my-db
-              ["select * from employment"]))
+              ["select * from employment, user, company
+                where employment.user_id = user.id,
+                and employment.company_id = company.id"]))
 
 
