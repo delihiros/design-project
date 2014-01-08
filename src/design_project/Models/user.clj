@@ -6,6 +6,16 @@
 ;; 欲しいデータを取り出しやすくする
 ;; ちゃんと値のチェックもする
 
+(def user-data (agent ()))
+
+;; onMemoryで管理するためのリストにデータを追加する
+(defn add-user-data
+  "add user data in list.
+  when add list, inclement id
+  return
+  list in user data."
+  [com id]
+  (send user-data conj (assoc com :id id)))
 
 ;; insert
 ;; 大学id
@@ -67,7 +77,10 @@
   return
    generate id"
   [user-map]
-  (jdbc/insert! my-db :user user-map))
+  (add-user-data user-map
+                 (:generated_key
+                   (first
+                     (jdbc/insert! my-db :user user-map)))))
 
 (defn update 
   "update user table.
