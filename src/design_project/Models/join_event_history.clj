@@ -26,6 +26,8 @@
    select data in map."
   []
   (jdbc/query my-db
-              ["select * from join_event_history"]))
+              ["select * from join_event_history, event, user
+                where join_event_history.event_id = event.id,
+                and join_event_history.user_id = user.id"]))
 
 

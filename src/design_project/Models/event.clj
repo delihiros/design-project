@@ -38,6 +38,7 @@
 ;; select
 (defn select []
   (jdbc/query my-db
-              ["select * from event"]))
+              ["select * from event, event_type 
+                where event.type_id = event_type.id"]))
 
 

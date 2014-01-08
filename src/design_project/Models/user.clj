@@ -88,5 +88,15 @@
    select data in map."
   []
   (jdbc/query my-db
-              ["select * from user"]))
+              ["select * from user, university, job, 
+               industry_type, curriculum, course, department,
+               study, lab
+               where user.university_id = university.id,
+               and user.job_id = job.id,
+               and user.industry_id = industry_type.id,
+               and user.wish_curriculum_id = curriculum.id,
+               and user.wish_course_id = course.id,
+               and user.department_id = department.id,
+               and user.study_course_id = study.id,
+               and user.laboratory_id = lab.id"]))
 
