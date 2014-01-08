@@ -2,6 +2,20 @@
   (:use [design-project.Models.database])
   (:require [clojure.java.jdbc :as jdbc]))
 
+
+
+(def event-type-data (agent ()))
+
+;; onMemoryで管理するためのリストにデータを追加する
+(defn add-event-type-data
+  "add event-type data in list.
+  when add list, inclement id
+  return
+  list in event-type data."
+  [com id]
+  (send event-type-data conj (assoc com :id id)))
+
+
 ;;insert
 (defn insert
  "insert event-type table.
@@ -11,7 +25,10 @@
  return 
   generate id"
   [event-type-map]
-  (jdbc/insert! my-db :event_type event-type-map))
+  (add-event-type-data event-type-map
+                       (:generated_key
+                         (first
+                           (jdbc/insert! my-db :event_type event-type-map)))))
 
 ;; select
 (defn select 

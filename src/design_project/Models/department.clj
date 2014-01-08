@@ -2,6 +2,19 @@
 	(:use [design-project.Models.database])
 	(:require [clojure.java.jdbc :as jdbc]))
 
+;;  Listで
+(def department-data (agent ()))
+
+;; onMemoryで管理するためのリストにデータを追加する
+(defn add-department-data
+  "add department data in list.
+  when add list, inclement id
+  return
+  list in department data."
+  [com id]
+  (send department-data conj (assoc com :id id)))
+
+
 ;; insert
 (defn insert [department-map]
   "insert department-map table.
@@ -10,7 +23,10 @@
    :name department name
   return 
    generate id"
-	(jdbc/insert! my-db :department department-map))
+  (add-department-data department-map
+                       (:generated_key
+                         (first
+                           (jdbc/insert! my-db :department department-map)))))
 
 ;; select
 (defn select []

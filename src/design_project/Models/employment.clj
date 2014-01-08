@@ -2,9 +2,20 @@
   (:use [design-project.Models.database])
   (:require [clojure.java.jdbc :as jdbc]))
 
-;; エージェントを使ってオンメモリで
-;; 欲しいデータを取り出しやすくする
 ;; ちゃんと値のチェックもする
+
+;;  Listで
+(def employment-data (agent ()))
+
+;; onMemoryで管理するためのリストにデータを追加する
+(defn add-employment-data
+  "add employment data in list.
+  when add list, inclement id
+  return
+  list in employment data."
+  [com id]
+  (send employment-data conj (assoc com :id id)))
+
 
 
 ;; insert
@@ -28,7 +39,10 @@
  return
   generate id" 
   [employment-map]
-  (jdbc/insert! my-db :employment employment-map))
+  (add-employment-data employment-map
+                       (:generated_key
+                         (first
+                           (jdbc/insert! my-db :employment employment-map)))))
 
 ;; update
 (defn update 
@@ -48,6 +62,8 @@
    select data in map."
   []
   (jdbc/query my-db
-              ["select * from employment"]))
+              ["select * from employment, user, company
+                where employment.user_id = user.id,
+                and employment.company_id = company.id"]))
 
 
