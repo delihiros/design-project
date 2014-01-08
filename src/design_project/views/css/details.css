@@ -178,6 +178,28 @@ a:active {
 	width: 100%;
 }
 
+#passInfo {
+	margin: 0;
+	padding: 0 10px;
+	width: 780px;
+	height: 180px;
+	border-bottom: 2px solid #6d6d6d;
+}
+
+#passInfo p {
+	margin: 10px 40px 0 10px;
+	padding: 0;
+	width: 300px;
+	float: left;
+}
+
+#passInfo p:nth-of-type(1) {
+	font-size: 30px;
+	margin: 10px 0 0 0;
+	padding: 0;
+	width: 100%;
+}
+
 #stuEditButton, #eveEditButton {
 	margin: 10px 0 0 0;
 	padding: 0 10px;

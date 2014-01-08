@@ -8,6 +8,7 @@
 		<link href="../css/workpage.css" rel="stylesheet" type="text/css" media="all">
 		<script src="../js/jquery-1.10.2.min.js"></script>
 		<script src="../js/rowClick.1.0.js"></script>
+		<script src="../js/changefrom.js"></script>
 		<script>
 			$(document).ready(function(){
 				$('#stuTable').rowClick();
@@ -29,35 +30,40 @@
 				<form name="stuSearch" class="stuSearch">
 					<p>名前 : <input type="text" name="name" placeholder="name" size="40"></p>
 					<p>学籍番号 : <input type="text" name="number" placeholder="number" size="40"></p>
-					<p>性別 : 男性<input type="checkbox" name="sex" value="0">  女性<input type="checkbox" name="sex" value="1"></p>
-					<p>所属 : 学部生<input type="checkbox" name="belong" value="0">  大学院生<input type="checkbox" name="belong" value="1"></p>
+					<p>性別 : 
+						<select name="sex" size="1">
+							<option value= 0>-----</option>
+							<option value= 1>男性</option>
+							<option value= 2>女性</option>
+						</select>
+					</p>
+					<p>所属 : 学部生<input type="checkbox" name="belong" value= 0>  大学院生<input type="checkbox" name="belong" value= 1></p>
 					<p>学部 : 
-						<select name="depart" size="1">
-							<option value="0">-------</option>
-							<option value="1">人文学部</option>
-							<option value="2">教育学部</option>
-							<option value="3">経済学部</option>
-							<option value="4">理学部</option>
-							<option value="5">医学部</option>
-							<option value="6">工学部</option>
-							<option value="7">農学部</option>
-							<option value="8">繊維学部</option>
+						<select name="depart" onChange="changeform()">
+							<option value= 0 SELECTED>-------</option>
+							<option value= 1>人文学部</option>
+							<option value= 2>教育学部</option>
+							<option value= 3>経済学部</option>
+							<option value= 4>理学部</option>
+							<option value= 5>医学部</option>
+							<option value= 6>工学部</option>
+							<option value= 7>農学部</option>
+							<option value= 8>繊維学部</option>
 						</select>
 						学科 : 
-						<select name="depart2" size="1">
-							<option value="0">-------</option>
-							<option value="1"></option>
-							<option value="2"></option>
-							<option value="3"></option>
-							<option value="4"></option>
-							<option value="5"></option>
-							<option value="6"></option>
-							<option value="7"></option>
-							<option value="8"></option>
+						<select name="depart2">
+							<option value= 0>-------</option>
+							<option value= 1>機械システム工学科</option>
+							<option value= 2>電気電子工学科</option>
+							<option value= 3>土木工学科</option>
+							<option value= 4>建築学科</option>
+							<option value= 5>物質工学科</option>
+							<option value= 6>情報工学科</option>
+							<option value= 7>環境機能工学科</option>					
 						</select>
 					</p>
 					<p>
-						説明会参加者 : <input type="checkbox" name="explain" value="1">
+						説明会参加者 : <input type="checkbox" name="explain" value= 1>
 					</p>
 					<input type="submit" value="検索" class="searchbutton">
 				</form><!-- #stuSearch end -->
