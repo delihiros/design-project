@@ -2,9 +2,19 @@
   (:use [design-project.Models.database])
   (:require [clojure.java.jdbc :as jdbc]))
 
-;; エージェントを使ってオンメモリで
-;; 欲しいデータを取り出しやすくする
 ;; ちゃんと値のチェックもする
+
+(def join-event-history-data (agent ()))
+
+;; onMemoryで管理するためのリストにデータを追加する
+(defn add-join-event-history-data
+  "add join-event-history data in list.
+  when add list, inclement id
+  return
+  list in join-event-history data."
+  [com id]
+  (send join-event-history-data conj (assoc com :id id)))
+
 
 
 ;; insert
@@ -17,7 +27,10 @@
   return 
    generate id"
   [history-map]
-  (jdbc/insert! my-db :join_event_history history-map))
+  (add-join-event-history-data history-map
+                               (:generated_key
+                                 (first
+                                   (jdbc/insert! my-db :join_event_history history-map)))))
 
 ;; select
 (defn select 

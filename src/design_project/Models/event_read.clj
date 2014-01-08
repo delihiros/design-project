@@ -2,9 +2,18 @@
   (:use [design-project.Models.database])
   (:require [clojure.java.jdbc :as jdbc]))
 
-;; エージェントを使ってオンメモリで
-;; 欲しいデータを取り出しやすくする
 ;; ちゃんと値のチェックもする
+
+(def event-read-data (agent ()))
+
+;; onMemoryで管理するためのリストにデータを追加する
+(defn add-event-read-data
+  "add event-read data in list.
+  when add list, inclement id
+  return
+  list in event-read data."
+  [com id]
+  (send event-read-data conj (assoc com :id id)))
 
 
 ;; insert
@@ -19,7 +28,10 @@
   return 
    generate id"
   [event-read-map]
-  (jdbc/insert! my-db :event_read event-read-map))
+  (add-event-read-data event-read-map
+                       (:generated_key
+                         (first
+                           (jdbc/insert! my-db :event_read event-read-map)))))
 
 ;; select
 (defn select 
