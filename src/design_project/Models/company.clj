@@ -31,9 +31,6 @@
                       (first 
                         (jdbc/insert! my-db :company com-map)))))
 
-(insert {:name "ts"})
-(select)
-
 ;; select
 ;; filter かけれるようにする予定
 (defn select 
