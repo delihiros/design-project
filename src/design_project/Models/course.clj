@@ -2,6 +2,18 @@
 	(:use [design-project.Models.database])
 	(:require [clojure.java.jdbc :as jdbc]))
 
+;;  Listで
+(def course-data (agent ()))
+
+;; onMemoryで管理するためのリストにデータを追加する
+(defn add-course-data
+  "add course data in list.
+  when add list, inclement id
+  return
+  list in course data."
+  [com id]
+  (send course-data conj (assoc com :id id)))
+
 ;; insert
 (defn insert 
   "insert course table.
@@ -11,7 +23,10 @@
   return 
    generate id"
   [course-map]
-	(jdbc/insert! my-db :course course-map))
+	(add-course-data course-map
+    (:generated_key 
+      (first
+        (jdbc/insert! my-db :course course-map)))))
 
 ;; select
 (defn select []

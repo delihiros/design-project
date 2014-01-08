@@ -12,7 +12,7 @@
   "add company data in list.
   when add list, inclement id
   return
-  list in campany data."
+  list in company data."
   [com id]
   (send company-data conj (assoc com :id id)))
 
@@ -26,7 +26,10 @@
   return 
    generate id"
   [com-map]
-  (add-company-data com-map (:generated_key (first (jdbc/insert! my-db :company com-map)))))
+  (add-company-data com-map 
+                    (:generated_key 
+                      (first 
+                        (jdbc/insert! my-db :company com-map)))))
 
 (insert {:name "ts"})
 (select)
