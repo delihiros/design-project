@@ -27,7 +27,7 @@
   (add-curriculum-data curriculum-map
                        (:generated_key
                          (first	
-                           (jdbc/insert! my-db :curriculum curriculum-map))
+                           (jdbc/insert! my-db :curriculum curriculum-map)))))
 
 ;; select
 (defn select 
