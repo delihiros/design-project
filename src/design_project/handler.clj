@@ -4,7 +4,8 @@
             [compojure.route :as route]
             [cemerick.friend :as friend]
             (cemerick.friend [workflows :as workflows]
-                             [credentials :as creds])))
+                             [credentials :as creds])
+            [ring.util.response :as resp]))
 
 (def users
   (atom
@@ -19,10 +20,9 @@
     :pin "1234"
     :roles #{::student}}}))
 
-(derive ::admin ::student ::graduated ::newbie)
-
 (defroutes app-routes
-  (GET "/" [] "Hello World")
+  (GET "/" []
+       (resp/file-response "index.html" {:root "src/design_project/views/html"}))
   (POST "/login" params
         (str params))
   (GET "/logout" req
