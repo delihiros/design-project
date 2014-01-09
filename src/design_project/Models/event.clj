@@ -2,10 +2,18 @@
   (:use [design-project.Models.database])
   (:require [clojure.java.jdbc :as jdbc]))
 
-;; エージェントを使ってオンメモリで
-;; 欲しいデータを取り出しやすくする
 ;; ちゃんと値のチェックもする
 
+(def event-data (agent ()))
+
+;; onMemoryで管理するためのリストにデータを追加する
+(defn add-event-data
+  "add event data in list.
+  when add list, inclement id
+  return
+  list in event data."
+  [com id]
+  (send event-data conj (assoc com :id id)))
 
 ;; insert
 ;; 日時
@@ -21,7 +29,10 @@
   return
    generate id"
   [event-map]
-  (jdbc/insert! my-db :event event-map))
+  (add-event-data event-map
+                  (:generated_key
+                    (first
+                      (jdbc/insert! my-db :event event-map)))))
 
 
 (defn update 
@@ -38,6 +49,7 @@
 ;; select
 (defn select []
   (jdbc/query my-db
-              ["select * from event"]))
+              ["select * from event, event_type 
+                where event.type_id = event_type.id"]))
 
 

@@ -103,6 +103,17 @@ a:active{
 	margin: 0;
 	float:left;
 }
+#editinfo{
+	width:800px;
+	height: 300px;
+	float:left;
+	margin: 0;
+}
+#editinfo p{
+	width:300px;
+	float: left;
+	font-size: 20px;
+}
 
 #profilephoto{
 	width:200px;
@@ -115,22 +126,23 @@ a:active{
 	float:right;
 	width:200px;
 	height:50px;
-	background-color: red;
+
 }
 
-#editprofile{
+#profileedit{
+	width:800px;
+	height: 500px;
+	font-size: 20px;
+}
+
+#profileeditfont{
 	width :800px;
-	height: 200px;
-	margin-top:10px;
-	border :1px solid #6b6b6b;
-	outline: solid 2px #999;
-
-
-}
-#editprofile p{
-	width:400px;
-	height: 200px;
+	height :200px;
+	margin: 0;
 	
+}
+#profileeditfont p{
+	width:400px;
 	font-size: 20px;
 	float:left;
 }
@@ -148,10 +160,64 @@ a:active{
 .editbtn:hover{
 	color:#21f;
 }
-#profileedit{
+
+#eventdetail{
 	width:800px;
-	height: 500px;
-	background-color: #000;
-	font-size: 20px;
+	height:200px;
+	border-bottom:2px solid #6b6b6b;
+	font-size:20px;
+}
+#eventdetailfont{
+	width:800px;
+	height:150px;
+	
+	font-size :20px;
+	margin: 0;
+}
+#eventdetailfont p{
+	width:400px;
+	font-size :20px;
+	float :left; 
+	margin:0;
 }
 
+#events{
+	width: 800px;
+	height: 300px;
+	margin: 0;
+	border-bottom:2px solid #6b6b6b;
+	float:left;
+}
+#syuryo
+
+/*--- テーブルの設定 ---*/
+#stuTable, #eveTable{
+	margin: 0 50px;
+	padding: 0;
+	width: 700px;
+	text-align: left;
+	border-collapse: collapse;
+	border-spacing: 0;
+	border: 1px solid #c1dad7;
+}
+
+th {
+	margin: 0;
+	padding: 0 0 0 10px;
+	border: 1px solid #c1dad7;
+	letter-spacing: 2px;
+}
+
+thead th {
+	border-bottom: 4px double #c1dad7;
+}
+
+td {
+	margin: 0;
+	padding: 0 0 0 10px;
+	border: 1px solid #c1dad7;
+}
+
+tbody tr:hover{
+	background-color: #ffffaa;
+}

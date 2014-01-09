@@ -36,14 +36,14 @@ a:active {
 	color: #000000;
 }
 
-#stuDetailMain, #stuEditMain, #eveDetailMain {
+#stuDetailMain, #stuEditMain, #eveDetailMain, #eveEditMain {
 	margin: 0 auto;
 	padding: 0;
 	width: 800px;
 	height: 1000px;
 }
 
-#eveDetailMain {
+#eveDetailMain, #eveEditMain {
 	height: 100%;
 }
 
@@ -74,14 +74,18 @@ a:active {
 	width: 100%;
 }
 
-#map {
+#map, #mapEdit {
 	margin: 20px auto;
 	padding: 0;
 	width: 100%;
 	height: 500px;
 }
 
-#map p {
+#mapEdit {
+	height: 100px;
+}
+
+#map p, #mapEdit p:nth-of-type(1) {
 	font-size: 30px;
 	margin: 0;
 	padding: 0;
@@ -174,12 +178,38 @@ a:active {
 	width: 100%;
 }
 
-#stuEditButton {
+#passInfo {
+	margin: 0;
+	padding: 0 10px;
+	width: 780px;
+	height: 180px;
+	border-bottom: 2px solid #6d6d6d;
+}
+
+#passInfo p {
+	margin: 10px 40px 0 10px;
+	padding: 0;
+	width: 300px;
+	float: left;
+}
+
+#passInfo p:nth-of-type(1) {
+	font-size: 30px;
+	margin: 10px 0 0 0;
+	padding: 0;
+	width: 100%;
+}
+
+#stuEditButton, #eveEditButton {
 	margin: 10px 0 0 0;
 	padding: 0 10px;
 	text-align: right;
 	width: 780px;
 	height: 30px;
+}
+
+#eveEditButton {
+	margin: -50px 0 0 0;
 }
 
 .editButtons {
