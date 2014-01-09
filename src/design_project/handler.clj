@@ -18,8 +18,12 @@
     {:username "student"
     :password (creds/hash-bcrypt "student")
     :pin "1234"
-    :roles #{::student}}}))
-
+    :roles #{::student}}
+    "graduated"
+    {:username "graduated" 
+    :password (creds/hash-bcrypt "graduated")
+    :pin "1234"
+    :roles #{::graduated}}}))
 
 (defroutes app-routes
   (GET "/" []
@@ -76,8 +80,12 @@
                          (resp/file-response "addevent.html" {:root "src/design_project/views/html"})))
   (GET "/graduated/certificate" []
        (friend/authorize #{::graduated}
-                         (resp/file-response "syoumeisyo.html" {:root "src/design_project/views/html"})))
-
+                         (resp/file-response "syomeisyo.html" {:root "src/design_project/views/html"})))
+  (POST "/graduated/certificate" req
+        (friend/authorize #{::graduated}
+                          (do
+                          (println (str "certificate requested" req))
+                            "hello, world")))
   (route/resources "src/design_project/views/html")
   (route/not-found "Not Found"))
 
