@@ -88,6 +88,6 @@
       {:allow-anon? true
       :login-uri "/login"
       :default-landing-url "/"
-      :unauthorized-handler (str "unauthorized!!!")
+      :unauthorized-handler (fn [_] (resp/response "unauthorized!!!"))
       :credential-fn #(creds/bcrypt-credential-fn @users %)
       :workflows [(workflows/interactive-form)]})))
