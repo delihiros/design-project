@@ -6,7 +6,8 @@
                  [hiccup "1.0.4"]
                  [sandbar/sandbar "0.4.0-SNAPSHOT"]
                  [org.clojure/java.jdbc "0.3.0-beta1"]
-                 [mysql/mysql-connector-java "5.1.6"]]
+                 [mysql/mysql-connector-java "5.1.6"]
+                 [com.cemerick/friend "0.2.0"]]
   :plugins [[lein-ring "0.8.8"]]
   :ring {:handler design-project.handler/app}
   :profiles
