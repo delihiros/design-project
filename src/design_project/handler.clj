@@ -20,19 +20,65 @@
     :pin "1234"
     :roles #{::student}}}))
 
+
 (defroutes app-routes
   (GET "/" []
        (resp/file-response "index.html" {:root "src/design_project/views/html"}))
   (POST "/login" params
         (str params))
   (GET "/logout" req
-       (friend/logout* (ring.util.response/redirect (str (:context req) "/"))))
+       (friend/logout*  (resp/redirect (str (:context req) "/"))))
+  (POST "/logout" req
+        (friend/logout* (resp/redirect (str (:context req) "/"))))
   (GET "/status" req
        (if-let [identity (friend/identity req)]
          (apply str "Logged in, with these roles: "
                 (-> identity friend/current-authentication )) ; :roles))
          "anonymous user"))
-  (route/resources "/")
+  (GET "/admin" []
+       (friend/authorize #{::admin}
+                         (resp/file-response "schooltop.html" {:root "src/design_project/views/html"})))
+  (GET "/admin/student" []
+       (friend/authorize #{::admin}
+                         (resp/file-response "students.html" {:root "src/design_project/views/html"})))
+  (GET "/admin/student/detail" []
+       (friend/authorize #{::admin}
+                         (resp/file-response "studetails.html" {:root "src/design_project/views/html"})))
+  (GET "/admin/student/delete" []
+       (friend/authorize #{::admin}
+                         (resp/file-response "studelete.html" {:root "src/design_project/views/html"})))
+  (GET "/admin/student/entry" []
+       (friend/authorize #{::admin}
+                         (resp/file-response "stunewentry.html" {:root "src/design_project/views/html"})))
+  (GET "/admin/event" []
+       (friend/authorize #{::admin}
+                         (resp/file-response "event.html" {:root "src/design_project/views/html"})))
+  (GET "/admin/event/detail" []
+       (friend/authorize #{::admin}
+                         (resp/file-response "evedetails.html" {:root "src/design_project/views/html"})))
+  (GET "/admin/event/add" []
+       (friend/authorize #{::admin}
+                         (resp/file-response "evenewentry.html" {:root "src/design_project/views/html"})))
+  (GET "/student" []
+       (friend/authorize #{::student}
+                         (resp/file-response "Stutop.html" {:root "src/design_project/views/html"})))
+  (GET "/student/profile" []
+       (friend/authorize #{::student}
+                         (resp/file-response "profile.html" {:root "src/design_project/views/html"})))
+  (GET "/student/profile/edit" []
+       (friend/authorize #{::student}
+                         (resp/file-response "profileedit.html" {:root "src/design_project/views/html"})))
+  (GET "/student/event" []
+       (friend/authorize #{::student}
+                         (resp/file-response "Stueventdetail.html" {:root "src/design_project/views/html"})))
+  (GET "/graduated/event/add" []
+       (friend/authorize #{::graduated}
+                         (resp/file-response "addevent.html" {:root "src/design_project/views/html"})))
+  (GET "/graduated/certificate" []
+       (friend/authorize #{::graduated}
+                         (resp/file-response "syoumeisyo.html" {:root "src/design_project/views/html"})))
+
+  (route/resources "src/design_project/views/html")
   (route/not-found "Not Found"))
 
 (def app
