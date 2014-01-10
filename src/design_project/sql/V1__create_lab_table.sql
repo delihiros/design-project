@@ -3,3 +3,7 @@ CREATE TABLE IF NOT EXISTS `lab` (
 	`name` VARCHAR(64) ,
 	PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
+
+insert into lab values(null, '研究室1');
+insert into lab values(null, '研究室2');
+

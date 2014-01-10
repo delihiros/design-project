@@ -3,3 +3,7 @@ CREATE TABLE IF NOT EXISTS `study` (
 	`name` VARCHAR(64) ,
 	PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
+
+insert into study values(null, '課程1');
+insert into study values(null, '課程2');
+

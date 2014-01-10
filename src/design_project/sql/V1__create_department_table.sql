@@ -3,3 +3,6 @@ CREATE TABLE IF NOT EXISTS `department` (
 	`name` VARCHAR(64) ,
 	PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
+
+insert into department values(null, '学科1');
+insert into department values(null, '学科2');

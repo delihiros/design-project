@@ -3,3 +3,7 @@ CREATE TABLE IF NOT EXISTS `curriculum` (
 	`name` VARCHAR(64) ,
 	PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
+
+insert into curriculum values(null, 'curriculum1');
+
+insert into curriculum values(null, 'curriculum2');
