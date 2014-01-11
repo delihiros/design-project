@@ -52,4 +52,11 @@
               ["select * from event, event_type 
                 where event.type_id = event_type.id"]))
 
+;; sample
+(insert {:day "2013-08-26"
+         :place "長野"
+         :type_id 1})
+
+(select)
+
 

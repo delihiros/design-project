@@ -39,3 +39,7 @@
 	(jdbc/query my-db
 		["select * from job"]))
 
+
+;; sample
+(insert {:name "仕事"})
+(select)

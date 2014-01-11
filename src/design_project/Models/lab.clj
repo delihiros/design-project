@@ -25,7 +25,7 @@
   return 
    generate id"
   [lab-map]
-  (add-lab-data lab-data
+  (add-lab-data lab-map
                 (:generated_key
                   (first
                     (jdbc/insert! my-db :lab lab-map)))))
@@ -39,3 +39,6 @@
 	(jdbc/query my-db
 		["select * from lab"]))
 
+;; sample
+(insert {:name "研究室"})
+(select)
