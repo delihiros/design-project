@@ -1,8 +1,7 @@
 (ns design-project.Models.employment
   (:use [design-project.Models.database])
-  (:require [clojure.java.jdbc :as jdbc]))
 
-;; ちゃんと値のチェックもする
+;; ちゃんと値のチェックもする 
 
 ;;  Listで
 (def employment-data (agent ()))
@@ -10,8 +9,7 @@
 ;; onMemoryで管理するためのリストにデータを追加する
 (defn add-employment-data
   "add employment data in list.
-  when add list, inclement id
-  return
+  when add list, inclement id return
   list in employment data."
   [com id]
   (send employment-data conj (assoc com :id id)))
@@ -33,7 +31,7 @@
    :user_id foreign key references user table.
    :company_id foreign key references company table.
    :position 役職
-   :industry 業種
+   :industry_id 業種
    :comment 
    :uptime 
  return
@@ -66,4 +64,12 @@
                 where employment.user_id = user.id,
                 and employment.company_id = company.id"]))
 
+;; sample
 
+
+(insert {:user_id 4
+         :company_id 1
+         :position "シャチョ"
+         :industry_id 1
+         :comment "コメントあれば"
+         :uptime  "2013-01-01"})
