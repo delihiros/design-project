@@ -43,3 +43,4 @@
 
 ;; sample
 (insert {:name "company"})
+(select)

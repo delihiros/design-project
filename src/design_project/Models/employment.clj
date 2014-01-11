@@ -1,5 +1,8 @@
 (ns design-project.Models.employment
   (:use [design-project.Models.database])
+  (:require [clojure.java.jdbc :as jdbc]
+            [clj-time.local :as l]
+            [clj-time.format :as f]))
 
 ;; ちゃんと値のチェックもする 
 
@@ -61,15 +64,16 @@
   []
   (jdbc/query my-db
               ["select * from employment, user, company
-                where employment.user_id = user.id,
+                where employment.user_id = user.id
                 and employment.company_id = company.id"]))
 
 ;; sample
-
-
+;; 更新日時の求め方いい方法あれば教えてください。
 (insert {:user_id 4
          :company_id 1
          :position "シャチョ"
          :industry_id 1
          :comment "コメントあれば"
-         :uptime  "2013-01-01"})
+         :uptime  (l/format-local-time (l/local-now) :mysql)})
+
+(select)
