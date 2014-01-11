@@ -3,3 +3,5 @@ CREATE TABLE IF NOT EXISTS `course` (
 	`name` VARCHAR(64) ,
 	PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
+
+insert into course values(null, 'course');

@@ -36,3 +36,8 @@
 	(jdbc/query my-db
 		["select * from course"]))
 
+;; sample
+(insert {:name "course"})
+
+(select)
+

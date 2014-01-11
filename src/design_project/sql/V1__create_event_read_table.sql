@@ -8,3 +8,6 @@ CREATE TABLE IF NOT EXISTS `event_read` (
 	FOREIGN KEY (`event_id`) REFERENCES `event` (`id`) )
 ENGINE = InnoDB;
 
+
+insert into event_read values(null, 1, 1);
+insert into event_read values(null, 1, 2);

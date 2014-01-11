@@ -38,3 +38,7 @@
 	(jdbc/query my-db
 		["select * from curriculum"]))
 
+;; sample
+(insert {:name "かりきゅらみゅ"})
+
+(select)

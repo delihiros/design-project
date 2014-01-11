@@ -41,3 +41,6 @@
   (jdbc/query my-db
               ["select * from company"]))
 
+;; sample
+(insert {:name "company"})
+(select)

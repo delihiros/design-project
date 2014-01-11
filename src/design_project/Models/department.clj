@@ -36,3 +36,9 @@
 	(jdbc/query my-db
 		["select * from department"]))
 
+;; sample
+(insert {:name "学科"})
+
+(select)
+
+

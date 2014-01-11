@@ -5,4 +5,5 @@ CREATE TABLE IF NOT EXISTS `company` (
 	PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 	
+insert into company(`name`) values('com1'), ('com2');
 

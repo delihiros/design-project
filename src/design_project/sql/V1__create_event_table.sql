@@ -8,3 +8,5 @@ CREATE TABLE IF NOT EXISTS `event` (
 	FOREIGN KEY (`type_id`) REFERENCES `event_type` (`id`) )
 ENGINE = InnoDB;
 
+insert into event values(null, '2013-10-10', '長野', 1);
+insert into event values(null, '2013-10-21', '東京', 2);

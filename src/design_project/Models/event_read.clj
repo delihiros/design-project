@@ -41,7 +41,12 @@
   []
   (jdbc/query my-db
               ["select * from event_read, user, event
-                where event_read.user_id = user.id,
+                where event_read.user_id = user.id
                 and event_read.event_id = event.id"]))
 
+;; sample
+(insert {:user_id 2
+         :event_id 1})
 
+
+(select)
