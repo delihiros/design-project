@@ -26,10 +26,18 @@
     :roles #{::graduated}}}))
 
 (defroutes app-routes
-  (GET "/" []
-       (resp/file-response "index.html" {:root "src/design_project/views/html"}))
+  (GET "/" req
+       (let [roles (-> (friend/identity req) friend/current-authentication :roles)]
+         (if (#{#{::admin} #{::student} #{::graduated}} roles)
+           (resp/redirect (str (:context req)
+                               (case (-> (friend/identity req) friend/current-authentication :roles)
+                                 #{::admin} "/admin"
+                                 #{::student} "/student"
+                                 #{::graduated} "/graduated"
+                                 "/")))
+           (resp/file-response "index.html" {:root "src/design_project/views/html"}))))
   (POST "/login" params
-        (str params))
+        params)
   (GET "/logout" req
        (friend/logout*  (resp/redirect (str (:context req) "/"))))
   (POST "/logout" req
@@ -38,7 +46,7 @@
        (if-let [identity (friend/identity req)]
          (apply str "Logged in, with these roles: "
                 (-> identity friend/current-authentication )) ; :roles))
-         "anonymous user"))
+         "<h3>you are an anonymous</h3>"))
   (GET "/admin" []
        (friend/authorize #{::admin}
                          (resp/file-response "schooltop.html" {:root "src/design_project/views/html"})))
@@ -84,7 +92,7 @@
   (POST "/graduated/certificate" req
         (friend/authorize #{::graduated}
                           (do
-                          (println (str "certificate requested" req))
+                            (println (str "certificate requested" req))
                             "hello, world")))
   (route/resources "src/design_project/views/html")
   (route/not-found "Not Found"))
