@@ -50,7 +50,7 @@
   (GET "/admin" []
        (friend/authorize #{::admin}
                          (resp/file-response "schooltop.html" {:root "src/design_project/views/html"})))
-  (GET "/admin/student" []
+  (GET "/admin/student/find" []
        (friend/authorize #{::admin}
                          (resp/file-response "students.html" {:root "src/design_project/views/html"})))
   (GET "/admin/student/detail" []
@@ -59,7 +59,7 @@
   (GET "/admin/student/delete" []
        (friend/authorize #{::admin}
                          (resp/file-response "studelete.html" {:root "src/design_project/views/html"})))
-  (GET "/admin/student/entry" []
+  (GET "/admin/student/add" []
        (friend/authorize #{::admin}
                          (resp/file-response "stunewentry.html" {:root "src/design_project/views/html"})))
   (GET "/admin/event" []

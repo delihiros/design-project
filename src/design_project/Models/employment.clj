@@ -67,13 +67,14 @@
                 where employment.user_id = user.id
                 and employment.company_id = company.id"]))
 
-;; sample
-;; 更新日時の求め方いい方法あれば教えてください。
-(insert {:user_id 4
-         :company_id 1
-         :position "シャチョ"
-         :industry_id 1
-         :comment "コメントあれば"
-         :uptime  (l/format-local-time (l/local-now) :mysql)})
+(comment
+  ;; sample
+  ;; 更新日時の求め方いい方法あれば教えてください。
+  (insert {:user_id 4
+          :company_id 1
+          :position "シャチョ"
+          :industry_id 1
+          :comment "コメントあれば"
+          :uptime  (l/format-local-time (l/local-now) :mysql)})
 
-(select)
+  (select))

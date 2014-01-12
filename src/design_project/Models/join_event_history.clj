@@ -43,8 +43,9 @@
                 where join_event_history.event_id = event.id
                 and join_event_history.user_id = user.id"]))
 
+(comment
 ;; sample
 (insert {:user_id 1
          :event_id 1})
 
-(select)
+(select))

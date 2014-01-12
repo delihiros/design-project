@@ -39,6 +39,7 @@
 	(jdbc/query my-db
 		["select * from lab"]))
 
-;; sample
-(insert {:name "研究室"})
-(select)
+(comment
+  ;; sample
+  (insert {:name "研究室"})
+  (select))
