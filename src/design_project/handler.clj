@@ -50,7 +50,7 @@
   (GET "/admin" []
        (friend/authorize #{::admin}
                          (resp/file-response "schooltop.html" {:root "src/design_project/views/html"})))
-  (GET "/admin/student" []
+  (GET "/admin/student/find" []
        (friend/authorize #{::admin}
                          (resp/file-response "students.html" {:root "src/design_project/views/html"})))
   (GET "/admin/student/detail" []
