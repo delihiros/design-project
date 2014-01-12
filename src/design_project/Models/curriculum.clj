@@ -38,7 +38,8 @@
 	(jdbc/query my-db
 		["select * from curriculum"]))
 
-;; sample
-(insert {:name "かりきゅらみゅ"})
+(comment
+  ;; sample
+  (insert {:name "かりきゅらみゅ"})
 
-(select)
+  (select))

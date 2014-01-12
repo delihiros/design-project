@@ -28,17 +28,16 @@
                          (first
                            (jdbc/insert! my-db :department department-map)))))
 
-;; select
-(defn select []
-  "select from department table.
-  return
-   select data in map."
-	(jdbc/query my-db
-		["select * from department"]))
+(comment
+  ;; select
+  (defn select []
+    "select from department table.
+    return
+    select data in map."
+    (jdbc/query my-db
+                ["select * from department"]))
 
-;; sample
-(insert {:name "学科"})
+    ;; sample
+    (insert {:name "学科"})
 
-(select)
-
-
+    (select))

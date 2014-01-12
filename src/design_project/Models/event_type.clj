@@ -39,6 +39,7 @@
   (jdbc/query my-db
               ["select * from event_type"]))
 
-;; sample
-(insert {:name "送別会"})
-(select)
+(comment
+  ;; sample
+  (insert {:name "送別会"})
+  (select))
