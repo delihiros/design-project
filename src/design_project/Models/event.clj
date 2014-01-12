@@ -53,9 +53,9 @@
                 where event.type_id = event_type.id"]))
 
 (comment
-;; sample
-(insert {:day "2013-08-26"
-         :place "長野"
-         :type_id 1})
+  ;; sample
+  (insert {:day "2013-08-26"
+          :place "長野"
+          :type_id 1})
 
-(select))
+  (select))

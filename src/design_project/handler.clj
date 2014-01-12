@@ -1,11 +1,12 @@
 (ns design-project.handler
-  (:use compojure.core)
+  (:use [compojure.core])
   (:require [compojure.handler :as handler]
             [compojure.route :as route]
             [cemerick.friend :as friend]
             (cemerick.friend [workflows :as workflows]
                              [credentials :as creds])
-            [ring.util.response :as resp]))
+            [ring.util.response :as resp]
+            [design-project.Models.event :as event]))
 
 (def users
   (atom
@@ -57,6 +58,10 @@
   (GET "/admin/event/add" []
        (friend/authorize #{::admin}
                          (resp/file-response "add.html" {:root "public/html/admin/event"})))
+  (POST "/admin/event/add" req
+        (do 
+          (event/insert (:multipart-params req))
+          (str (:multipart-params req))))
   (GET "/admin/event/detail" []
        (friend/authorize #{::admin}
                          (resp/file-response "detail.html" {:root "public/html/admin/event"})))
