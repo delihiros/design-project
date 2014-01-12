@@ -44,9 +44,10 @@
                 where event_read.user_id = user.id
                 and event_read.event_id = event.id"]))
 
-;; sample
-(insert {:user_id 2
-         :event_id 1})
+(comment
+  ;; sample
+  (insert {:user_id 2
+          :event_id 1})
 
 
-(select)
+  (select))

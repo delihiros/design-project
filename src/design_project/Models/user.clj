@@ -113,92 +113,90 @@
                and user.study_course_id = study.id
                and user.laboratory_id = lab.id"]))
 
+(comment
+  ;; sample
+  ;; admin user
+  (insert {:university_id 1
+          :status 0
+          :name "admin"
+          :password "admin"
+          :hash_method "admin"
+          :country "日本"
+          :address "住所"
+          :phone "123456789"
+          :job_id 1
+          :industry_id 1
+          :birthday "1232-09-09"
+          :sex 1})
 
-;; sample
-;; admin user
-(insert {:university_id 1
-         :status 0
-         :name "admin"
-         :password "admin"
-         :hash_method "admin"
-         :country "日本"
-         :address "住所"
-         :phone "123456789"
-         :job_id 1
-         :industry_id 1
-         :birthday "1232-09-09"
-         :sex 1})
 
+  ;; student user
+  (insert {:university_id 1
+          :status 1
+          :name "student"
+          :password "student"
+          :hash_method "student"
+          :country "日本"
+          :address "住所"
+          :phone "123456789"
+          :job_id 1
+          :industry_id 1
+          :birthday "2123-09-09"
+          :sex 1
+          :wish_curriculum_id 1
+          :wish_course_id 1
+          :wish_teacher "先生"
+          :entrance true
+          :entrance_day "2010-04-01"
+          :class 2
+          :department_id 1
+          :study_course_id 1
+          :laboratory_id 1
+          :student_id "123"
+          :guarantor_name "保証人"
+          :guarantor_address "保証人住所"
+          :guarantor_phone "1234"
+          :finish_course_day false})
 
-;; student user
-(insert {:university_id 1
-         :status 1
-         :name "student"
-         :password "student"
-         :hash_method "student"
-         :country "日本"
-         :address "住所"
-         :phone "123456789"
-         :job_id 1
-         :industry_id 1
-         :birthday "2123-09-09"
-         :sex 1
-         :wish_curriculum_id 1
-         :wish_course_id 1
-         :wish_teacher "先生"
-         :entrance true
-         :entrance_day "2010-04-01"
-         :class 2
-         :department_id 1
-         :study_course_id 1
-         :laboratory_id 1
-         :student_id "123"
-         :guarantor_name "保証人"
-         :guarantor_address "保証人住所"
-         :guarantor_phone "1234"
-         :finish_course_day false})
- 
-;; event entry user
-(insert {:university_id 1
-         :status 2
-         :name "entry"
-         :password "entry"
-         :hash_method "entry"
-         :country "日本"
-         :address "住所"
-         :phone "123456789"
-         :job_id 1
-         :industry_id 1
-         :birthday "1232-09-09"
-         :sex 1
-         :entrance false})
+  ;; event entry user
+  (insert {:university_id 1
+          :status 2
+          :name "entry"
+          :password "entry"
+          :hash_method "entry"
+          :country "日本"
+          :address "住所"
+          :phone "123456789"
+          :job_id 1
+          :industry_id 1
+          :birthday "1232-09-09"
+          :sex 1
+          :entrance false})
 
-;; graduated user
-(insert {:university_id 1
-         :status 3
-         :name "graduated"
-         :password "graduated"
-         :hash_method "graduated"
-         :country "日本"
-         :address "住所"
-         :phone "123456789"
-         :job_id 1
-         :industry_id 1
-         :birthday "2123-09-09"
-         :sex 1
-         :wish_curriculum_id 1
-         :wish_course_id 1
-         :wish_teacher "先生"
-         :entrance true
-         :entrance_day "2010-04-01"
-         :class 2
-         :department_id 1
-         :study_course_id 1
-         :laboratory_id 1
-         :student_id "123"
-         :guarantor_name "保証人"
-         :guarantor_address "保証人住所"
-         :guarantor_phone "1234"
-         :finish_course_day "2016-03-31"})
- 
-
+  ;; graduated user
+  (insert {:university_id 1
+          :status 3
+          :name "graduated"
+          :password "graduated"
+          :hash_method "graduated"
+          :country "日本"
+          :address "住所"
+          :phone "123456789"
+          :job_id 1
+          :industry_id 1
+          :birthday "2123-09-09"
+          :sex 1
+          :wish_curriculum_id 1
+          :wish_course_id 1
+          :wish_teacher "先生"
+          :entrance true
+          :entrance_day "2010-04-01"
+          :class 2
+          :department_id 1
+          :study_course_id 1
+          :laboratory_id 1
+          :student_id "123"
+          :guarantor_name "保証人"
+          :guarantor_address "保証人住所"
+          :guarantor_phone "1234"
+          :finish_course_day "2016-03-31"}))

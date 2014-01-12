@@ -47,12 +47,13 @@
               ["select * from certificate, user 
                where certificate.user_id = user.id"]))
 
-;; sample 
-(insert {:user_id 1 
-         :certificate_type 1
-         :completion_year "2013-03-31"
-         :leaves 1
-         :purpose "出して！！"
-         :addressee "住所"} )
+(comment
+  ;; sample 
+  (insert {:user_id 1 
+          :certificate_type 1
+          :completion_year "2013-03-31"
+          :leaves 1
+          :purpose "出して！！"
+          :addressee "住所"} )
 
-(select)
+  (select))

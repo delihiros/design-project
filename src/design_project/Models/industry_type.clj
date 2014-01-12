@@ -39,6 +39,7 @@
 	(jdbc/query my-db
 		["select * from industry_type"]))
 
-(insert {:name "業種"})
+(comment
+  (insert {:name "業種"})
 
-(select)
+  (select))
