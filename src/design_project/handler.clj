@@ -35,7 +35,7 @@
                                  #{::student} "/student"
                                  #{::graduated} "/graduated"
                                  "/")))
-           (resp/file-response "index.html" {:root "src/design_project/views/html"}))))
+           (resp/file-response "index.html" {:root "public/html"}))))
   (POST "/login" params
         params)
   (GET "/logout" req
@@ -47,54 +47,95 @@
          (apply str "Logged in, with these roles: "
                 (-> identity friend/current-authentication )) ; :roles))
          "<h3>you are an anonymous</h3>"))
+
   (GET "/admin" []
        (friend/authorize #{::admin}
-                         (resp/file-response "schooltop.html" {:root "src/design_project/views/html"})))
-  (GET "/admin/student/find" []
-       (friend/authorize #{::admin}
-                         (resp/file-response "students.html" {:root "src/design_project/views/html"})))
-  (GET "/admin/student/detail" []
-       (friend/authorize #{::admin}
-                         (resp/file-response "studetails.html" {:root "src/design_project/views/html"})))
-  (GET "/admin/student/delete" []
-       (friend/authorize #{::admin}
-                         (resp/file-response "studelete.html" {:root "src/design_project/views/html"})))
-  (GET "/admin/student/add" []
-       (friend/authorize #{::admin}
-                         (resp/file-response "stunewentry.html" {:root "src/design_project/views/html"})))
+                         (resp/file-response "top.html" {:root "public/html/admin"})))
   (GET "/admin/event" []
        (friend/authorize #{::admin}
-                         (resp/file-response "event.html" {:root "src/design_project/views/html"})))
-  (GET "/admin/event/detail" []
-       (friend/authorize #{::admin}
-                         (resp/file-response "evedetails.html" {:root "src/design_project/views/html"})))
+                         (resp/file-response "top.html" {:root "public/html/admin/event"})))
   (GET "/admin/event/add" []
        (friend/authorize #{::admin}
-                         (resp/file-response "evenewentry.html" {:root "src/design_project/views/html"})))
-  (GET "/student" []
-       (friend/authorize #{::student}
-                         (resp/file-response "Stutop.html" {:root "src/design_project/views/html"})))
-  (GET "/student/profile" []
-       (friend/authorize #{::student}
-                         (resp/file-response "profile.html" {:root "src/design_project/views/html"})))
-  (GET "/student/profile/edit" []
-       (friend/authorize #{::student}
-                         (resp/file-response "profileedit.html" {:root "src/design_project/views/html"})))
-  (GET "/student/event" []
-       (friend/authorize #{::student}
-                         (resp/file-response "Stueventdetail.html" {:root "src/design_project/views/html"})))
-  (GET "/graduated/event/add" []
+                         (resp/file-response "add.html" {:root "public/html/admin/event"})))
+  (GET "/admin/event/detail" []
+       (friend/authorize #{::admin}
+                         (resp/file-response "detail.html" {:root "public/html/admin/event"})))
+  (GET "/admin/student" []
+       (friend/authorize #{::admin}
+                         (resp/file-response "find.html" {:root "public/html/admin/student"})))
+  (GET "/admin/student/find" []
+       (friend/authorize #{::admin}
+                         (resp/file-response "find.html" {:root "public/html/admin/student"})))
+  (GET "/admin/student/add" []
+       (friend/authorize #{::admin}
+                         (resp/file-response "add.html" {:root "public/html/admin/student"})))
+  (GET "/admin/student/detail" []
+       (friend/authorize #{::admin}
+                         (resp/file-response "detail.html" {:root "public/html/admin/student"})))
+  (GET "/admin/student/delete" []
+       (friend/authorize #{::admin}
+                         (resp/file-response "delete.html" {:root "public/html/admin/student"})))
+
+
+  (GET "/graduated" []
        (friend/authorize #{::graduated}
-                         (resp/file-response "addevent.html" {:root "src/design_project/views/html"})))
+                         (resp/file-response "top.html" {:root "public/html/graduated"})))
   (GET "/graduated/certificate" []
        (friend/authorize #{::graduated}
-                         (resp/file-response "syomeisyo.html" {:root "src/design_project/views/html"})))
+                         (resp/file-response "top.html" {:root "public/html/graduated/certificate"})))
   (POST "/graduated/certificate" req
         (friend/authorize #{::graduated}
                           (do
                             (println (str "certificate requested" req))
                             "hello, world")))
-  (route/resources "src/design_project/views/html")
+  (GET "/graduated/event" []
+       (friend/authorize #{::graduated}
+                         (resp/file-response "top.html" {:root "public/html/graduated/event"})))
+  (GET "/graduated/event/add" []
+       (friend/authorize #{::graduated}
+                         (resp/file-response "add.html" {:root "public/html/graduated/event"})))
+  (GET "/graduated/event/detail" []
+       (friend/authorize #{::graduated}
+                         (resp/file-response "detail.html" {:root "public/html/graduated/event"})))
+  (GET "/graduated/profile" []
+       (friend/authorize #{::graduated}
+                         (resp/file-response "top.html" {:root "public/html/graduated/profile"})))
+  (GET "/graduated/profile/edit" []
+       (friend/authorize #{::graduated}
+                         (resp/file-response "edit.html" {:root "public/html/graduated/profile"})))
+
+  (GET "/participants" []
+       (friend/authorize #{::participants}
+                         (resp/file-response "top.html" {:root "public/html/participants"})))
+  (GET "/participants/event" []
+       (friend/authorize #{::participants}
+                         (resp/file-response "top.html" {:root "public/html/participants/event"})))
+  (GET "/participants/event/detail" []
+       (friend/authorize #{::participants}
+                         (resp/file-response "detail.html" {:root "public/html/participants/event"})))
+  (GET "/participants/event/history" []
+       (friend/authorize #{::participants}
+                         (resp/file-response "history.html" {:root "public/html/participants/event"})))
+  (GET "/participants/profile" []
+       (friend/authorize #{::participants}
+                         (resp/file-response "top.html" {:root "public/html/participants/profile"})))
+  (GET "/participants/profile/add" []
+       (friend/authorize #{::participants}
+                         (resp/file-response "add.html" {:root "public/html/participants/profile"})))
+  (GET "/participants/profile/edit" []
+       (friend/authorize #{::participants}
+                         (resp/file-response "edit.html" {:root "public/html/participants/profile"})))
+
+  (GET "/student" []
+       (friend/authorize #{::student}
+                         (resp/file-response "top.html" {:root "public/html/student"})))
+  (GET "/student/profile" []
+       (friend/authorize #{::student}
+                         (resp/file-response "top.html" {:root "public/html/student/profile"})))
+  (GET "/student/profile/edit" []
+       (friend/authorize #{::student}
+                         (resp/file-response "edit.html" {:root "public/html/student/profile"})))
+  (route/resources "public")
   (route/not-found "Not Found"))
 
 (def app
