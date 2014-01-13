@@ -1,11 +1,12 @@
 (ns design-project.Models.company
   (:use [design-project.Models.database])
-  (:require [clojure.java.jdbc :as jdbc]))
+  (:require [clojure.java.jdbc :as jdbc]
+            [hiccup.util :as h]))
 
 ;; ちゃんと値のチェックもする
 
 ;;  Listで
-(def company-data (agent ()))
+(def company-data (agent (select)))
 
 ;; onMemoryで管理するためのリストにデータを追加する
 (defn add-company-data
@@ -16,6 +17,8 @@
   [com id]
   (send company-data conj (assoc com :id id)))
 
+(defn is-valid? [n]
+  (and (not (nil? n)) (< 0 (count  n) 64)))
 
 ;; insert
 (defn insert 
@@ -25,11 +28,13 @@
     :name company name.
   return 
    generate id"
-  [com-map]
-  (add-company-data com-map 
-                    (:generated_key 
-                      (first 
-                        (jdbc/insert! my-db :company com-map)))))
+  [{name :name}]
+  
+  (if (is-valid? (h/escape-html name))
+    (add-company-data {:name name}
+                      (:generated_key 
+                        (first 
+                          (jdbc/insert! my-db :company {:name name}))))))
 
 ;; select
 ;; filter かけれるようにする予定
@@ -41,7 +46,8 @@
   (jdbc/query my-db
               ["select * from company"]))
 
+
 (comment
   ;; sample
-  (insert {:name "company"})
-  (select))
+  (insert {:name "ab" :hoge "foo"}))
+  (select)
