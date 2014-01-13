@@ -1,5 +1,6 @@
 drop database t;
-create database t;
+create database t default character set utf8;
+
 use t;
 
 source V1__create_company_table.sql;
