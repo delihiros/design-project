@@ -1,4 +1,5 @@
 function changeform() {
+	console.log("change form called");
 	doc = document.stuSearch.depart2;
 	if (document.stuSearch.depart.value == 1) {
 		doc.length = 8;
