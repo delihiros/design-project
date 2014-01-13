@@ -20,7 +20,6 @@
 (defn is-accept-data? [m]
   (if (and (< 0 (count (:name m))) (< (count (:name m)) 64)) true false))
 
-(is-accept-data? {:name "afafa"})
 ;; insert
 (defn insert 
   "insert company table.
