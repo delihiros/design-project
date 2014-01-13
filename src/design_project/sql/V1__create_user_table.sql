@@ -4,7 +4,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 	`status` INT NOT NULL,
 	`image` TEXT,
 	`name` VARCHAR(32) NOT NULL,
-	`user_id` TEXT UNIQUE NOT NULL,
+	`user_id` VARCHAR(32) UNIQUE NOT NULL,
 	`password` VARCHAR(255) NOT NULL,
 	`hash_method` VARCHAR(255) NOT NULL,
 	`country` VARCHAR(32) NOT NULL,
