@@ -10,7 +10,12 @@
 
 (def users
   (atom
-    {"delihiros"
+    {"admin"
+    {:username "admin" 
+    :password (creds/hash-bcrypt "admin")
+    :pin "1234"
+    :roles #{::admin}}
+    "delihiros"
     {:username "delihiros" 
     :password (creds/hash-bcrypt "delihiros")
     :pin "1234"
@@ -24,7 +29,16 @@
     {:username "graduated" 
     :password (creds/hash-bcrypt "graduated")
     :pin "1234"
-    :roles #{::graduated}}}))
+    :roles #{::graduated}}
+     "participants"
+     {:username "participants"
+      :password (creds/hash-bcrypt "participants")
+      :pin "1234"
+      :roles #{::participants}}}))
+
+(derive ::admin ::student)
+(derive ::admin ::graduated)
+(derive ::admin ::participants)
 
 (defroutes app-routes
   (GET "/" req
@@ -140,7 +154,7 @@
   (GET "/student/profile/edit" []
        (friend/authorize #{::student}
                          (resp/file-response "edit.html" {:root "public/html/student/profile"})))
-  (route/resources "public")
+  (route/resources "/")
   (route/not-found "Not Found"))
 
 (def app
