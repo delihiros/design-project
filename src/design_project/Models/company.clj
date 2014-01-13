@@ -6,7 +6,7 @@
 ;; ちゃんと値のチェックもする
 
 ;;  Listで
-(def company-data (agent ()))
+(def company-data (agent (select)))
 
 ;; onMemoryで管理するためのリストにデータを追加する
 (defn add-company-data
@@ -17,8 +17,8 @@
   [com id]
   (send company-data conj (assoc com :id id)))
 
-(defn id-valid? [m]
-  (< 0 (count (:name m)) 64))
+(defn is-valid? [n]
+  (and (not (nil? n)) (< 0 (count  n) 64)))
 
 ;; insert
 (defn insert 
@@ -28,13 +28,13 @@
     :name company name.
   return 
    generate id"
-  [com-map]
+  [{name :name}]
   
-  (if (is-valid? (map h/escape-html (vals com-map)))
-    (add-company-data com-map 
+  (if (is-valid? (h/escape-html name))
+    (add-company-data {:name name}
                       (:generated_key 
                         (first 
-                          (jdbc/insert! my-db :company com-map))))))
+                          (jdbc/insert! my-db :company {:name name}))))))
 
 ;; select
 ;; filter かけれるようにする予定
@@ -46,7 +46,8 @@
   (jdbc/query my-db
               ["select * from company"]))
 
+
 (comment
   ;; sample
-  (insert {:name ""})
-  (select))
+  (insert {:name "ab" :hoge "foo"}))
+  (select)
