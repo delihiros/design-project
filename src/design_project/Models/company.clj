@@ -1,6 +1,7 @@
 (ns design-project.Models.company
   (:use [design-project.Models.database])
-  (:require [clojure.java.jdbc :as jdbc]))
+  (:require [clojure.java.jdbc :as jdbc]
+            [hiccup.util :as h]))
 
 ;; ちゃんと値のチェックもする
 
@@ -16,9 +17,8 @@
   [com id]
   (send company-data conj (assoc com :id id)))
 
-
-(defn is-accept-data? [m]
-  (if (and (< 0 (count (:name m))) (< (count (:name m)) 64)) true false))
+(defn id-valid? [m]
+  (< 0 (count (:name m)) 64))
 
 ;; insert
 (defn insert 
@@ -29,7 +29,8 @@
   return 
    generate id"
   [com-map]
-  (if (is-accept-data? com-map)
+  
+  (if (is-valid? (map h/escape-html (vals com-map)))
     (add-company-data com-map 
                       (:generated_key 
                         (first 
@@ -47,5 +48,5 @@
 
 (comment
   ;; sample
-  (insert {:name "fafa"})
+  (insert {:name ""})
   (select))
