@@ -17,6 +17,10 @@
   (send company-data conj (assoc com :id id)))
 
 
+(defn is-accept-data? [m]
+  (if (and (< 0 (count (:name m))) (< (count (:name m)) 64)) true false))
+
+(is-accept-data? {:name "afafa"})
 ;; insert
 (defn insert 
   "insert company table.
@@ -26,10 +30,11 @@
   return 
    generate id"
   [com-map]
-  (add-company-data com-map 
-                    (:generated_key 
-                      (first 
-                        (jdbc/insert! my-db :company com-map)))))
+  (if (is-accept-data? com-map)
+    (add-company-data com-map 
+                      (:generated_key 
+                        (first 
+                          (jdbc/insert! my-db :company com-map))))))
 
 ;; select
 ;; filter かけれるようにする予定
@@ -43,5 +48,5 @@
 
 (comment
   ;; sample
-  (insert {:name "company"})
+  (insert {:name "fafa"})
   (select))
