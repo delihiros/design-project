@@ -2,8 +2,8 @@
 CREATE TABLE IF NOT EXISTS `event` (
   `id` INT NOT NULL AUTO_INCREMENT ,
   `day` DATE NOT NULL ,
-	`name` TEXT NOT NULL,
-	`place` VARCHAR(64) NOT NULL,
+	`name` VARCHAR(255) NOT NULL,
+	`place` VARCHAR(255) NOT NULL,
 	`type_id` INT NOT NULL,
   PRIMARY KEY (`id`),
 	FOREIGN KEY (`type_id`) REFERENCES `event_type` (`id`) )
