@@ -6,4 +6,4 @@ CREATE TABLE IF NOT EXISTS `event_type` (
 ENGINE = InnoDB;
 
 insert into event_type values(null, '説明会');
-insert into event_type values(null, 'オープンキャンパス');
+insert into event_type values(null, 'それ以外');
