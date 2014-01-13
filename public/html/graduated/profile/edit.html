@@ -1,7 +1,7 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ja">
 	<head>
-    	<meta charset="utf-8">
+    	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     	<title>edit</title>
     	<link rel="stylesheet" type="text/css" href="../../../css/main.css" media="all" />
 
@@ -23,7 +23,7 @@
 	<p><br>名前:nanntara(変更できません)</p><br>
 	<div id="profileeditfont">
 
-
+<form>
 <p>住所:<input type ="text" name="住所"></p>
 <p>保証人氏名:<input type ="text" name="保証人氏名"></p>
 <p>保証人住所:<input type ="text" name="保証人住所"></p>
@@ -43,6 +43,8 @@
 <input type="radio" name="job" value="official" tabindex="6" accesskey="g">公務員
 <input type="radio" name="job" value="etc" tabindex="7" accesskey="h">その他
 </p>
+<p>業種:<input type ="text" name="業種"></p>
+
 
 
 
@@ -59,12 +61,13 @@
 </div>
 
 <p>
-<input type="reset" value="確定" tabindex="10" accesskey="s">
+<input type="submit" value="確定" tabindex="10" accesskey="s">
 <input type="reset" value="取消" tabindex="11" accesskey="r">
 </p>
 </form>
 </div>
 
 </div>
+
 </body>
 </html>
