@@ -140,7 +140,7 @@
   (GET "/student/profile/edit" []
        (friend/authorize #{::student}
                          (resp/file-response "edit.html" {:root "public/html/student/profile"})))
-  (route/resources "public")
+  (route/resources "/")
   (route/not-found "Not Found"))
 
 (def app
