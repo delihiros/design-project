@@ -110,7 +110,7 @@ ul {
 }
 
 #stuContents, #eveContents {
-	margin: 20px 0 0 0;
+	margin: 5px 0 0 0;
 	padding: 0;
 	width: 800px;
 	height: 1000px;
@@ -123,6 +123,13 @@ ul {
 	width: 780px;
 	float: right;
 	text-align: right;
+}
+
+#hit {
+	margin: 0 0 0 60px;
+	padding: 0;
+	width: 100%;
+	text-align: left;
 }
 
 /*--- テーブルの設定 ---*/
@@ -155,6 +162,11 @@ td {
 
 tbody tr:hover{
 	background-color: #ffffaa;
+}
+
+#event-body a{
+	width: 100%;
+	display: block;
 }
 
 /*--- rowClick.1.0.jsの設定 ---*/
