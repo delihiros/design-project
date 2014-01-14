@@ -1,12 +1,28 @@
 (ns design-project.handler
   (:use [compojure.core])
-  (:require [compojure.handler :as handler]
+  (:require [clojure.walk :as walk]
+            [compojure.handler :as handler]
             [compojure.route :as route]
             [cemerick.friend :as friend]
             (cemerick.friend [workflows :as workflows]
                              [credentials :as creds])
             [ring.util.response :as resp]
-            [design-project.Models.event :as event]))
+            [design-project.Models.certificate :as certificate]
+            [design-project.Models.company :as company]
+            [design-project.Models.course :as course]
+            [design-project.Models.curriculum :as curriculum]
+            [design-project.Models.department :as department]
+            [design-project.Models.employment :as employment]
+            [design-project.Models.event :as event]
+            [design-project.Models.event-read :as event-read]
+            [design-project.Models.event-type :as event-type]
+            [design-project.Models.industry-type :as industry-type]
+            [design-project.Models.join-event-history  :as join-event-history]
+            [design-project.Models.lab :as lab]
+            [design-project.Models.study :as study]
+            [design-project.Models.university :as university]
+            [design-project.Models.user :as user]
+            [design-project.Models.valid :as valid]))
 
 (def users
   (atom
@@ -30,11 +46,22 @@
     :password (creds/hash-bcrypt "graduated")
     :pin "1234"
     :roles #{::graduated}}
-     "participants"
-     {:username "participants"
-      :password (creds/hash-bcrypt "participants")
-      :pin "1234"
-      :roles #{::participants}}}))
+    "participants"
+    {:username "participants"
+    :password (creds/hash-bcrypt "participants")
+    :pin "1234"
+    :roles #{::participants}}}))
+
+(defn transform-user [user]
+  {:username (:login_id user)
+  :roles #{(case (:status user)
+             0 ::admin
+             1 ::graduated
+             2 ::student
+             3 ::participants)}
+  :password (creds/hash-bcrypt (:password user))
+  :pin "1234"
+  :others user})
 
 (derive ::admin ::student)
 (derive ::admin ::graduated)
@@ -74,8 +101,8 @@
                          (resp/file-response "add.html" {:root "public/html/admin/event"})))
   (POST "/admin/event/add" req
         (do 
-          (event/insert (:multipart-params req))
-          (str (:multipart-params req))))
+          (event/insert (walk/keywordize-keys (:multipart-params req)))
+          (walk/keywordize-keys (:multipart-params req))))
   (GET "/admin/event/detail" []
        (friend/authorize #{::admin}
                          (resp/file-response "detail.html" {:root "public/html/admin/event"})))
@@ -88,6 +115,10 @@
   (GET "/admin/student/add" []
        (friend/authorize #{::admin}
                          (resp/file-response "add.html" {:root "public/html/admin/student"})))
+  (GET "/test" []
+       (reduce str (user/select-all)))
+  (POST "/admin/student/add" req
+          (user/insert (walk/keywordize-keys (:multipart-params req))))
   (GET "/admin/student/detail" []
        (friend/authorize #{::admin}
                          (resp/file-response "detail.html" {:root "public/html/admin/student"})))
