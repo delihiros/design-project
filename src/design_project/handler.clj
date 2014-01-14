@@ -60,6 +60,8 @@
                                  #{::graduated} "/graduated"
                                  "/")))
            (resp/file-response "index.html" {:root "public/html"}))))
+  (POST "/test" params
+    (json/generate-string (walk/keywordize-keys (:params params))))
   (POST "/login" params
         params)
   (GET "/logout" req
@@ -85,7 +87,7 @@
                          (resp/file-response "add.html" {:root "public/html/admin/event"})))
   (POST "/admin/event/add" req
         (json/generate-string
-          {:status (not (nil? (event/insert (walk/keywordize-keys (:multipart-params req)))))}))
+          {:status (not (nil? (event/insert (walk/keywordize-keys (:params req)))))}))
   (GET "/admin/event/detail" []
        (friend/authorize #{::admin}
                          (resp/file-response "detail.html" {:root "public/html/admin/event"})))

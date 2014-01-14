@@ -16,18 +16,18 @@
 		    		button.attr("disabled", true);
 
 			    	$.ajax({
-			    		type:"post",
-			    		url:"/admin/event/add",
-		    			dataType:"json",
+			    		type:'post',
+			    		url:'/admin/event/add',
+		    			dataType:'json',
 		    			data: {
-		    				name : $("#name").val(),
-		    				day : $("#day").val(),
-		    				place : $("#place").val(),
+		    				name : $('#name').val(),
+		    				day : $('#day').val(),
+		    				place : $('#place').val(),
 		    				type_id : 1
 		    			},
 		    			success : function(d) {
 		    				console.log(d);
-		    				console.log($("#name").val(), $("#day").val(), $("#place").val());
+		    				console.log($('#name').val(), $('#day').val(), $('#place').val());
 		    				$('#eveEditButton').append("登録できました。");
 		    			}
 			    	});
