@@ -1,5 +1,6 @@
 (ns design-project.Models.curriculum
-	(:use [design-project.Models.database])
+	(:use [design-project.Models.database]
+        [design-project.Models.valid])
 	(:require [clojure.java.jdbc :as jdbc]))
   
 ;;  Listで
@@ -14,6 +15,10 @@
   [com id]
   (send curriculum-data conj (assoc com :id id)))
 
+(defn in-valid? [input]
+  (and ((row-exist? [:id :name]) input)
+       ((not-null? [:name]) input)
+       (valid-values? input)))
 
 ;; insert
 (defn insert 
