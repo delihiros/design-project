@@ -149,8 +149,9 @@
        (friend/authorize #{::graduated}
                          (resp/file-response "top.html" {:root "public/html/graduated/certificate"})))
   (POST "/graduated/certificate" req
-        (json/generate-string
-          {:status (not (nil? (event/insert (walk/keywordize-keys (:params req)))))}))
+          (if (not (nil? (event/insert (walk/keywordize-keys (:params req)))))
+            "<h1>申請しました</h1>"
+            "<h1>不備があります</h1>"))
   (GET "/graduated/event" []
        (friend/authorize #{::graduated}
                          (resp/file-response "top.html" {:root "public/html/graduated/event"})))
