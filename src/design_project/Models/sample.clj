@@ -21,7 +21,7 @@
          :entrance_day "2010-04-01"
          :class 2
          :department_id 1
-         :study_course_id 1
+         :study_course_id 9
          :laboratory_id 1
          :student_id "123"
          :guarantor_name "保証人"
@@ -37,7 +37,7 @@
          :country "日本"
          :address "住所"
          :phone "123456789"
-         :job_id 1
+         :job_id 9
          :industry_id 1
          :birthday "2123-09-09"
          :sex 1

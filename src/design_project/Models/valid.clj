@@ -1,6 +1,8 @@
 (ns design-project.Models.valid
-  (:use [clojure.set])
-  (:require [hiccup.util :as h]))
+  (:use [clojure.set]
+        [design-project.Models.database])
+  (:require [clojure.java.jdbc :as jdbc]
+            [hiccup.util :as h]))
 
 (def keyword-to-type
   { :address :VARCHAR,
@@ -70,3 +72,19 @@
           (map (fn [[k v]]
                  ((type-to-validator (keyword-to-type k)) v))
                input)))
+
+(defn foreign-key-exist?
+  "
+  (foreign-key-exist? :company {:id 1})
+  "
+  [table ids]
+  (let [table-name (apply str (rest (str table)))
+        row-name (apply str (rest (str (first (keys ids)))))
+        row-value (first (vals ids))]
+    (not (zero? (count (jdbc/with-connection
+                         my-db
+                         (jdbc/with-query-results 
+                           rows
+                           [(str "select * from " table-name " where " row-name "=?") row-value]
+                           (doall rows))))))))
+
