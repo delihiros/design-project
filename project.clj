@@ -9,7 +9,8 @@
                  [mysql/mysql-connector-java "5.1.6"]
                  [com.cemerick/friend "0.2.0"]
                  [clj-time "0.6.0"]
-                 [cheshire "4.0.2"]]
+                 [cheshire "4.0.2"]
+                 [enlive "1.1.5"]]
   :plugins [[lein-ring "0.8.8"]]
   :ring {:handler design-project.handler/app}
   :profiles

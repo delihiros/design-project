@@ -7,6 +7,7 @@
             (cemerick.friend [workflows :as workflows]
                              [credentials :as creds])
             [ring.util.response :as resp]
+            [net.cgrand.enlive-html :as enlive]
             [design-project.Models.certificate :as certificate]
             [design-project.Models.company :as company]
             [design-project.Models.course :as course]
@@ -149,8 +150,9 @@
        (friend/authorize #{::graduated}
                          (resp/file-response "top.html" {:root "public/html/graduated/certificate"})))
   (POST "/graduated/certificate" req
-        (json/generate-string
-          {:status (not (nil? (event/insert (walk/keywordize-keys (:params req)))))}))
+          (if (not (nil? (event/insert (walk/keywordize-keys (:params req)))))
+            "<h1>申請しました</h1>"
+            "<h1>不備があります</h1>"))
   (GET "/graduated/event" []
        (friend/authorize #{::graduated}
                          (resp/file-response "top.html" {:root "public/html/graduated/event"})))
@@ -220,7 +222,7 @@
 
   (GET "/student" []
        (friend/authorize #{::student}
-                         (resp/file-response "top.html" {:root "public/html/student"})))
+                         (resp/file-response "top.html" {:root "public/html/student/profile"})))
   (POST "/student" req
         (let [profiles (user/select-all)
               identity (friend/identity req)]
