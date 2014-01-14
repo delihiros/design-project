@@ -33,16 +33,17 @@
              2  ::student
              3  ::participants)}
   :password (creds/hash-bcrypt (:password user))
-  :pin "1234"
-  :others user})
+   :user-id (:id user)
+   :all-info user
+  ;:others user
+   })
 
 (map transform-user (user/select-all))
-(def users (atom (hash-map (interleave 
-                   (iterate inc 0)
-                   (map transform-user (user/select-all))))))
-
-{:username "delihiros"}
-
+(def users (atom 
+             (let [users (user/select-all)]
+               (apply hash-map
+                      (interleave (map :login_id users)
+                                  (map transform-user (user/select-all)))))))
 
 (derive ::admin ::student)
 (derive ::admin ::graduated)
@@ -143,9 +144,9 @@
        (friend/authorize #{::graduated}
                          (resp/file-response "top.html" {:root "public/html/graduated/profile"})))
   (POST "/graduated/profile" req
-        (let [profiles (user/select-all)
+        (reduce str (let [profiles (user/select-all)
               identity (friend/identity req)]
-          (-> identity friend/current-authentication)))
+          (-> identity friend/current-authentication :all-info))))
   (GET "/graduated/profile/edit" []
        (friend/authorize #{::graduated}
                          (resp/file-response "edit.html" {:root "public/html/graduated/profile"})))
