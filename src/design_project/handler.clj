@@ -199,8 +199,7 @@
        (friend/authorize #{::participants}
                          (resp/file-response "top.html" {:root "public/html/participants/profile"})))
   (GET "/participants/profile/add" []
-       (friend/authorize #{::participants}
-                         (resp/file-response "add.html" {:root "public/html/participants/profile"})))
+       (resp/file-response "add.html" {:root "public/html/participants/profile"}))
   (POST "/participants/profile/add" req
         (let [input (walk/keywordize-keys (:multipart-params req))]
           (json/generate-string
