@@ -12,5 +12,5 @@ CREATE TABLE IF NOT EXISTS `certificate` (
 )
 ENGINE = InnoDB;
 
-insert into certificate values (-1,-1,-1,null,-1,null	,null);
+insert into certificate values (-1,-1,-1,'',-1,''	,'');
 insert into certificate values(null, 1, 1, '2013-10-10', 1, '出して', 'ほにゃほにゃ');
