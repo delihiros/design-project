@@ -24,7 +24,11 @@
 					<p>住所 : <input type="text" name="address" placeholder="address" size="40" maxlength="255"></p>
 					<p>電話番号 : <input type="tel" name="phone" placeholder="phone number" size="40" maxlength="255"></p>
 					<p>職業 : <input type="number" name="job_id" placeholder="occupation" size="40" maxlength="255"></p>
-					<p>業種 : <input type="number" name="industry_id" placeholder="business category" size="40" maxlength="255"></p>
+					<p>業種：<select name="industry_id">
+					<option value=1>農業</option><option value=2>サービス業</option>
+					<option value=3>その他</option>
+					<option value="indutry_id" selected>お選びください</option>
+					</select></p>
 					<p>生年月日 : 
 						<select name="year" size="1">
 							<option value= 0>-----</option>
@@ -130,25 +134,30 @@
 				<p>学科 : 
 					<select name="depart2" size="1">
 						<option value= 0>-------</option>
-						<option value= 1></option>
-						<option value= 2></option>
-						<option value= 3></option>
-						<option value= 4></option>
-						<option value= 5></option>
-						<option value= 6></option>
-						<option value= 7></option>
-						<option value= 8></option>
+						<option value= 1>情報工学研究科</option>
+						<option value= 2>電気電子工学研究科</option>
+						<option value= 3>建築工学研究科</option>
+						<option value= 4>機械工学研究科</option>
+						<option value= 5>環境工学研究科</option>
 					</select>
 				</p>
 				<p>保証人住所 : <input type="text" name="guarantor_address" placeholder="surety address" size="30"maxlength="255"></p>
 				<p>学籍番号 : <input type="text" name="univercity_id" placeholder="student number" size="30"maxlength="255"></p>
 				<p>入学日 : <input type="date" name="entrance_day" placeholder="entry day" size="30"maxlength="255"></p>
-				<p>研究室 : <input type="number" name="laboratory_id" placeholder="study room" size="30"maxlength="255"></p>
+				<p>研究室：<select name="laboratory_id">
+				<option value=1>佐藤研究室</option><option value=2>鈴木研究室</option>
+				<option value=3>田中研究室</option>
+				<option value="laboratory_id" selected>お選びください</option>
+				</select></p>
 				<p>修了日 : <input type="date" name="finish_course_day" placeholder="completion day" size="30"maxlength="255"></p>
 			</div><!-- #compInfo end -->
 			<div id="partInfo">
 				<p>参加者情報</p>
-				<p>希望課程 : <input type="number" name="wish_curriculum_id" placeholder="course" size="30"></p>
+				<p>希望過程:<select name="industry_id">
+				<option value=1>教養課程</option><option value=2>専門課程</option>
+				<option value="indutry_id" selected>お選びください</option>
+				</select></p>
+
 				<p>志望コース : 
 					<select name="wish_course_id" size="1">
 						<option value= 0>-----</option>
