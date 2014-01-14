@@ -1,6 +1,6 @@
 CREATE TABLE IF NOT EXISTS `curriculum` (
 	`id` INT NOT NULL AUTO_INCREMENT ,
-	`name` VARCHAR(64) ,
+	`name` VARCHAR(255) NOT NULL,
 	PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
