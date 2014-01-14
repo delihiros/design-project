@@ -4,6 +4,7 @@ CREATE TABLE IF NOT EXISTS `department` (
 	PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
+insert into department values(-1, '');
 insert into department values(null, '人文学部');
 insert into department values(null, '教育学部');
 insert into department values(null, '経済学部');
