@@ -36,8 +36,13 @@
   :pin "1234"
   :others user})
 
-(def users (atom (map transform-user (user/select-all))))
-(deref users)
+(map transform-user (user/select-all))
+(def users (atom (hash-map (interleave 
+                   (iterate inc 0)
+                   (map transform-user (user/select-all))))))
+
+{:username "delihiros"}
+
 
 (derive ::admin ::student)
 (derive ::admin ::graduated)

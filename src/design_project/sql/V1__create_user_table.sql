@@ -49,4 +49,5 @@ insert into `user` (`id`, `university_id`, `status`,  `name`, `login_id`, `passw
 insert into `user` values(null, 1, 1,  'graduated', 'graduated',  'graduated', '国2', '住所1', '0001000000',
 	1, 1, '1990-07-04', 1, 1, 1, '先生2', 1, '2007-04-01', null, 1, 1, 1, '07a0000a', 'ほしょうにん', 'じゅうしょ', '1234567890', '2012-03-31');
 
-
+insert into `user` values(null, 1, 1,  'delihiros', 'delihiros',  'delihiros', '国2', '住所1', '0001000000',
+	1, 1, '1990-07-04', 1, 1, 1, '先生2', 1, '2007-04-01', null, 1, 1, 1, '07a0000a', 'ほしょうにん', 'じゅうしょ', '1234567890', '2012-03-31');
