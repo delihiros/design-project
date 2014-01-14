@@ -40,12 +40,12 @@ ENGINE = InnoDB;
 
 insert into `user` (`id`, `university_id`, `status`,  `name`, `login_id` ,`password`,  `country`, `address`, `phone`, `job_id`, `industry_id`, `birthday`, `sex`)  values(null, 1, 0,  'admin', 'admin',  'admin', '国3', '住所2', '0000000000', 1, 1, '1960-03-24', 1);
 
-insert into `user` values(null, 1, 1,  '名前', 'student', 'password',  '国1', '住所1', '0120333333',
+insert into `user` values(null, 1, 2,  '名前', 'student', 'password',  '国1', '住所1', '0120333333',
 	1, 1, '1993-03-09', 1, 1, 1, '先生1', true, '2010-04-01', 3, 1, 1, 1, '11t5000a', '保証人', '保証人住所', '0120111111', null);
 
-insert into `user` (`id`, `university_id`, `status`,  `name`, `login_id`, `password`, `country`, `address`, `phone`, `job_id`, `industry_id`, `birthday`, `sex`) values(null, 1, 2,  'entry', 'entry', 'entry', '国2', '住所1', '0001000000', 1, 1, '1995-07-04', 1);
+insert into `user` (`id`, `university_id`, `status`,  `name`, `login_id`, `password`, `country`, `address`, `phone`, `job_id`, `industry_id`, `birthday`, `sex`) values(null, 1, 3,  'entry', 'entry', 'entry', '国2', '住所1', '0001000000', 1, 1, '1995-07-04', 1);
 
-insert into `user` values(null, 1, 3,  'graduated', 'graduated',  'graduated', '国2', '住所1', '0001000000',
+insert into `user` values(null, 1, 1,  'graduated', 'graduated',  'graduated', '国2', '住所1', '0001000000',
 	1, 1, '1990-07-04', 1, 1, 1, '先生2', true, '2007-04-01', null, 1, 1, 1, '07a0000a', 'ほしょうにん', 'じゅうしょ', '1234567890', '2012-03-31');
 
 
