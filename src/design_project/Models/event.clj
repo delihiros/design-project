@@ -25,6 +25,7 @@
    event-map attribute
    :day
    :place
+   :name
    :type_id foreign key references event_type table.
   return
    generate id"
@@ -56,6 +57,7 @@
   ;; sample
   (insert {:day "2013-08-26"
           :place "長野"
+          :name "学校説明会"
           :type_id 1})
 
   (select))

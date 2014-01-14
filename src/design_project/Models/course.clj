@@ -1,9 +1,15 @@
 (ns design-project.Models.course
-	(:use [design-project.Models.database])
+	(:use [design-project.Models.database]
+        [design-project.Models.valid])
 	(:require [clojure.java.jdbc :as jdbc]))
 
 ;;  Listで
 (def course-data (agent ()))
+
+(defn is-valid? [input]
+  (and ((row-exist? [:id :name]) input)
+       ((not-null? [:name]) input)
+       (valid-values? input)))
 
 ;; onMemoryで管理するためのリストにデータを追加する
 (defn add-course-data
