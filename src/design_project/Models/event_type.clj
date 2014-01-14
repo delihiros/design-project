@@ -1,6 +1,6 @@
 (ns design-project.Models.event-type
-  (:use [design-project.Models.database])
-        [design-project.Models.valid]
+  (:use [design-project.Models.database]
+        [design-project.Models.valid])
   (:require [clojure.java.jdbc :as jdbc]))
 
 
