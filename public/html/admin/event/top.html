@@ -1,55 +1,43 @@
 <!DOCTYPE html>
 <html lang="ja">
-	<head>
-		<meta charset="UTF-8">
-		<meta name="keyword" content="">
-		<meta name="description" content="">
-		<meta http-equiv="Content-Style-Type" content="text/css">
-		<link href="../css/workpage.css" rel="stylesheet" type="text/css" media="all">
-		<script src="../js/jquery-1.10.2.min.js"></script>
-		<script src="../js/rowClick.1.0.js"></script>
-		<script>
-			$(document).ready(function(){
-				$('#eveTable').rowClick();
-				$('#searchbutton').click(function() {
+<head>
+	<meta charset="UTF-8">
+	<meta name="keyword" content="">
+	<meta name="description" content="">
+	<meta http-equiv="Content-Style-Type" content="text/css">
+	<link href="../css/workpage.css" rel="stylesheet" type="text/css" media="all">
+	<script src="../js/jquery-1.10.2.min.js"></script>
+	<script src="../js/rowClick.1.0.js"></script>
+	<script>
+	$(document).ready(function(){
+		$('#eveTable').rowClick();
+		$('#searchbutton').click(function() {
 		    	// 多重送信を防ぐため通信完了までボタンをdisableにする
-	   			var button = $(this);
-	   			button.attr("disabled", true);
-	   			
+		    	var button = $(this);
+		    	button.attr("disabled", true);
+
 			    // 各フィールドから値を取得してJSONデータを作成
-    			var data = {
-    			    name: $("#name").val(),
-    			    place:$("#place").val(),
-        			day : $("#day").val()
-   				 };
-    
-  				  console.log(data);
-  				  // 通信実行
+			    var data = {
+			    	name: $("#name").val(),
+			    	place:$("#place").val(),
+			    	day : $("#day").val()
+			    };
+
+			    console.log(data);
+
 			    $.ajax({
-			        type:"post",                // method = "POST"
-			        url:"/admin/event/find",        // POST送信先のURL
-			        data:JSON.stringify(data),  // JSONデータ本体
-			        contentType: 'application/json', // リクエストの Content-Type
-			        dataType: "json",           // レスポンスをJSONとしてパースする
-			        success: function(json_data) {   // 200 OK時
-			            // JSON Arrayの先頭が成功フラグ、失敗の場合2番目がエラーメッセージ
-			            if (!json_data[0]) {    // サーバが失敗を返した場合
-			                alert("Transaction error. " + json_data[1]);
-			                return;
-			            }
-			            // 成功時処理
-			            location.reload();
-			        },
-			        
-			        error: function() {         // HTTPエラー時
-			            alert("Server Error. Pleasy try again later.");
-			        },
-			        complete: function() {      // 成功・失敗に関わらず通信が終了した際の処理
-			            button.attr("disabled", false);  // ボタンを再び enableにする
-			        }
+			    	type:"post",
+			    	url:"/admin/event",
+			    	dataType:"json",
+			    	success : function(data) {
+			    		$('#hit').append(data.length + "件ヒットしました。");
+			    		data.forEach(function(d){
+			    			$('#event-body').append("<tr><td><a href=\"/admin/event/detail\">" + d.name + "</a></td>" + "<td>"+ d.day +"</td>" + "<td>"+ d.place +"</td>/tr>");
+			    			});
+			    		}
+			    	});
 			    });
 			});
-
 		</script>
 		<title>イベント情報ページ</title>
 	</head>
@@ -73,7 +61,7 @@
 					<p id="newEveEntry">
 						<a href="/admin/event/add">新規イベント登録</a>
 					</p><!-- #newentry end -->
-					<p id="hit">11件ヒットしました！！！</p>
+					<p id="hit"></p>
 					<table id="eveTable">
 						<thead>
 							<tr class="eveHead">
@@ -82,17 +70,12 @@
 								<th scope="col">開催地区</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
-								<td><a href="/admin/event/detail">カエル界忘年会</a></td>
-								<td>2013/12/20</td>
-								<td>長野県長野市</td>
-							</tr>
+						<tbody id="event-body">
 						</tbody>
 					</table><!-- #eveTable end -->
 				</div><!-- #eveContents end -->
 			</div><!-- #eveMain end -->
 		</div><!-- #warpper end -->
 	</body>
-</html>
-<!-- -->
+	</html>
+	<!-- -->
