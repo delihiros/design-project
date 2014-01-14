@@ -15,7 +15,7 @@
    :day :DATE,
    :department_id :INT,
    :entrance_day :DATE,
-   :entrance :BOOLEAN,
+   :entrance :INT,
    :event_id :INT,
    :finish_course_day :DATE,
    :guarantor_address :VARCHAR,
@@ -52,7 +52,7 @@
   {:INT #(if (string? %) (every? #{\0 \1 \2 \3 \4 \5 \6 \7 \8 \9} %) (integer? %))
    :TEXT #(string? %)
    :VARCHAR #(and (string? %) (< (count %) 256))
-   :DATE #(re-seq #"\d\d\d\d\-\d\d\-\d\d" %)
+   :DATE #(not (empty? (re-seq #"^\d\d\d\d\-\d\d\-\d\d$" %)))
    })
 
 (defn row-exist?
