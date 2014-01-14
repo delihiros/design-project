@@ -99,4 +99,16 @@
          :guarantor_phone "1234"
          :finish_course_day "2016-03-31"})
 
-
+(let [input {:status "0",
+            :country "1",
+            :job_id "1",
+            :name "ねーむ",
+            :login_id "yurippe",
+            :sex "1",
+            :phone "080-5238-2593",
+            :industry_id "1",
+            :address "にほん",
+;            :id "11",
+            :password "yurippe",
+            :birthday "1992-12-12"}]
+  (valid-values? input))
