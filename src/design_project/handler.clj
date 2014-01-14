@@ -91,6 +91,9 @@
   (GET "/admin/student/detail" []
        (friend/authorize #{::admin}
                          (resp/file-response "detail.html" {:root "public/html/admin/student"})))
+  (GET "/admin/student/edit" []
+       (friend/authorize #{::admin}
+                         (resp/file-response "edit.html" {:root "public/html/admin/student"})))
   (GET "/admin/student/delete" []
        (friend/authorize #{::admin}
                          (resp/file-response "delete.html" {:root "public/html/admin/student"})))
