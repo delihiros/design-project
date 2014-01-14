@@ -23,7 +23,7 @@
 			    	success : function(data) {
 			    		$('#hit').append(data.length + "件のイベントがあります。");
 			    		data.forEach(function(d){
-			    			$('#event-body').append("<tr><td><a href=\"/admin/event/detail\">" + d.name + "</a></td>" + "<td>"+ d.day +"</td>" + "<td>"+ d.place +"</td>/tr>");
+			    			$('#event-body').append("<tr><td>" + d.name + "</a></td>" + "<td>"+ d.day +"</td>" + "<td>"+ d.place +"</td></tr>");
 			    			});
 			    		}
 			    	});
