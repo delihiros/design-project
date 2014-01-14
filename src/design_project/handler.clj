@@ -24,44 +24,26 @@
             [design-project.Models.user :as user]
             [design-project.Models.valid :as valid]))
 
-(def users
-  (atom
-    {"admin"
-    {:username "admin" 
-    :password (creds/hash-bcrypt "admin")
-    :pin "1234"
-    :roles #{::admin}}
-    "delihiros"
-    {:username "delihiros" 
-    :password (creds/hash-bcrypt "delihiros")
-    :pin "1234"
-    :roles #{::admin}}
-    "student"
-    {:username "student"
-    :password (creds/hash-bcrypt "student")
-    :pin "1234"
-    :roles #{::student}}
-    "graduated"
-    {:username "graduated" 
-    :password (creds/hash-bcrypt "graduated")
-    :pin "1234"
-    :roles #{::graduated}}
-    "participants"
-    {:username "participants"
-    :password (creds/hash-bcrypt "participants")
-    :pin "1234"
-    :roles #{::participants}}}))
-
 (defn transform-user [user]
   {:username (:login_id user)
   :roles #{(case (:status user)
-             0 ::admin
-             1 ::graduated
-             2 ::student
-             3 ::participants)}
+             -1 ::noboby
+             0  ::admin
+             1  ::graduated
+             2  ::student
+             3  ::participants)}
   :password (creds/hash-bcrypt (:password user))
-  :pin "1234"
-  :others user})
+   :user-id (:id user)
+   :all-info user
+  ;:others user
+   })
+
+(map transform-user (user/select-all))
+(def users (atom 
+             (let [users (user/select-all)]
+               (apply hash-map
+                      (interleave (map :login_id users)
+                                  (map transform-user (user/select-all)))))))
 
 (derive ::admin ::student)
 (derive ::admin ::graduated)
@@ -147,12 +129,24 @@
   (GET "/graduated/event/add" []
        (friend/authorize #{::graduated}
                          (resp/file-response "add.html" {:root "public/html/graduated/event"})))
+  (POST "/graduated/event/add" req
+        (event/insert (walk/keywordize-keys (:multipart-params req))))
+
   (GET "/graduated/event/detail" []
        (friend/authorize #{::graduated}
                          (resp/file-response "detail.html" {:root "public/html/graduated/event"})))
+  (POST "/graduated/event/detail" req
+        (let [events (doall (event/select-all))
+                     id (Integer. (:id (walk/keywordize-keys (:multipart-params req))))]
+          (filter #(= (:id %) id)
+                  events)))
   (GET "/graduated/profile" []
        (friend/authorize #{::graduated}
                          (resp/file-response "top.html" {:root "public/html/graduated/profile"})))
+  (POST "/graduated/profile" req
+        (reduce str (let [profiles (user/select-all)
+              identity (friend/identity req)]
+          (-> identity friend/current-authentication :all-info))))
   (GET "/graduated/profile/edit" []
        (friend/authorize #{::graduated}
                          (resp/file-response "edit.html" {:root "public/html/graduated/profile"})))
