@@ -39,12 +39,11 @@
   ;:others user
   })
 
-(map transform-user (user/select-all))
 (def users (atom 
              (let [users (user/select-all)]
                (apply hash-map
                       (interleave (map :login_id users)
-                                  (map transform-user (user/select-all)))))))
+                                  (map transform-user users))))))
 
 (derive ::admin ::student)
 (derive ::admin ::graduated)
@@ -109,8 +108,14 @@
        (friend/authorize #{::admin}
                          (resp/file-response "add.html" {:root "public/html/admin/student"})))
   (POST "/admin/student/add" req
-        (json/generate-string 
-          {:status (not (nil? (user/insert (walk/keywordize-keys (:multipart-params req)))))}))
+        (let [input (walk/keywordize-keys (:multipart-params req))
+                    status (not (nil? (user/insert input)))]
+          (when (true? status)
+            (reset! users (let [u (user/select-all)]
+                           (apply hash-map
+                                  (interleave (map :login_id u)
+                                              (map transform-user u))))))
+          (json/generate-string  {:status status})))
   (GET "/admin/student/detail" []
        (friend/authorize #{::admin}
                          (resp/file-response "detail.html" {:root "public/html/admin/student"})))
