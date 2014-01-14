@@ -4,5 +4,4 @@ CREATE TABLE IF NOT EXISTS `course` (
 	PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
-insert into course values(null, 'SE');
-insert into course values(null, 'CE');
+insert into course values(null, 'course');
