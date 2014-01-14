@@ -38,7 +38,7 @@ CREATE TABLE IF NOT EXISTS `user` (
 
 ENGINE = InnoDB;
 
-insert into `user` values(-1, -1, -1, '', '', '', '', '', '', -1, -1, '0000-00-00', -1,-1,-1,'',-1,'0000-00-00',-1,-1,-1,-1,'','','','','');
+insert into `user` values(-1, -1, -1, '', '', '', '', '', '', -1, -1, '2000-01-01', -1,-1,-1,'',-1,'2000-01-01',-1,-1,-1,-1,'','','','','');
 insert into `user` (`id`, `university_id`, `status`,  `name`, `login_id` ,`password`,  `country`, `address`, `phone`, `job_id`, `industry_id`, `birthday`, `sex`)  values(null, 1, 0,  'admin', 'admin',  'admin', '国3', '住所2', '0000000000', 1, 1, '1960-03-24', 1);
 
 insert into `user` values(null, 1, 2,  '名前', 'student', 'password',  '国1', '住所1', '0120333333',
