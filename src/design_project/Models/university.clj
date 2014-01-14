@@ -14,7 +14,7 @@
   [com id]
   (send university-data conj (assoc com :id id)))
  
-(defn is-valid [input]
+(defn is-valid? [input]
   (and ((row-exist? [:id :name]) input)
        ((not-null? [:name]) input)
        (valid-values? input)))

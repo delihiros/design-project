@@ -15,7 +15,7 @@
   [com id]
   (send curriculum-data conj (assoc com :id id)))
 
-(defn in-valid? [input]
+(defn is-valid? [input]
   (and ((row-exist? [:id :name]) input)
        ((not-null? [:name]) input)
        (valid-values? input)))
