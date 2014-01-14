@@ -8,7 +8,7 @@
 		<link href="../css/workpage.css" rel="stylesheet" type="text/css" media="all">
 		<script src="../js/jquery-1.10.2.min.js"></script>
 		<script src="../js/rowClick.1.0.js"></script>
-		<script src="../js/changefrom.js"></script>
+		<script src="../js/changeform.js"></script>
 		<script>
 			$(document).ready(function(){
 				$('#stuTable').rowClick();
@@ -20,10 +20,9 @@
 		<div id="warpper">
 			<div id="header">
 				<ul>
-					<li><a href="./students.html">学生関連</a></li>
-					<li><a href="./event.html">イベント情報</a></li>
-					<!-- <li><a href="./explain.html">説明会</a></li> -->
-					<li><a href="./logout.html">logout</a></li>
+					<li><a href="/admin/student">学生関連</a></li>
+					<li><a href="/admin/event">イベント情報</a></li>
+					<li><a href="/logout">logout</a></li>
 				</ul>
 			</div><!-- #header end -->
 			<div id="stuMain">
@@ -53,13 +52,13 @@
 						学科 : 
 						<select name="depart2">
 							<option value= 0>-------</option>
-							<option value= 1>機械システム工学科</option>
-							<option value= 2>電気電子工学科</option>
-							<option value= 3>土木工学科</option>
-							<option value= 4>建築学科</option>
-							<option value= 5>物質工学科</option>
-							<option value= 6>情報工学科</option>
-							<option value= 7>環境機能工学科</option>					
+							<option value= 1></option>
+							<option value= 2></option>
+							<option value= 3></option>
+							<option value= 4></option>
+							<option value= 5></option>
+							<option value= 6></option>
+							<option value= 7></option>					
 						</select>
 					</p>
 					<p>
@@ -68,7 +67,7 @@
 					<input type="submit" value="検索" class="searchbutton">
 				</form><!-- #stuSearch end -->
 				<div id="stuContents">
-					<p id="newStuEntry"><a href="./stunewentry.html">新規学生登録</a></p><!-- #newentry end -->
+					<p id="newStuEntry"><a href="/admin/student/add">新規学生登録</a></p><!-- #newentry end -->
 					<table id="stuTable">
 						<thead>
 							<tr class="stuHead">
@@ -81,21 +80,7 @@
 						</thead>
 						<tbody>
 							<tr>
-								<td class="link"><a href="./studetails.html">11t50**</a></td>
-								<td>delihiros</td>
-								<td>学部生</td>
-								<td>工学部</td>
-								<td>情報工学科</td>
-							</tr>
-							<tr>
-								<td><a href="./studetails.html">11t50**</a></td>
-								<td>delihiros</td>
-								<td>学部生</td>
-								<td>工学部</td>
-								<td>情報工学科</td>
-							</tr>
-							<tr>
-								<td><a href="./studetails.html">11t50**</a></td>
+								<td class="link"><a href="/admin/student/detail">11t50**</a></td>
 								<td>delihiros</td>
 								<td>学部生</td>
 								<td>工学部</td>
@@ -108,3 +93,4 @@
 		</div><!-- #warpper end -->
 	</body>
 </html>
+<!-- -->

@@ -11,7 +11,45 @@
 		<script>
 			$(document).ready(function(){
 				$('#eveTable').rowClick();
+				$('#searchbutton').click(function() {
+		    	// 多重送信を防ぐため通信完了までボタンをdisableにする
+	   			var button = $(this);
+	   			button.attr("disabled", true);
+	   			
+			    // 各フィールドから値を取得してJSONデータを作成
+    			var data = {
+    			    name: $("#name").val(),
+    			    place:$("#place").val(),
+        			day : $("#day").val()
+   				 };
+    
+  				  console.log(data);
+  				  // 通信実行
+			    $.ajax({
+			        type:"post",                // method = "POST"
+			        url:"/admin/event/find",        // POST送信先のURL
+			        data:JSON.stringify(data),  // JSONデータ本体
+			        contentType: 'application/json', // リクエストの Content-Type
+			        dataType: "json",           // レスポンスをJSONとしてパースする
+			        success: function(json_data) {   // 200 OK時
+			            // JSON Arrayの先頭が成功フラグ、失敗の場合2番目がエラーメッセージ
+			            if (!json_data[0]) {    // サーバが失敗を返した場合
+			                alert("Transaction error. " + json_data[1]);
+			                return;
+			            }
+			            // 成功時処理
+			            location.reload();
+			        },
+			        
+			        error: function() {         // HTTPエラー時
+			            alert("Server Error. Pleasy try again later.");
+			        },
+			        complete: function() {      // 成功・失敗に関わらず通信が終了した際の処理
+			            button.attr("disabled", false);  // ボタンを再び enableにする
+			        }
+			    });
 			});
+
 		</script>
 		<title>イベント情報ページ</title>
 	</head>
@@ -19,113 +57,36 @@
 		<div id="warpper">
 			<div id="header">
 				<ul>
-					<li><a href="./students.html">学生関連</a></li>
-					<li><a href="./event.html">イベント情報</a></li>
-					<!-- <li><a href="./explain.html">説明会</a></li> -->
-					<li><a href="./logout.html">logout</a></li>
+					<li><a href="/admin/student">学生関連</a></li>
+					<li><a href="/admin/event">イベント情報</a></li>
+					<li><a href="/logout">logout</a></li>
 				</ul>
 			</div><!-- #header end -->
 			<div id="eveMain">
-				<form name="eveSearch" class="eveSearch">
-					<p>イベント名 : <input type="text" name="event-name" placeholder="event name" size="40"></p>
-					<p>場所 : <input type="text" name="location" placeholder="location" size="40"></p>
-					<p>日付 : 
-						<select name="year" size="1">
-							<option value= 0>----</option>
-							<option value= 1>2009</option>
-							<option value= 2>2010</option>
-							<option value= 3>2011</option>
-							<option value= 4>2012</option>
-							<option value= 5>2013</option>
-							<option value= 6>2014</option>
-						</select>
-						<select name="month" size="1">
-							<option value= 0>---</option>
-							<option value= 1>1</option>
-							<option value= 2>2</option>
-							<option value= 3>3</option>
-							<option value= 4>4</option>
-							<option value= 5>5</option>
-							<option value= 6>6</option>
-							<option value= 7>7</option>
-							<option value= 8>8</option>
-							<option value= 9>9</option>
-							<option value= 10>10</option>
-							<option value= 11>11</option>
-							<option value= 12>12</option>
-						</select>
-						<select name="day" size="1">
-							<option value= 0>---</option>
-							<option value= 1>1</option>
-							<option value= 2>2</option>
-							<option value= 3>3</option>
-							<option value= 4>4</option>
-							<option value= 5>5</option>
-							<option value= 6>6</option>
-							<option value= 7>7</option>
-							<option value= 8>8</option>
-							<option value= 9>9</option>
-							<option value= 10>10</option>
-							<option value= 11>11</option>
-							<option value= 12>12</option>
-							<option value= 13>13</option>
-							<option value= 14>14</option>
-							<option value= 15>15</option>
-							<option value= 16>16</option>
-							<option value= 17>17</option>
-							<option value= 18>18</option>
-							<option value= 19>19</option>
-							<option value= 20>20</option>
-							<option value= 21>21</option>
-							<option value= 22>22</option>
-							<option value= 23>23</option>
-							<option value= 24>24</option>
-							<option value= 25>25</option>
-							<option value= 26>26</option>
-							<option value= 27>27</option>
-							<option value= 28>28</option>
-							<option value= 29>29</option>
-							<option value= 30>30</option>
-							<option value= 31>31</option>
-						</select>
-					</p>
-					<input type="submit" value="検索" class="searchbutton">
+				<form name="eveSearch" class="eveSearch" action="#" method="POST">
+					<p>イベント名 : <input type="text" name="name" placeholder="event name" size="40" id="name"></p>
+					<p>場所 : <input type="text" name="place" placeholder="place" size="40" id="place"></p>
+					<p>日付 : <input type="date" name="day" id="day"></p>
+					<input type="button" value="検索" class="searchbutton" id="searchbutton">
 				</form><!-- #eveSearch end -->
 				<div id="eveContents">
 					<p id="newEveEntry">
-						<a href="./evenewentry.html">新規イベント登録</a>
+						<a href="/admin/event/add">新規イベント登録</a>
 					</p><!-- #newentry end -->
+					<p id="hit">11件ヒットしました！！！</p>
 					<table id="eveTable">
 						<thead>
 							<tr class="eveHead">
 								<th scope="col">イベント名</th>
 								<th scope="col">開催日</th>
 								<th scope="col">開催地区</th>
-								<th scope="col">開催時間</th>
-								<th scope="col">会場</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr>
-								<td><a href="./evedetails.html">カエル界忘年会</a></td>
+								<td><a href="/admin/event/detail">カエル界忘年会</a></td>
 								<td>2013/12/20</td>
 								<td>長野県長野市</td>
-								<td>18:00~</td>
-								<td>でりひろのお家</td>
-							</tr>
-							<tr>
-								<td><a href="./evedetails.html">カエル界忘年会</a></td>
-								<td>2013/12/20</td>
-								<td>長野県長野市</td>
-								<td>18:00~</td>
-								<td>でりひろのお家</td>
-							</tr>
-							<tr>
-								<td><a href="./evedetails.html">カエル界忘年会</a></td>
-								<td>2013/12/20</td>
-								<td>長野県長野市</td>
-								<td>18:00~</td>
-								<td>でりひろのお家</td>
 							</tr>
 						</tbody>
 					</table><!-- #eveTable end -->
@@ -134,3 +95,4 @@
 		</div><!-- #warpper end -->
 	</body>
 </html>
+<!-- -->
