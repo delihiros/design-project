@@ -45,6 +45,9 @@
                       (interleave (map :login_id users)
                                   (map transform-user users))))))
 
+(defn f-1 [ds]
+  (filter #(not= -1 (:id %)) ds))
+
 (derive ::admin ::student)
 (derive ::admin ::graduated)
 (derive ::admin ::participants)
@@ -82,7 +85,7 @@
        (friend/authorize #{::admin}
                          (resp/file-response "top.html" {:root "public/html/admin/event"})))
   (POST "/admin/event" req
-        (json/generate-string (event/select-all)))
+        (json/generate-string (f-1 (event/select-all))))
   (GET "/admin/event/add" []
        (friend/authorize #{::admin}
                          (resp/file-response "add.html" {:root "public/html/admin/event"})))
@@ -95,18 +98,18 @@
   (POST "/admin/event/detail" req
         (let [events (event/select-all)
               id (Integer. (:id (walk/keywordize-keys (:params req))))]
-          (json/generate-string (filter #(= (:id %) id)
-                                        events))))
+          (json/generate-string (f-1 (filter #(= (:id %) id)
+                                        events)))))
   (GET "/admin/student" []
        (friend/authorize #{::admin}
                          (resp/file-response "find.html" {:root "public/html/admin/student"})))
   (POST "/admin/student" req
-        (json/generate-string (user/select-all)))
+        (json/generate-string (f-1 (user/select-all))))
   (GET "/admin/student/find" []
        (friend/authorize #{::admin}
                          (resp/file-response "find.html" {:root "public/html/admin/student"})))
   (POST "/admin/student/find" req
-        (json/generate-string (user/select-all)))
+        (json/generate-string (f-1 (user/select-all))))
   (GET "/admin/student/add" []
        (friend/authorize #{::admin}
                          (resp/file-response "add.html" {:root "public/html/admin/student"})))
@@ -124,16 +127,15 @@
                          (resp/file-response "detail.html" {:root "public/html/admin/student"})))
   (POST "/admin/student/detail" req
         (let [students (doall (user/select-all))
-                       id (Integer. (:id (walk/keywordize-keys (:params req))))]
+              id (Integer. (:id (walk/keywordize-keys (:params req))))]
           (json/generate-string (filter #(= (:id %) id)
                                         students))))
   (GET "/admin/student/edit" []
        (friend/authorize #{::admin}
                          (resp/file-response "edit.html" {:root "public/html/admin/student"})))
   (POST "/admin/student/edit" req
-        (println (walk/keywordize-keys (:params req)))
         (user/update (Integer. (:id (walk/keywordize-keys (:params req))))
-        (walk/keywordize-keys (:params req))))
+                     (walk/keywordize-keys (:params req))))
   (GET "/admin/student/delete" []
        (friend/authorize #{::admin}
                          (resp/file-response "delete.html" {:root "public/html/admin/student"})))
@@ -164,16 +166,15 @@
        (friend/authorize #{::graduated}
                          (resp/file-response "detail.html" {:root "public/html/graduated/event"})))
   (POST "/graduated/event/detail" req
-        (let [events (doall (event/select-all))
-                     id (Integer. (:id (walk/keywordize-keys (:params req))))]
+        (let [events (event/select-all)
+              id (Integer. (:id (walk/keywordize-keys (:params req))))]
           (json/generate-string (filter #(= (:id %) id)
                                         events))))
   (GET "/graduated/profile" []
        (friend/authorize #{::graduated}
                          (resp/file-response "top.html" {:root "public/html/graduated/profile"})))
   (POST "/graduated/profile" req
-        (let [profiles (user/select-all)
-              identity (friend/identity req)]
+        (let [identity (friend/identity req)]
           (json/generate-string (-> identity friend/current-authentication :all-info))))
   (GET "/graduated/profile/edit" []
        (friend/authorize #{::graduated}
@@ -184,8 +185,7 @@
        (friend/authorize #{::participants}
                          (resp/file-response "top.html" {:root "public/html/participants"})))
   (POST "/participants" req
-        (let [profiles (user/select-all)
-              identity (friend/identity req)]
+        (let [identity (friend/identity req)]
           (json/generate-string (-> identity friend/current-authentication :all-info))))
   (GET "/participants/event" []
        (friend/authorize #{::participants}
@@ -212,7 +212,7 @@
                          (resp/file-response "edit.html" {:root "public/html/participants/profile"})))
   (POST "/participants/profile/edit" req
         (let [input (walk/keywordize-keys (:params req))
-                    identity (friend/identity req)]
+              identity (friend/identity req)]
           (json/generate-string
             (if (= 3 (Integer. (:status input)))
               {:status (not (nil? (user/update (-> identity friend/current-authentication :user-id) input)))}
@@ -237,17 +237,23 @@
                          (resp/file-response "edit.html" {:root "public/html/student/profile"})))
   (POST "/student/profile/edit" req
         (let [input (walk/keywordize-keys (:params req))
-                    identity (friend/identity req)]
+              identity (friend/identity req)]
           (json/generate-string
             (if (< 0 (Integer. (:status input)))
               {:status (not (nil? (user/update (-> identity friend/current-authentication :user-id) input)))}
               {:status false}))))
 
-
   (POST "/event/participate" req
         (json/generate-string 
-          {:status (not (nil? (join-event-history/insert (walk/keywordize-keys (:params req)))))}))
-  (route/resources "/")
+          {:status
+          (not (nil? (join-event-history/insert 
+                       (walk/keywordize-keys 
+                         (conj
+                           (:params req) {:user_id
+                                          (-> (friend/identity req)
+                                            friend/current-authentication
+                                            :user-id)})))))}))
+        (route/resources "/")
   (route/not-found "Not Found"))
 
 (def app
