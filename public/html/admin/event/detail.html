@@ -7,6 +7,30 @@
 		<meta http-equiv="Content-Style-Type" content="text/css">
 		<link href="/css/details.css" rel="stylesheet" type="text/css" media="all">
 		<script src="/js/jquery-1.10.2.min.js"></script>
+		<script>
+	$(document).ready(function(){
+		$('#searchbutton').click(function() {
+		    	// 多重送信を防ぐため通信完了までボタンをdisableにする
+		    	var button = $(this);
+		    	button.attr("disabled", true);
+
+			    $.ajax({
+			    	type:"post",
+			    	url:"/admin/event/detail",
+			    	dataType:"json",
+			    	success : function(data) {
+			    		console.log(data);
+			    		data.forEach(function(d){
+			    			$('#eventInfo').append(
+								"<p>"+ d.name +"</p>"+
+								"<p>"+ d.day +"</p>"+
+								"<p>"+ d.place +"</p>");
+			    			});
+			    		}
+			    	});
+			    });
+			});
+		</script>
 		<title>イベント詳細情報</title>
 	</head>
 	<body>

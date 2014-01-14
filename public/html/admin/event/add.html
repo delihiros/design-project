@@ -5,23 +5,49 @@
 		<meta name="keyword" content="">
 		<meta name="description" content="">
 		<meta http-equiv="Content-Style-Type" content="text/css">
-		<link href="../css/details.css" rel="stylesheet" type="text/css" media="all">
-		<script src="../js/jquery-1.10.2.min.js"></script>
-		<script src="../js/departSet.js"></script>
+		<link href="/css/details.css" rel="stylesheet" type="text/css" media="all">
+		<script src="/js/jquery-1.10.2.min.js"></script>
+		<script src="/js/departSet.js"></script>
+		<script>
+			$(document).ready(function(){
+				$('#event-button').click(function() {
+			    	// 多重送信を防ぐため通信完了までボタンをdisableにする
+			    	var button = $(this);
+		    		button.attr("disabled", true);
+
+			    	$.ajax({
+			    		type:'post',
+			    		url:'/admin/event/add',
+		    			dataType:'json',
+		    			data: {
+		    				name : $('#name').val(),
+		    				day : $('#day').val(),
+		    				place : $('#place').val(),
+		    				type_id : 1
+		    			},
+		    			success : function(d) {
+		    				console.log(d);
+		    				console.log($('#name').val(), $('#day').val(), $('#place').val());
+		    				$('#eveEditButton').append("登録できました。");
+		    			}
+			    	});
+		    	});
+			});
+		</script>
 		<title>新規イベント登録ページ</title> 
 	</head>
 	<body>
 		<div id="eveEditMain"><form>
 			<div id="eventInfo">
-				<p>イベント詳細</p>
-				<p>イベント名 : <input type="text" name="name" placeholder="event name" size="30" required></p>
-				<p>開催日 : <input type="date" name="day" size="30">
+				<p>イベント登録</p>
+				<p>イベント名 : <input type="text" name="name" placeholder="event name" size="30" id="name"></p>
+				<p>開催日 : <input type="date" name="day" size="30" id="day">
 				</p>
-				<p>会場 : <input type="text" name="place" placeholder="place" size="30"></p>
+				<p>会場 : <input type="text" name="place" placeholder="place" size="30" id="place"></p>
 			</div><!-- #eventInfo -->
 			<div id="eveEditButton">
-				<input type="submit" value="登録" class="editButtons">
-				<input type="reset" value="リセット" class="editButtons">
+				<input type="button" method="POST" value="register" class="editButtons" id="event-button">
+				<input type="reset" value="reset" class="editButtons">
 			</div><!-- #eveEditButtom -->
 		</div></form><!-- #eveEditMain end -->
 	</body>
