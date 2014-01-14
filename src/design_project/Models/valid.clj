@@ -82,10 +82,11 @@
   (let [table-name (apply str (rest (str table)))
         row-name (apply str (rest (str (first (keys ids)))))
         row-value (first (vals ids))]
+    (or (nil? row-value)
     (not (zero? (count (jdbc/with-connection
                          my-db
                          (jdbc/with-query-results 
                            rows
                            [(str "select * from " table-name " where " row-name "=?") row-value]
-                           (doall rows))))))))
+                           (doall rows)))))))))
 

@@ -37,12 +37,13 @@
   [com id]
   (send user-data conj (assoc com :id id)))
 
-
 ;; validator
 (defn is-valid? [input]
   (and ((not-null? [:status :name :login_id :password :country :address :phone :job_id :industry_id :birthday :sex]) input)
        ((row-exist? [:guarantor_name :status :country :department_id :guarantor_phone :job_id :entrance_day :class :entrance :name :login_id :sex :university_id :guarantor_address :phone :industry_id :wish_curriculum_id :student_id :wish_teacher :study_course_id :address :password :laboratory_id :birthday :wish_course_id :finish_course_day]) input)
        (valid-values? input)
+       (zero? (count (jdbc/query my-db
+                                 ["select * from user where login_id = ?" (:login_id input)])))
        (foreign-key-exist? :university {:id (:university_id input)})
        (foreign-key-exist? :industry_type {:id (:industry_id input)})
        (foreign-key-exist? :job {:id (:job_id input)})
