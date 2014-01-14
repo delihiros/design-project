@@ -7,6 +7,7 @@
             (cemerick.friend [workflows :as workflows]
                              [credentials :as creds])
             [ring.util.response :as resp]
+            [net.cgrand.enlive-html :as enlive]
             [design-project.Models.certificate :as certificate]
             [design-project.Models.company :as company]
             [design-project.Models.course :as course]
@@ -221,7 +222,7 @@
 
   (GET "/student" []
        (friend/authorize #{::student}
-                         (resp/file-response "top.html" {:root "public/html/student"})))
+                         (resp/file-response "top.html" {:root "public/html/student/profile"})))
   (POST "/student" req
         (let [profiles (user/select-all)
               identity (friend/identity req)]
