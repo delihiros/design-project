@@ -58,6 +58,7 @@
                                  #{::admin} "/admin"
                                  #{::student} "/student"
                                  #{::graduated} "/graduated"
+                                 #{::participants} "/participants"
                                  "/")))
            (resp/file-response "index.html" {:root "public/html"}))))
   (POST "/test" params
