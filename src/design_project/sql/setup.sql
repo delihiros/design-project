@@ -1,6 +1,6 @@
 drop database t;
 create database t default character set utf8;
-set global sql_mode='NO_AUTO_VALUE_ON_ZERO';
+-- set global sql_mode='NO_AUTO_VALUE_ON_ZERO';
 use t;
 
 source V1__create_company_table.sql;
