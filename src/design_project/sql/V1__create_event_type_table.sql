@@ -5,5 +5,6 @@ CREATE TABLE IF NOT EXISTS `event_type` (
 	PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
+insert into event_type values(-1,'');
 insert into event_type values(null, '説明会');
 insert into event_type values(null, 'それ以外');
