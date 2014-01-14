@@ -1,7 +1,7 @@
 -- certificate
 CREATE TABLE IF NOT EXISTS `certificate` (
 	`id` INT NOT NULL AUTO_INCREMENT,
-	`user_id` INT NOT NULL,
+	`user_id` INT DEFAULT -1 NOT NULL,
 	`certificate_type` INT NOT NULL,
 	`completion_year` DATE,
 	`leaves` INT,
@@ -12,4 +12,5 @@ CREATE TABLE IF NOT EXISTS `certificate` (
 )
 ENGINE = InnoDB;
 
+insert into certificate values (-1,-1,-1,'',-1,''	,'');
 insert into certificate values(null, 1, 1, '2013-10-10', 1, '出して', 'ほにゃほにゃ');

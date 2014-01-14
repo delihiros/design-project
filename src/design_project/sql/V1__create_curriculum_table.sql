@@ -4,5 +4,6 @@ CREATE TABLE IF NOT EXISTS `curriculum` (
 	PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
+insert into curriculum values(-1, '');
 insert into curriculum values(null, '教養課程');
 insert into curriculum values(null, '専門課程');
