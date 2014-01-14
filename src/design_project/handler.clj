@@ -93,7 +93,7 @@
                          (resp/file-response "detail.html" {:root "public/html/admin/event"})))
   (POST "/admin/event/detail" req
         (let [events (event/select-all)
-              id (Integer. (:id (walk/keywordize-keys (:multipart-params req))))]
+              id (Integer. (:id (walk/keywordize-keys (:params req))))]
           (json/generate-string (filter #(= (:id %) id)
                                         events))))
   (GET "/admin/student" []
@@ -110,7 +110,7 @@
        (friend/authorize #{::admin}
                          (resp/file-response "add.html" {:root "public/html/admin/student"})))
   (POST "/admin/student/add" req
-        (let [input (walk/keywordize-keys (:multipart-params req))
+        (let [input (walk/keywordize-keys (:params req))
                     status (not (nil? (user/insert input)))]
           (when (true? status)
             (reset! users (let [u (user/select-all)]
@@ -123,16 +123,16 @@
                          (resp/file-response "detail.html" {:root "public/html/admin/student"})))
   (POST "/admin/student/detail" req
         (let [students (doall (user/select-all))
-                       id (Integer. (:id (walk/keywordize-keys (:multipart-params req))))]
+                       id (Integer. (:id (walk/keywordize-keys (:params req))))]
           (json/generate-string (filter #(= (:id %) id)
                                         students))))
   (GET "/admin/student/edit" []
        (friend/authorize #{::admin}
                          (resp/file-response "edit.html" {:root "public/html/admin/student"})))
   (POST "/admin/student/edit" req
-        (println (walk/keywordize-keys (:multipart-params req)))
-        (user/update (Integer. (:id (walk/keywordize-keys (:multipart-params req))))
-        (walk/keywordize-keys (:multipart-params req))))
+        (println (walk/keywordize-keys (:params req)))
+        (user/update (Integer. (:id (walk/keywordize-keys (:params req))))
+        (walk/keywordize-keys (:params req))))
   (GET "/admin/student/delete" []
        (friend/authorize #{::admin}
                          (resp/file-response "delete.html" {:root "public/html/admin/student"})))
@@ -147,7 +147,7 @@
                          (resp/file-response "top.html" {:root "public/html/graduated/certificate"})))
   (POST "/graduated/certificate" req
         (json/generate-string
-          {:status (not (nil? (event/insert (walk/keywordize-keys (:multipart-params req)))))}))
+          {:status (not (nil? (event/insert (walk/keywordize-keys (:params req)))))}))
   (GET "/graduated/event" []
        (friend/authorize #{::graduated}
                          (resp/file-response "top.html" {:root "public/html/graduated/event"})))
@@ -158,13 +158,13 @@
                          (resp/file-response "add.html" {:root "public/html/graduated/event"})))
   (POST "/graduated/event/add" req
         (json/generate-string
-          {:status (not (nil? (event/insert (walk/keywordize-keys (:multipart-params req)))))}))
+          {:status (not (nil? (event/insert (walk/keywordize-keys (:params req)))))}))
   (GET "/graduated/event/detail" []
        (friend/authorize #{::graduated}
                          (resp/file-response "detail.html" {:root "public/html/graduated/event"})))
   (POST "/graduated/event/detail" req
         (let [events (doall (event/select-all))
-                     id (Integer. (:id (walk/keywordize-keys (:multipart-params req))))]
+                     id (Integer. (:id (walk/keywordize-keys (:params req))))]
           (json/generate-string (filter #(= (:id %) id)
                                         events))))
   (GET "/graduated/profile" []
@@ -178,7 +178,7 @@
        (friend/authorize #{::graduated}
                          (resp/file-response "edit.html" {:root "public/html/graduated/profile"})))
   (POST "/graduated/profile/edit" req
-        (json/generate-string (event/update (Integer. (:id (:multipart-params req))) (:multipart-params req))))
+        (json/generate-string (event/update (Integer. (:id (:params req))) (:params req))))
   (GET "/participants" []
        (friend/authorize #{::participants}
                          (resp/file-response "top.html" {:root "public/html/participants"})))
@@ -202,7 +202,7 @@
        (friend/authorize #{::participants}
                          (resp/file-response "add.html" {:root "public/html/participants/profile"})))
   (POST "/participants/profile/add" req
-        (let [input (walk/keywordize-keys (:multipart-params req))]
+        (let [input (walk/keywordize-keys (:params req))]
           (json/generate-string
             (if (= 3 (Integer. (:status input)))
               {:status (not (nil? (user/insert input)))}
@@ -211,7 +211,7 @@
        (friend/authorize #{::participants}
                          (resp/file-response "edit.html" {:root "public/html/participants/profile"})))
   (POST "/participants/profile/edit" req
-        (let [input (walk/keywordize-keys (:multipart-params req))
+        (let [input (walk/keywordize-keys (:params req))
                     identity (friend/identity req)]
           (json/generate-string
             (if (= 3 (Integer. (:status input)))
@@ -236,7 +236,7 @@
        (friend/authorize #{::student}
                          (resp/file-response "edit.html" {:root "public/html/student/profile"})))
   (POST "/student/profile/edit" req
-        (let [input (walk/keywordize-keys (:multipart-params req))
+        (let [input (walk/keywordize-keys (:params req))
                     identity (friend/identity req)]
           (json/generate-string
             (if (< 0 (Integer. (:status input)))
@@ -246,7 +246,7 @@
 
   (POST "/event/participate" req
         (json/generate-string 
-          {:status (not (nil? (join-event-history/insert (walk/keywordize-keys (:multipart-params req)))))}))
+          {:status (not (nil? (join-event-history/insert (walk/keywordize-keys (:params req)))))}))
   (route/resources "/")
   (route/not-found "Not Found"))
 
