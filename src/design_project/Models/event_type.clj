@@ -3,9 +3,18 @@
         [design-project.Models.valid])
   (:require [clojure.java.jdbc :as jdbc]))
 
+;; select
+(defn select-all
+  "select from event-type table.
+  return
+   select data in map."
+  []
+  (jdbc/query my-db
+              ["select * from event_type"]))
 
 
-(def event-type-data (agent ()))
+
+(def event-type-data (agent (select-all)))
 
 ;; onMemoryで管理するためのリストにデータを追加する
 (defn add-event-type-data
@@ -30,21 +39,13 @@
  return 
   generate id"
   [event-type-map]
-  (add-event-type-data event-type-map
+  (if (is-valid? event-type-map)
+    (add-event-type-data event-type-map
                        (:generated_key
                          (first
-                           (jdbc/insert! my-db :event_type event-type-map)))))
-
-;; select
-(defn select 
-  "select from event-type table.
-  return
-   select data in map."
-  []
-  (jdbc/query my-db
-              ["select * from event_type"]))
+                           (jdbc/insert! my-db :event_type event-type-map))))))
 
 (comment
   ;; sample
   (insert {:name "送別会"})
-  (select))
+  (select-all))

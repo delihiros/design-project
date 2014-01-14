@@ -4,8 +4,18 @@
 	(:require [clojure.java.jdbc :as jdbc]))
 
 
+;; select
+(defn select-all
+  "select from study table.
+  return
+   select data in map."
+  []
+	(jdbc/query my-db
+		["select * from study"]))
 
-(def study-data (agent ()))
+
+
+(def study-data (agent (select-all)))
 
 ;; onMemoryで管理するためのリストにデータを追加する
 (defn add-study-data
@@ -30,21 +40,12 @@
   return
    generate id"
   [study-map]
-  (add-study-data study-map
+  (if (is-valid? study-map )
+    (add-study-data study-map
                   (:generated_key
                     (first
-                      (jdbc/insert! my-db :study study-map)))))
-
-;; select
-(defn select 
-  "select from study table.
-  return
-   select data in map."
-  []
-	(jdbc/query my-db
-		["select * from study"]))
-
+                      (jdbc/insert! my-db :study study-map))))))
 (comment
   ;; sample
   (insert {:name "課程"})
-  (select))
+  (select-all))

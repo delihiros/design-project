@@ -3,7 +3,16 @@
         [design-project.Models.valid])
 	(:require [clojure.java.jdbc :as jdbc]))
 
-(def university-data (agent ()))
+;; select
+(defn select-all 
+  "select from university table.
+  return
+   select data in map."
+  []
+	(jdbc/query my-db
+		["select * from university"]))
+
+(def university-data (agent (select-all)))
 
 ;; onMemoryで管理するためのリストにデータを追加する
 (defn add-university-data
@@ -28,21 +37,13 @@
   return
    generate id"
   [uni-map]
-  (add-university-data uni-map
+  (if (is-valid? uni-map)
+    (add-university-data uni-map
                        (:generated_key
                          (first
-                           (jdbc/insert! my-db :university uni-map)))))
-
-;; select
-(defn select 
-  "select from university table.
-  return
-   select data in map."
-  []
-	(jdbc/query my-db
-		["select * from university"]))
+                           (jdbc/insert! my-db :university uni-map))))))
 
 (comment
   ;; sample
   (insert {:name "大学"})
-  (select))
+  (select-all))

@@ -2,9 +2,19 @@
 	(:use [design-project.Models.database]
         [design-project.Models.valid])
 	(:require [clojure.java.jdbc :as jdbc]))
+ 
+;; select
+  (defn select-all 
+    "select from department table.
+    return
+    select data in map."
+    []
+    (jdbc/query my-db
+                ["select * from department"]))
+
 
 ;;  Listで
-(def department-data (agent ()))
+(def department-data (agent (select-all)))
 
 ;; onMemoryで管理するためのリストにデータを追加する
 (defn add-department-data
@@ -21,28 +31,22 @@
        (valid-values? input)))
 
 ;; insert
-(defn insert [department-map]
+(defn insert 
   "insert department-map table.
   parameter
    department-map attribute
    :name department name
   return 
    generate id"
-  (add-department-data department-map
+  [department-map]
+  (if (is-valid? department-map)
+    (add-department-data department-map
                        (:generated_key
                          (first
-                           (jdbc/insert! my-db :department department-map)))))
+                          (jdbc/insert! my-db :department department-map))))))
 
 (comment
-  ;; select
-  (defn select []
-    "select from department table.
-    return
-    select data in map."
-    (jdbc/query my-db
-                ["select * from department"]))
-
-    ;; sample
+      ;; sample
     (insert {:name "学科"})
 
-    (select))
+    (select-all))

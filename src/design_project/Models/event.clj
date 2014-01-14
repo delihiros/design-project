@@ -1,10 +1,16 @@
 (ns design-project.Models.event
-  (:use [design-project.Models.database])
+  (:use [design-project.Models.database]
+        [design-project.Models.valid])
   (:require [clojure.java.jdbc :as jdbc]))
 
-;; ちゃんと値のチェックもする
+;; select
+(defn select-all []
+  (jdbc/query my-db
+              ["select * from event, event_type 
+                where event.type_id = event_type.id"]))
 
-(def event-data (agent ()))
+
+(def event-data (agent (select-all)))
 
 ;; onMemoryで管理するためのリストにデータを追加する
 (defn add-event-data
@@ -14,6 +20,14 @@
   list in event data."
   [com id]
   (send event-data conj (assoc com :id id)))
+
+
+(defn is-valid? [input]
+  (and ((row-exist? [:id :day :name :place :type_id]) input)
+       ((not-null? [:day :name :place :type_id]) input)
+       (valid-values? input)
+       (foreign-key-exist? :event_type {:id (:type_id input)})))
+
 
 ;; insert
 ;; 日時
@@ -30,10 +44,11 @@
   return
    generate id"
   [event-map]
-  (add-event-data event-map
-                  (:generated_key
-                    (first
-                      (jdbc/insert! my-db :event event-map)))))
+  (if (is-valid? event-map) 
+    (add-event-data event-map
+                    (:generated_key
+                      (first
+                        (jdbc/insert! my-db :event event-map))))))
 
 
 (defn update 
@@ -47,17 +62,12 @@
   (jdbc/update! my-db :event event-map ["id=?" id]))
 
 
-;; select
-(defn select []
-  (jdbc/query my-db
-              ["select * from event, event_type 
-                where event.type_id = event_type.id"]))
-
 (comment
   ;; sample
   (insert {:day "2013-08-26"
-          :place "長野"
+          :place "東京"
           :name "学校説明会"
-          :type_id 1})
+          :type_id 9
+          })
 
-  (select))
+  (select-all))

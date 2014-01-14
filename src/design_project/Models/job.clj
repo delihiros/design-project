@@ -4,8 +4,18 @@
 	(:require [clojure.java.jdbc :as jdbc]))
 
 
+;; select
+(defn select-all
+  "select from job table.
+  return
+   select data in map"
+  []
+	(jdbc/query my-db
+		["select * from job"]))
 
-(def job-data (agent ()))
+
+
+(def job-data (agent (select-all)))
 
 ;; onMemoryで管理するためのリストにデータを追加する
 (defn add-job-data
@@ -30,21 +40,12 @@
   return
    generate id"
   [job-map]
-  (add-job-data job-map
+  (if (is-valid? job-map)
+    (add-job-data job-map
                 (:generated_key
                   (first
-                    (jdbc/insert! my-db :job job-map)))))
-
-;; select
-(defn select 
-  "select from job table.
-  return
-   select data in map"
-  []
-	(jdbc/query my-db
-		["select * from job"]))
-
+                    (jdbc/insert! my-db :job job-map))))))
 (comment
   ;; sample
   (insert {:name "仕事"})
-  (select))
+  (select-all))
