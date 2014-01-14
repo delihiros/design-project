@@ -25,8 +25,8 @@
 
 
 <form action="/graduated/certificate" method='post'>
-<p>お名前:<input type ="text" name = "id">
-ID:<input type ="text" name = "user_id"></p>
+<p>お名前:<input type ="text" name = "id" maxlength = "255">
+ID:<input type ="number" name = "user_id" maxlength = "255"></p>
 <p>発行する証明書の種類<br>
 <input type="radio" name="certificate_type" value="1"> 学士
 <input type="radio" name="certificate_type" value="2"> 博士前期
@@ -92,6 +92,7 @@ ID:<input type ="text" name = "user_id"></p>
 
 
 <p><input type="submit" value="送信する"></p>
+<p><input type="reset" value="リセット"></p>
 </form>
 
 </div>
