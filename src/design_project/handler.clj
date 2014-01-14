@@ -22,7 +22,8 @@
             [design-project.Models.study :as study]
             [design-project.Models.university :as university]
             [design-project.Models.user :as user]
-            [design-project.Models.valid :as valid]))
+            [design-project.Models.valid :as valid]
+            [cheshire.core :as json]))
 
 (defn transform-user [user]
   {:username (:login_id user)
@@ -78,39 +79,56 @@
   (GET "/admin/event" []
        (friend/authorize #{::admin}
                          (resp/file-response "top.html" {:root "public/html/admin/event"})))
+  (POST "/admin/event" req
+        (json/generate-string (event/select-all)))
   (GET "/admin/event/add" []
        (friend/authorize #{::admin}
                          (resp/file-response "add.html" {:root "public/html/admin/event"})))
   (POST "/admin/event/add" req
-        (do 
-          (event/insert (walk/keywordize-keys (:multipart-params req)))
-          (walk/keywordize-keys (:multipart-params req))))
+          (json/generate-string 
+            {:status (not (nil? (event/insert (walk/keywordize-keys (:multipart-params req)))))}))
   (GET "/admin/event/detail" []
        (friend/authorize #{::admin}
                          (resp/file-response "detail.html" {:root "public/html/admin/event"})))
+  (POST "/admin/event/detail" req
+        (let [events (doall (event/select-all))
+                     id (Integer. (:id (walk/keywordize-keys (:multipart-params req))))]
+          (json/generate-string (filter #(= (:id %) id)
+                                   events))))
   (GET "/admin/student" []
        (friend/authorize #{::admin}
                          (resp/file-response "find.html" {:root "public/html/admin/student"})))
+  (POST "/admin/student" req
+        (json/generate-string (user/select-all)))
   (GET "/admin/student/find" []
        (friend/authorize #{::admin}
                          (resp/file-response "find.html" {:root "public/html/admin/student"})))
+  (POST "/admin/student/find" req
+          (json/generate-string (user/select-all)))
   (GET "/admin/student/add" []
        (friend/authorize #{::admin}
                          (resp/file-response "add.html" {:root "public/html/admin/student"})))
-  (GET "/test" []
-       (reduce str (user/select-all)))
   (POST "/admin/student/add" req
-          (user/insert (walk/keywordize-keys (:multipart-params req))))
+          (json/generate-string 
+            {:status (not (nil? (user/insert (walk/keywordize-keys (:multipart-params req)))))}))
   (GET "/admin/student/detail" []
        (friend/authorize #{::admin}
                          (resp/file-response "detail.html" {:root "public/html/admin/student"})))
+  (POST "/admin/student/detail" []
+        (let [students (doall (user/select-all))
+              id (Integer. (:id (walk/keywordize-keys (:multipart-params req))))]
+          (json/generate-string (filter #(= (:id %) id)
+                                   students))))
   (GET "/admin/student/edit" []
        (friend/authorize #{::admin}
                          (resp/file-response "edit.html" {:root "public/html/admin/student"})))
+  (POST "/admin/student/edit" req
+        (json/generate-string (user/update (Integer. (:id (:multipart-params req))) (:multipart-params req))))
   (GET "/admin/student/delete" []
        (friend/authorize #{::admin}
                          (resp/file-response "delete.html" {:root "public/html/admin/student"})))
-
+  (POST "/admin/student/delete" req
+       (json/generate-string {:status true}))
 
   (GET "/graduated" []
        (friend/authorize #{::graduated}
@@ -130,7 +148,8 @@
        (friend/authorize #{::graduated}
                          (resp/file-response "add.html" {:root "public/html/graduated/event"})))
   (POST "/graduated/event/add" req
-        (event/insert (walk/keywordize-keys (:multipart-params req))))
+        (json/generate-string
+          {:status (not (nil? (event/insert (walk/keywordize-keys (:multipart-params req)))))}))
 
   (GET "/graduated/event/detail" []
        (friend/authorize #{::graduated}
@@ -138,15 +157,15 @@
   (POST "/graduated/event/detail" req
         (let [events (doall (event/select-all))
                      id (Integer. (:id (walk/keywordize-keys (:multipart-params req))))]
-          (filter #(= (:id %) id)
-                  events)))
+          (json/generate-string (filter #(= (:id %) id)
+                                   events))))
   (GET "/graduated/profile" []
        (friend/authorize #{::graduated}
                          (resp/file-response "top.html" {:root "public/html/graduated/profile"})))
   (POST "/graduated/profile" req
-        (reduce str (let [profiles (user/select-all)
+        (let [profiles (user/select-all)
               identity (friend/identity req)]
-          (-> identity friend/current-authentication :all-info))))
+          (json/generate-string (-> identity friend/current-authentication :all-info))))
   (GET "/graduated/profile/edit" []
        (friend/authorize #{::graduated}
                          (resp/file-response "edit.html" {:root "public/html/graduated/profile"})))
