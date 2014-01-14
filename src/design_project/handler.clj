@@ -40,6 +40,9 @@
   ;:others user
   })
 
+(defn user-detail [user]
+  (str "<!DOCTYPE html>\n<html lang=\"ja\">\n\t<head>\n\t\t<meta charset=\"UTF-8\">\n\t\t<meta name=\"keyword\" content=\"\">\n\t\t<meta name=\"description\" content=\"\">\n\t\t<meta http-equiv=\"Content-Style-Type\" content=\"text/css\">\n\t\t\n\t\t<link href=\"/css/details.css\" rel=\"stylesheet\" type=\"text/css\" media=\"all\">\n\t\t<script src=\"/js/jquery-1.10.2.min.js\"></script>\n\t\t\n\t\t<script>\n\t\t</script>\n\t\t<title>学生詳細情報</title>\n\t</head>\n\t<body>\n\t    <div id=\"stuDetailMain\">\n\t\t<div id=\"modal-div\"></div>\n\t\t<button id='btn'>\n\t\t\t<div id=\"basisInfo\">\n\t\t\t\t<div id=\"stuInfo\">\n\t\t\t\t\t<p>基本情報</p>\n\t\t\t\t\t<p id=\"name\">氏名："(:name user)"</p>\n\t\t\t\t\t<p id=\"country\">国籍："(:country user)"</p>\n\t\t\t\t\t<p id=\"address\">住所："(:address user)"</p>\n\t\t\t\t\t<p id=\"phone\">電話番号："(:phone user)"</p>\n\t\t\t\t\t<p id=\"job_id\">職業："(:name_3 user)"</p>\n\t\t\t\t\t<p id=\"industry_id\">業種："(:name_4 user)"</p>\n\t\t\t\t\t<p id=\"birthday\">誕生日："(:birthday user)"</p>\n\t\t\t\t\t<p id=\"sex\">性別："(if (= 1 (:sex user)) "男" "女")"</p>\n\t\t\t\t</div><!-- #stuInfo end -->\n\t\t\t</div><!-- #basisInfo end -->\n\t\t\t<div id=\"compInfo\">\n\t\t\t\t<p>在学生情報</p>\n\t\t\t\t<p id=\"grade\">学年："(:class user)"</p>\n\t\t\t\t<p id=\"department_id\">学部："(:name_7 user)"</p>\n\t\t\t\t<p id=\"study_course_id\">課程："(:name_8 user)"</p>\n\t\t\t\t<p id=\"laboratory_id\">研究室："(:name_9 user)"</p>\n\t\t\t\t<p id=\"university_id\">大学："(:name_2 user)"</p>\n\t\t\t\t<p id=\"guarantor_name\">保証人："(:guarantor_name user)"</p>\n\t\t\t\t<p id=\"guarantor_address\">保証人住所："(:guarantor_address user)"</p>\n\t\t\t\t<p id=\"guarantor_phone\">保証人電話番号："(:guarantor_phone user)"</p>\n\t\t\t\t<p id=\"entrance_day\">入学日："(:entrance_day user)"</p>\n\t\t\t\t<p id=\"finish_course_day\">修了日："(:finish_course_day user)"</p>\n\t\t\t</div><!-- #compInfo end -->\n\t\t\t<div id=\"partInfo\">\n\t\t\t\t<p>参加者情報</p>\n\t\t\t\t<p id=\"wish_curriculum_id\">志望課程："(:name_5 user)"</p>\n\t\t\t\t<p id=\"wish_course_id\">志望コース："(:name_6 user)"</p>\n\t\t\t\t<p id=\"wish_teacher\">志望教官："(:wish_teacher user)"</p>\n\t\t\t\t\n\t\t\t\t<p id=\"entrance_day\">入学日："(:entrance_day user)"</p>\n\t\t\t</div><!-- #partInfo end -->\n\t\t\t<div id=\"stuEditButton\">\n\t\t\t\t<input type=\"submit\" value=\"削除\" class=\"editButtons\">\n\t\t\t\t<input type=\"submit\" value=\"編集\" class=\"editButtons\" onClick=\"location.href='/admin/student/edit'\">\n\t\t\t</div><!-- stuEditButton end -->\n\t\t</div><!-- #stuEditMain end -->\n\t</body>\n</html>\n"))
+
 (def users (atom 
              (let [users (user/select-all)]
                (apply hash-map
@@ -66,7 +69,7 @@
                                  "/")))
            (resp/file-response "index.html" {:root "public/html"}))))
   (POST "/test" params
-    (json/generate-string (walk/keywordize-keys (:params params))))
+        (json/generate-string (walk/keywordize-keys (:params params))))
   (POST "/login" params
         params)
   (GET "/logout" req
@@ -98,9 +101,9 @@
                          (resp/file-response "detail.html" {:root "public/html/admin/event"})))
   (POST "/admin/event/detail" req
         (let [events (event/select-all)
-              id (Integer. (:id (walk/keywordize-keys (:params req))))]
+                     id (Integer. (:id (walk/keywordize-keys (:params req))))]
           (json/generate-string (f-1 (filter #(= (:id %) id)
-                                        events)))))
+                                             events)))))
   (GET "/admin/student" []
        (friend/authorize #{::admin}
                          (resp/file-response "find.html" {:root "public/html/admin/student"})))
@@ -119,18 +122,24 @@
                     status (not (nil? (user/insert input)))]
           (when (true? status)
             (reset! users (let [u (user/select-all)]
-                           (apply hash-map
-                                  (interleave (map :login_id u)
-                                              (map transform-user u))))))
+                            (apply hash-map
+                                   (interleave (map :login_id u)
+                                               (map transform-user u))))))
           (json/generate-string  {:status status})))
-  (GET "/admin/student/detail" []
+  (GET "/admin/student/detail" req
        (friend/authorize #{::admin}
-                         (resp/file-response "detail.html" {:root "public/html/admin/student"})))
+                         (let [users (user/select-all)]
+                           (println (filter #(= 1 (:id %))
+                                            users))
+                           (user-detail
+                             (first (filter #(= (Integer. 
+                                                  (:id (walk/keywordize-keys (:params req)))) (:id %))
+                                            users))))))
   (POST "/admin/student/detail" req
-        (let [students (doall (user/select-all))
-              id (Integer. (:id (walk/keywordize-keys (:params req))))]
-          (json/generate-string (filter #(= (:id %) id)
-                                        students))))
+        (let [students (user/select-all)
+                       id (Integer. (:id (walk/keywordize-keys (:params req))))]
+          (filter #(= (:id %) id)
+                  students)))
   (GET "/admin/student/edit" []
        (friend/authorize #{::admin}
                          (resp/file-response "edit.html" {:root "public/html/admin/student"})))
@@ -150,9 +159,9 @@
        (friend/authorize #{::graduated}
                          (resp/file-response "top.html" {:root "public/html/graduated/certificate"})))
   (POST "/graduated/certificate" req
-          (if (not (nil? (event/insert (walk/keywordize-keys (:params req)))))
-            "<h1>申請しました</h1>"
-            "<h1>不備があります</h1>"))
+        (if (not (nil? (event/insert (walk/keywordize-keys (:params req)))))
+          "<h1>申請しました</h1>"
+          "<h1>不備があります</h1>"))
   (GET "/graduated/event" []
        (friend/authorize #{::graduated}
                          (resp/file-response "top.html" {:root "public/html/graduated/event"})))
@@ -169,7 +178,7 @@
                          (resp/file-response "detail.html" {:root "public/html/graduated/event"})))
   (POST "/graduated/event/detail" req
         (let [events (event/select-all)
-              id (Integer. (:id (walk/keywordize-keys (:params req))))]
+                     id (Integer. (:id (walk/keywordize-keys (:params req))))]
           (json/generate-string (filter #(= (:id %) id)
                                         events))))
   (GET "/graduated/profile" []
@@ -214,7 +223,7 @@
                          (resp/file-response "edit.html" {:root "public/html/participants/profile"})))
   (POST "/participants/profile/edit" req
         (let [input (walk/keywordize-keys (:params req))
-              identity (friend/identity req)]
+                    identity (friend/identity req)]
           (json/generate-string
             (if (= 3 (Integer. (:status input)))
               {:status (not (nil? (user/update (-> identity friend/current-authentication :user-id) input)))}
@@ -225,21 +234,21 @@
                          (resp/file-response "top.html" {:root "public/html/student/profile"})))
   (POST "/student" req
         (let [profiles (user/select-all)
-              identity (friend/identity req)]
+                       identity (friend/identity req)]
           (json/generate-string (-> identity friend/current-authentication :all-info))))
   (GET "/student/profile" []
        (friend/authorize #{::student}
                          (resp/file-response "top.html" {:root "public/html/student/profile"})))
   (POST "/student/profile" req
         (let [profiles (user/select-all)
-              identity (friend/identity req)]
+                       identity (friend/identity req)]
           (json/generate-string (-> identity friend/current-authentication :all-info))))
   (GET "/student/profile/edit" []
        (friend/authorize #{::student}
                          (resp/file-response "edit.html" {:root "public/html/student/profile"})))
   (POST "/student/profile/edit" req
         (let [input (walk/keywordize-keys (:params req))
-              identity (friend/identity req)]
+                    identity (friend/identity req)]
           (json/generate-string
             (if (< 0 (Integer. (:status input)))
               {:status (not (nil? (user/update (-> identity friend/current-authentication :user-id) input)))}
@@ -252,10 +261,10 @@
                        (walk/keywordize-keys 
                          (conj
                            (:params req) {:user_id
-                                          (-> (friend/identity req)
-                                            friend/current-authentication
-                                            :user-id)})))))}))
-        (route/resources "/")
+                           (-> (friend/identity req)
+                             friend/current-authentication
+                             :user-id)})))))}))
+  (route/resources "/")
   (route/not-found "Not Found"))
 
 (def app
