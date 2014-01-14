@@ -11,33 +11,24 @@
 	<script>
 	$(document).ready(function(){
 		$('#eveTable').rowClick();
-		$('#searchbutton').click(function() {
+		//$('#searchbutton').click(function() {
 		    	// 多重送信を防ぐため通信完了までボタンをdisableにする
 		    	var button = $(this);
 		    	button.attr("disabled", true);
-
-			    // 各フィールドから値を取得してJSONデータを作成
-			    var data = {
-			    	name: $("#name").val(),
-			    	place:$("#place").val(),
-			    	day : $("#day").val()
-			    };
-
-			    console.log(data);
 
 			    $.ajax({
 			    	type:"post",
 			    	url:"/admin/event",
 			    	dataType:"json",
 			    	success : function(data) {
-			    		$('#hit').append(data.length + "件ヒットしました。");
+			    		$('#hit').append(data.length + "件のイベントがあります。");
 			    		data.forEach(function(d){
 			    			$('#event-body').append("<tr><td><a href=\"/admin/event/detail\">" + d.name + "</a></td>" + "<td>"+ d.day +"</td>" + "<td>"+ d.place +"</td>/tr>");
 			    			});
 			    		}
 			    	});
 			    });
-			});
+			//});
 		</script>
 		<title>イベント情報ページ</title>
 	</head>
@@ -51,12 +42,13 @@
 				</ul>
 			</div><!-- #header end -->
 			<div id="eveMain">
-				<form name="eveSearch" class="eveSearch" action="#" method="POST">
+				<h1>イベント一覧</h1>
+				<!--<form name="eveSearch" class="eveSearch" action="#" method="POST">
 					<p>イベント名 : <input type="text" name="name" placeholder="event name" size="40" id="name"></p>
 					<p>場所 : <input type="text" name="place" placeholder="place" size="40" id="place"></p>
 					<p>日付 : <input type="date" name="day" id="day"></p>
 					<input type="button" value="検索" class="searchbutton" id="searchbutton">
-				</form><!-- #eveSearch end -->
+				</form>--><!-- #eveSearch end -->
 				<div id="eveContents">
 					<p id="newEveEntry">
 						<a href="/admin/event/add">新規イベント登録</a>
@@ -78,4 +70,4 @@
 		</div><!-- #warpper end -->
 	</body>
 	</html>
-	<!-- -->
+	
