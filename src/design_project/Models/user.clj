@@ -52,7 +52,7 @@
        (foreign-key-exist? :department {:id (:department_id input)})
        (foreign-key-exist? :study {:id (:study_course_id input)})
        (foreign-key-exist? :lab {:id (:laboratory_id input)})))
-                           
+
 ;; insert
 ;; 大学id
 ;; ユーザー状態
@@ -127,5 +127,7 @@
   1 is accept.
   exception is fail"
   [id user-set]
-  (jdbc/update! my-db :user user-set ["id=?" id]))
+  (if (is-valid? user-set) 
+    (jdbc/update! my-db :user user-set ["id=?" id])))
+
 

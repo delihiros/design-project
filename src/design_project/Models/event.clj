@@ -29,6 +29,7 @@
        (foreign-key-exist? :event_type {:id (:type_id input)})))
 
 
+
 ;; insert
 ;; 日時
 ;; 場所
@@ -59,15 +60,19 @@
    1 is accept.
    exception is fail"
   [id event-map]
-  (jdbc/update! my-db :event event-map ["id=?" id]))
+  
+  (if (is-valid? event-map)
+    (jdbc/update! my-db :event event-map ["id=?" id])))
+  
+
 
 
 (comment
   ;; sample
-  (insert {:day "2013-08-26"
+  (update 1 {:day "2013-08-26"
           :place "東京"
           :name "学校説明会"
-          :type_id 9
+          :type_id 1
           })
 
   (select-all))
