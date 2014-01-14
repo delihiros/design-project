@@ -144,13 +144,14 @@
   (GET "/graduated/event" []
        (friend/authorize #{::graduated}
                          (resp/file-response "top.html" {:root "public/html/graduated/event"})))
+  (POST "/graduated/event" req
+        (json/generate-string (event/select-all)))
   (GET "/graduated/event/add" []
        (friend/authorize #{::graduated}
                          (resp/file-response "add.html" {:root "public/html/graduated/event"})))
   (POST "/graduated/event/add" req
         (json/generate-string
           {:status (not (nil? (event/insert (walk/keywordize-keys (:multipart-params req)))))}))
-
   (GET "/graduated/event/detail" []
        (friend/authorize #{::graduated}
                          (resp/file-response "detail.html" {:root "public/html/graduated/event"})))
@@ -169,10 +170,15 @@
   (GET "/graduated/profile/edit" []
        (friend/authorize #{::graduated}
                          (resp/file-response "edit.html" {:root "public/html/graduated/profile"})))
-
+  (POST "/graduated/profile/edit" req
+        (json/generate-string (event/update (Integer. (:id (:multipart-params req))) (:multipart-params req))))
   (GET "/participants" []
        (friend/authorize #{::participants}
                          (resp/file-response "top.html" {:root "public/html/participants"})))
+  (POST "/participants" req
+        (let [profiles (user/select-all)
+              identity (friend/identity req)]
+          (json/generate-string (-> identity friend/current-authentication :all-info))))
   (GET "/participants/event" []
        (friend/authorize #{::participants}
                          (resp/file-response "top.html" {:root "public/html/participants/event"})))
@@ -188,19 +194,34 @@
   (GET "/participants/profile/add" []
        (friend/authorize #{::participants}
                          (resp/file-response "add.html" {:root "public/html/participants/profile"})))
+  (POST "/participants/profile/add" req
+        (json/generate-string 
+          {:status (not (nil? (user/insert req)))}))
   (GET "/participants/profile/edit" []
        (friend/authorize #{::participants}
                          (resp/file-response "edit.html" {:root "public/html/participants/profile"})))
+  (POST "/participants/profile/edit" req
+        (json/generate-string {:status (not (nil? (user/update req)))}))
 
   (GET "/student" []
        (friend/authorize #{::student}
                          (resp/file-response "top.html" {:root "public/html/student"})))
+  (POST "/student" req
+        (let [profiles (user/select-all)
+              identity (friend/identity req)]
+          (json/generate-string (-> identity friend/current-authentication :all-info))))
   (GET "/student/profile" []
        (friend/authorize #{::student}
                          (resp/file-response "top.html" {:root "public/html/student/profile"})))
+  (POST "/student/profile" req
+        (let [profiles (user/select-all)
+              identity (friend/identity req)]
+          (json/generate-string (-> identity friend/current-authentication :all-info))))
   (GET "/student/profile/edit" []
        (friend/authorize #{::student}
                          (resp/file-response "edit.html" {:root "public/html/student/profile"})))
+  (POST "/student/profile/edit" req
+        (json/generate-string {:status (not (nil? (user/update req)))}))
   (route/resources "/")
   (route/not-found "Not Found"))
 
