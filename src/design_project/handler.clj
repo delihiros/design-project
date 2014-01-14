@@ -34,10 +34,10 @@
              2  ::student
              3  ::participants)}
   :password (creds/hash-bcrypt (:password user))
-   :user-id (:id user)
-   :all-info user
+  :user-id (:id user)
+  :all-info user
   ;:others user
-   })
+  })
 
 (map transform-user (user/select-all))
 (def users (atom 
@@ -85,8 +85,8 @@
        (friend/authorize #{::admin}
                          (resp/file-response "add.html" {:root "public/html/admin/event"})))
   (POST "/admin/event/add" req
-          (json/generate-string 
-            {:status (not (nil? (event/insert (walk/keywordize-keys (:multipart-params req)))))}))
+        (json/generate-string 
+          {:status (not (nil? (event/insert (walk/keywordize-keys (:multipart-params req)))))}))
   (GET "/admin/event/detail" []
        (friend/authorize #{::admin}
                          (resp/file-response "detail.html" {:root "public/html/admin/event"})))
@@ -94,7 +94,7 @@
         (let [events (doall (event/select-all))
                      id (Integer. (:id (walk/keywordize-keys (:multipart-params req))))]
           (json/generate-string (filter #(= (:id %) id)
-                                   events))))
+                                        events))))
   (GET "/admin/student" []
        (friend/authorize #{::admin}
                          (resp/file-response "find.html" {:root "public/html/admin/student"})))
@@ -104,31 +104,32 @@
        (friend/authorize #{::admin}
                          (resp/file-response "find.html" {:root "public/html/admin/student"})))
   (POST "/admin/student/find" req
-          (json/generate-string (user/select-all)))
+        (json/generate-string (user/select-all)))
   (GET "/admin/student/add" []
        (friend/authorize #{::admin}
                          (resp/file-response "add.html" {:root "public/html/admin/student"})))
   (POST "/admin/student/add" req
-          (json/generate-string 
-            {:status (not (nil? (user/insert (walk/keywordize-keys (:multipart-params req)))))}))
+        (json/generate-string 
+          {:status (not (nil? (user/insert (walk/keywordize-keys (:multipart-params req)))))}))
   (GET "/admin/student/detail" []
        (friend/authorize #{::admin}
                          (resp/file-response "detail.html" {:root "public/html/admin/student"})))
   (POST "/admin/student/detail" req
         (let [students (doall (user/select-all))
-              id (Integer. (:id (walk/keywordize-keys (:multipart-params req))))]
+                       id (Integer. (:id (walk/keywordize-keys (:multipart-params req))))]
           (json/generate-string (filter #(= (:id %) id)
-                                   students))))
+                                        students))))
   (GET "/admin/student/edit" []
        (friend/authorize #{::admin}
                          (resp/file-response "edit.html" {:root "public/html/admin/student"})))
   (POST "/admin/student/edit" req
-        (json/generate-string (user/update (Integer. (:id (:multipart-params req))) (:multipart-params req))))
+        (json/generate-string (user/update (Integer. (:id (walk/keywordize-keys (:multipart-params req))))
+                                           (walk/keywordize-keys (:multipart-params req)))))
   (GET "/admin/student/delete" []
        (friend/authorize #{::admin}
                          (resp/file-response "delete.html" {:root "public/html/admin/student"})))
   (POST "/admin/student/delete" req
-       (json/generate-string {:status true}))
+        (json/generate-string {:status true}))
 
   (GET "/graduated" []
        (friend/authorize #{::graduated}
@@ -137,10 +138,8 @@
        (friend/authorize #{::graduated}
                          (resp/file-response "top.html" {:root "public/html/graduated/certificate"})))
   (POST "/graduated/certificate" req
-        (friend/authorize #{::graduated}
-                          (do
-                            (println (str "certificate requested" req))
-                            "hello, world")))
+        (json/generate-string
+          {:status (not (nil? (event/insert (walk/keywordize-keys (:multipart-params req)))))}))
   (GET "/graduated/event" []
        (friend/authorize #{::graduated}
                          (resp/file-response "top.html" {:root "public/html/graduated/event"})))
@@ -158,13 +157,13 @@
         (let [events (doall (event/select-all))
                      id (Integer. (:id (walk/keywordize-keys (:multipart-params req))))]
           (json/generate-string (filter #(= (:id %) id)
-                                   events))))
+                                        events))))
   (GET "/graduated/profile" []
        (friend/authorize #{::graduated}
                          (resp/file-response "top.html" {:root "public/html/graduated/profile"})))
   (POST "/graduated/profile" req
         (let [profiles (user/select-all)
-              identity (friend/identity req)]
+                       identity (friend/identity req)]
           (json/generate-string (-> identity friend/current-authentication :all-info))))
   (GET "/graduated/profile/edit" []
        (friend/authorize #{::graduated}
@@ -201,16 +200,20 @@
   (GET "/student/profile/edit" []
        (friend/authorize #{::student}
                          (resp/file-response "edit.html" {:root "public/html/student/profile"})))
-  (route/resources "/")
-  (route/not-found "Not Found"))
 
-(def app
-  (handler/site
-    (friend/authenticate
-      app-routes
-      {:allow-anon? true
-      :login-uri "/login"
-      :default-landing-url "/"
-      :unauthorized-handler (fn [_] (resp/response "unauthorized!!!"))
-      :credential-fn #(creds/bcrypt-credential-fn @users %)
-      :workflows [(workflows/interactive-form)]})))
+  (POST "/event/participate" req
+        (json/generate-string 
+          {:status (not (nil? (join-event-history/insert (walk/keywordize-keys (:multipart-params req)))))}))
+    (route/resources "/")
+    (route/not-found "Not Found"))
+
+  (def app
+    (handler/site
+      (friend/authenticate
+        app-routes
+        {:allow-anon? true
+        :login-uri "/login"
+        :default-landing-url "/"
+        :unauthorized-handler (fn [_] (resp/response "unauthorized!!!"))
+        :credential-fn #(creds/bcrypt-credential-fn @users %)
+        :workflows [(workflows/interactive-form)]})))
