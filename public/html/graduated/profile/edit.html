@@ -24,45 +24,42 @@
 	<div id="profileeditfont">
 
 <form>
-<p>住所:<input type ="text" name="住所"></p>
-<p>保証人氏名:<input type ="text" name="保証人氏名"></p>
-<p>保証人住所:<input type ="text" name="保証人住所"></p>
-<p>保証人連絡先:<input type ="text" name="保証人連絡先"></p>
+<p>住所:<input type ="text" name="address"></p>
+<p>保証人氏名:<input type ="text" name="guarantor_name"></p>
+<p>保証人住所:<input type ="text" name="guarantor_address"></p>
+<p>保証人連絡先:<input type ="text" name="guarantor_phone"></p>
 
 
 
-<p><br>電話番号：<input type ="text" name="電話番号"></p>
+<p><br>電話番号：<input type ="text" name="phone"></p>
 
 
 
 
 
 <p><br>職業：
-<input type="radio" name="job" value="Student" tabindex="4" accesskey="e">学生
-<input type="radio" name="job" value="worker" tabindex="5" accesskey="f">会社員
-<input type="radio" name="job" value="official" tabindex="6" accesskey="g">公務員
-<input type="radio" name="job" value="etc" tabindex="7" accesskey="h">その他
+<input type="radio" name="job_id" value="1">学生
+<input type="radio" name="job_id" value="2">会社員
+<input type="radio" name="job_id" value="3">公務員
+<input type="radio" name="job_id" value="4">その他
 </p>
-<p>業種:<input type ="text" name="業種"></p>
+<p>業種:<input type ="text" name="industry_id"></p>
 
 
 
 
-<p>国籍：<select name="age" tabindex="8">
-<option value="10ages">日本</option><option value="20ages">中国</option>
-<option value="30ages">韓国</option><option value="40ages">英国</option>
-<option value="50ages">米国</option><option value="60ages">独国</option>
-<option value="age" selected>お選びください</option>
+<p>国籍：<select name="country">
+<option value="1">日本</option><option value="2">中国</option>
+<option value="3">韓国</option><option value="4">英国</option>
+<option value="5">米国</option><option value="6">独国</option>
+<option value="7" selected>お選びください</option>
 </select></p>
 
-<p>状態：
-<input type="radio" name="状態" value="在学" tabindex="2" accesskey="c">在学
-<input type="radio" name="状態" value="修了" tabindex="3" accesskey="d">修了<br></p>
 </div>
 
 <p>
-<input type="submit" value="確定" tabindex="10" accesskey="s">
-<input type="reset" value="取消" tabindex="11" accesskey="r">
+<input type="submit" value="確定">
+<input type="reset" value="取消">
 </p>
 </form>
 </div>
