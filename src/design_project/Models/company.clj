@@ -40,10 +40,9 @@
   (send company-data conj (assoc com :id id)))
 
 (defn is-valid? [input]
-  (and ((valid-keys? [:name]) input)
-       (every? true? (map (fn [[k v]]
-                            ((type-to-validator (keyword-to-type k)) v))
-                          input))))
+  (and ((row-exist? [:id :name]) input)
+       ((not-null? [:name]) input)
+       (valid-values? input)))
 
 ;; insert
 (defn insert 
@@ -54,17 +53,16 @@
   return 
   generate id"
   [input]
-
-  (if (is-valid? input)
-    (add-company-data input
-                      (:generated_key 
-                        (first 
+  (if (is-valid? input) 
+    (add-company-data input 
+                      (:generated_key
+                        (first
                           (jdbc/insert! my-db :company input))))))
 
 
+
 (comment
-  ;; sample
-  (insert {:name "ab" :hoge "foo"})
-  (insert {:id "10" :name "ab"})
-  (select-all)
-)
+  ;; samp
+  (insert {:name "ab" })
+  (insert {:id "11"})
+  (select-all))
