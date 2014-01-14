@@ -11,7 +11,7 @@
 		<title>新規学生登録ページ</title>
 	</head>
 	<body>
-		<div id="stuEditMain"><form>
+		<div id="stuEditMain"><form method="POST" action="/admin/student/add">
 			<div id="basisInfo">
 				<div id="personImgPlace">
 					<img src="../pic/image.jpg" />
@@ -25,71 +25,7 @@
 					<p>電話番号 : <input type="tel" name="phone" placeholder="phone number" size="40"></p>
 					<p>職業 : <input type="number" name="job_id" placeholder="occupation" size="40"></p>
 					<p>業種 : <input type="number" name="industry_id" placeholder="business category" size="40"></p>
-					<p>生年月日 : 
-						<select name="year" size="1">
-							<option value= 0>-----</option>
-							<option value= 1>1985</option>
-							<option value= 2>1986</option>
-							<option value= 3>1987</option>
-							<option value= 4>1988</option>
-							<option value= 5>1989</option>
-							<option value= 6>1990</option>
-							<option value= 7>1991</option>
-							<option value= 8>1992</option>
-							<option value= 9>1993</option>
-							<option value= 10>1994</option>
-							<option value= 11>1995</option>
-						</select>
-<select name="month" size="1">
-							<option value= 0>---</option>
-							<option value= 1>1</option>
-							<option value= 2>2</option>
-							<option value= 3>3</option>
-							<option value= 4>4</option>
-							<option value= 5>5</option>
-							<option value= 6>6</option>
-							<option value= 7>7</option>
-							<option value= 8>8</option>
-							<option value= 9>9</option>
-							<option value= 10>10</option>
-							<option value= 11>11</option>
-							<option value= 12>12</option>
-						</select>
-						<select name="day" size="1">
-							<option value= 0>---</option>
-							<option value= 1>1</option>
-							<option value= 2>2</option>
-							<option value= 3>3</option>
-							<option value= 4>4</option>
-							<option value= 5>5</option>
-							<option value= 6>6</option>
-							<option value= 7>7</option>
-							<option value= 8>8</option>
-							<option value= 9>9</option>
-							<option value= 10>10</option>
-							<option value= 11>11</option>
-							<option value= 12>12</option>
-							<option value= 13>13</option>
-							<option value= 14>14</option>
-							<option value= 15>15</option>
-							<option value= 16>16</option>
-							<option value= 17>17</option>
-							<option value= 18>18</option>
-							<option value= 19>19</option>
-							<option value= 20>20</option>
-							<option value= 21>21</option>
-							<option value= 22>22</option>
-							<option value= 23>23</option>
-							<option value= 24>24</option>
-							<option value= 25>25</option>
-							<option value= 26>26</option>
-							<option value= 27>27</option>
-							<option value= 28>28</option>
-							<option value= 29>29</option>
-							<option value= 30>30</option>
-							<option value= 31>31</option>
-						</select>
-					</p>
+					<p>生年月日 : <input type="text" name="birthday" placeholder="birthday" size="40"></p>
 					<p>性別 : 
 						<select name="sex" size="1">
 							<option value= 0>-----</option>
@@ -128,7 +64,7 @@
 				</p>
 				<p>保証人連絡先 : <input type="text" name="guarantor_phone" placeholder="surety phone" size="30">
 				<p>学科 : 
-					<select name="depart2" size="1">
+					<select name="study_course_id" size="1">
 						<option value= 0>-------</option>
 						<option value= 1></option>
 						<option value= 2></option>

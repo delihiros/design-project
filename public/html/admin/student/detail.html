@@ -7,46 +7,69 @@
 		<meta http-equiv="Content-Style-Type" content="text/css">
 		<link href="/css/details.css" rel="stylesheet" type="text/css" media="all">
 		<script src="/js/jquery-1.10.2.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				$('').click(function() {
+		    	// 多重送信を防ぐため通信完了までボタンをdisableにする
+			    	var button = $(this);
+		    		button.attr("disabled", true);
+
+				    $.ajax({
+			    		type:"post",
+			    		url:"/admin/student/detail",
+				    	dataType:"json",
+				    	success : function(data) {
+			    			console.log(data);
+			    			data.forEach(function(d){
+				    			$('#stuInfo').append(
+				    				"<p>基本情報</p>" +
+									"<p>氏名 : "+ d.name +"</p>"+
+									"<p>国籍 :"+ d.country +"</p>"+
+									"<p>住所 : "+ d.address +"</p>"
+								);
+			    			});
+			    		}
+			    	});
+			    });
+			});
+		</script>
 		<title>学生詳細情報</title>
 	</head>
 	<body>
 		<div id="stuDetailMain">
 			<div id="basisInfo">
-				<div id="personImgPlace">
-					<img src="../pic/image.jpg" />
-				</div><!-- #personImgPlace end -->
 				<div id="stuInfo">
 					<p>基本情報</p>
-					<p>氏名 : delihiros</p>
-					<p>国籍 : 日本</p>
-					<p>住所 : 長野県</p>
-					<p>電話番号 : 090-****-****</p>
-					<p>職業 : 引きこもり</p>
-					<p>業種 : ニート</p>
-					<p>生年月日 : 2013/12/6</p>
-					<p>性別 : 男性</p>
+					<p id="name">氏名 : </p>
+					<p id="country">国籍 : </p>
+					<p id="address">住所 : </p>
+					<p id="phone">電話番号 : 090-****-****</p>
+					<p id="job_id">職業 : 引きこもり</p>
+					<p id="industry_id">業種 : ニート</p>
+					<p id="birthday">生年月日 : 2013/12/6</p>
+					<p id="sex">性別 : 男性</p>
 				</div><!-- #stuInfo end -->
 			</div><!-- #basisInfo end -->
 			<div id="compInfo">
 				<p>在学生情報</p>
-				<p>学年 : ３年生</p>
-				<p>学部 : 工学部</p>
-				<p>学科 : 情報工学科</p>
-				<p>研究室 : **研究室</p>
-				<p>学籍番号 : 11T50**</p>
-				<p>保証人氏名 : *****</p>
-				<p>保証人住所 : *****************</p>
-				<p>保証人連絡先 : 090-****-****</p>
-				<p>入学日 : 2011/4/1</p>
-				<p>修了日 : --------</p>
+				<p id="grade">学年 : ３年生</p>
+				<p id="department_id">学部 : 工学部</p>
+				<p id="study_course_id">学科 : 情報工学科</p>
+				<p id="laboratory_id">研究室 : **研究室</p>
+				<p id="university_id">学籍番号 : 11T50**</p>
+				<p id="guarantor_name">保証人氏名 : *****</p>
+				<p id="guarantor_address">保証人住所 : *****************</p>
+				<p id="guarantor_phone">保証人連絡先 : 090-****-****</p>
+				<p id="entrance_day">入学日 : 2011/4/1</p>
+				<p id="finish_course_day">修了日 : --------</p>
 			</div><!-- #compInfo end -->
 			<div id="partInfo">
 				<p>参加者情報</p>
-				<p>希望課程 : 情報工学科</p>
-				<p>志望コース : SE</p>
-				<p>志望指導教員名 : 小林</p>
-				<p>入学ステータス : 入学</p>
-				<p>入学日 : 2011/4/1</p>
+				<p id="wish_curriculum_id">希望課程 : 情報工学科</p>
+				<p id="wish_course_id">志望コース : SE</p>
+				<p id="wish_teacher">志望指導教員名 : 小林</p>
+				<p id="status">入学ステータス : 入学</p>
+				<p id="entrance_day">入学日 : 2011/4/1</p>
 			</div><!-- #partInfo end -->
 			<div id="stuEditButton">
 				<input type="submit" value="削除" class="editButtons">

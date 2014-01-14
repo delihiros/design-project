@@ -1,7 +1,7 @@
 function changeform() {
 	console.log("change form called");
-	doc = document.stuSearch.depart2;
-	if (document.stuSearch.depart.value == 1) {
+	doc = document.stuSearch.study_course_id;
+	if (document.stuSearch.department_id.value == 1) {
 		doc.length = 8;
 		doc.options[0].text = "-----";
 		doc.options[0].value = 0;
@@ -19,7 +19,7 @@ function changeform() {
 		doc.options[6].value = 6;
 		doc.options[7].text = "日本言語文化コース";
 		doc.options[7].value = 7;
-	} else if (document.stuSearch.depart.value == 2) {
+	} else if (document.stuSearch.department_id.value == 2) {
 		doc.length = 11;
 		doc.options[0].text = "-----";
 		doc.options[0].value = 0;
@@ -45,7 +45,7 @@ function changeform() {
 		doc.options[10].value = 10;
 		doc.options[11].text = "家庭科教育コース";
 		doc.options[11].value = 11;
-	} else if (document.stuSearch.depart.value == 3) {
+	} else if (document.stuSearch.department_id.value == 3) {
 		doc.length = 3;
 		doc.options[0].text = "-----";
 		doc.options[0].value = 0;
@@ -53,7 +53,7 @@ function changeform() {
 		doc.options[1].value = 1;
 		doc.options[2].text = "経済システム法学科";
 		doc.options[2].value = 2;
-	} else if (document.stuSearch.depart.value == 4) {
+	} else if (document.stuSearch.department_id.value == 4) {
 		doc.length = 7;
 		doc.options[0].text = "-----";
 		doc.options[0].value = 0;
@@ -69,7 +69,7 @@ function changeform() {
 		doc.options[5].value = 5;
 		doc.options[6].text = "物質循環学科";
 		doc.options[6].value = 6;
-	} else if (document.stuSearch.depart.value == 5) {
+	} else if (document.stuSearch.department_id.value == 5) {
 		doc.length = 3;
 		doc.options[0].text = "-----";
 		doc.options[0].value = 0;
@@ -77,7 +77,7 @@ function changeform() {
 		doc.options[1].value = 1;
 		doc.options[2].text = "保健学科";
 		doc.options[2].value = 2;
-	} else if (document.stuSearch.depart.value == 6) {
+	} else if (document.stuSearch.department_id.value == 6) {
 		doc.length = 8;
 		doc.options[0].text = "-----";
 		doc.options[0].value = 0;
@@ -95,7 +95,7 @@ function changeform() {
 		doc.options[6].value = 6;
 		doc.options[7].text = "環境機能工学科";
 		doc.options[7].value = 7;
-	} else if (document.stuSearch.depart.value == 7) {
+	} else if (document.stuSearch.department_id.value == 7) {
 		doc.length = 4;
 		doc.options[0].text = "-----";
 		doc.options[0].value = 0;
@@ -105,28 +105,28 @@ function changeform() {
 		doc.options[2].value = 2;
 		doc.options[3].text = "応用生命科学科";
 		doc.options[3].value = 3;
-	} else if (document.stuSearch.depart.value == 8) {
+	} else if (document.stuSearch.department_id.value == 8) {
 		doc.length = 10;
 		doc.options[0].text = "-----";
 		doc.options[0].value = 0;
-		doc.options[0].text = "先進遷移工学課程";
-		doc.options[0].value = 1;
-		doc.options[0].text = "感性工学課程";
-		doc.options[0].value = 2;
-		doc.options[0].text = "機能機械学科課程";
-		doc.options[0].value = 3;
-		doc.options[0].text = "バイオエンジニアリング課程";
-		doc.options[0].value = 4;
-		doc.options[0].text = "応用化学課程";
-		doc.options[0].value = 5;
-		doc.options[0].text = "材料化学工学課程";
-		doc.options[0].value = 6;
-		doc.options[0].text = "機能高分子学課程";
-		doc.options[0].value = 7;
-		doc.options[0].text = "生物機能科学課程";
-		doc.options[0].value = 8;
-		doc.options[0].text = "生物資源・環境科学課程";
-		doc.options[0].value = 9;
+		doc.options[1].text = "先進遷移工学課程";
+		doc.options[1].value = 1;
+		doc.options[2].text = "感性工学課程";
+		doc.options[2].value = 2;
+		doc.options[3].text = "機能機械学科課程";
+		doc.options[3].value = 3;
+		doc.options[4].text = "バイオエンジニアリング課程";
+		doc.options[4].value = 4;
+		doc.options[5].text = "応用化学課程";
+		doc.options[5].value = 5;
+		doc.options[6].text = "材料化学工学課程";
+		doc.options[6].value = 6;
+		doc.options[7].text = "機能高分子学課程";
+		doc.options[7].value = 7;
+		doc.options[8].text = "生物機能科学課程";
+		doc.options[8].value = 8;
+		doc.options[9].text = "生物資源・環境科学課程";
+		doc.options[9].value = 9;
 	} else {
 		doc.length = 1;
 		doc.options[0].text = "-----";

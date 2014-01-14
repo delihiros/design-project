@@ -12,6 +12,24 @@
 		<script>
 			$(document).ready(function(){
 				$('#stuTable').rowClick();
+				$('#searchbutton').click(function() {
+		    	// 多重送信を防ぐため通信完了までボタンをdisableにする
+			    	var button = $(this);
+		    		button.attr("disabled", true);
+
+			    	$.ajax({
+			    		type:"post",
+				    	url: "/admin/student/find",
+				    	dataType:"json",
+				    	success : function(data) {
+				    		console.log(data);
+				    		$('#hit').append(data.length + "人の生徒がヒットしました");
+				    		data.forEach(function(d){
+				    			$('#student-body').append("<tr><td>" + d.university_id + "</a></td><td><a href=\"/admin/student/detail?id="+ d.id + "\">"+ d.name +"</td>" + "<td>"+ d.name_7 + "</td></tr>");
+			    			});
+			    		}
+			    	});
+			    });
 			});
 		</script>
 		<title>学生関連ページ</title>
@@ -28,7 +46,7 @@
 			<div id="stuMain">
 				<form name="stuSearch" class="stuSearch">
 					<p>名前 : <input type="text" name="name" placeholder="name" size="40"></p>
-					<p>学籍番号 : <input type="number" name="university_id" placeholder="number" size="40"></p>
+					<p>学籍番号 : <input type="text" name="university_id" placeholder="number" size="40"></p>
 					<p>性別 : 
 						<select name="sex" size="1">
 							<option value= 0>-----</option>
@@ -36,7 +54,6 @@
 							<option value= 2>女性</option>
 						</select>
 					</p>
-					<p>所属 : 学部生<input type="checkbox" name="belong" value= 0>  大学院生<input type="checkbox" name="belong" value= 1></p>
 					<p>学部 : 
 						<select name="department_id" onChange="changeform()">
 							<option value= 0 SELECTED>-------</option>
@@ -50,7 +67,7 @@
 							<option value= 8>繊維学部</option>
 						</select>
 						学科 : 
-						<select name="depart2">
+						<select name="study_course_id">
 							<option value= 0>-------</option>
 							<option value= 1></option>
 							<option value= 2></option>
@@ -61,31 +78,23 @@
 							<option value= 7></option>					
 						</select>
 					</p>
-					<p>
+					<!--<p>
 						説明会参加者 : <input type="checkbox" name="explain" value= 1>
-					</p>
-					<input type="submit" value="検索" class="searchbutton">
+					</p>-->
+					<input type="button" value="search" method="POST" class="searchbutton" id="searchbutton">
 				</form><!-- #stuSearch end -->
 				<div id="stuContents">
 					<p id="newStuEntry"><a href="/admin/student/add">新規学生登録</a></p><!-- #newentry end -->
+					<p id="hit"></p>
 					<table id="stuTable">
 						<thead>
 							<tr class="stuHead">
 								<th scope="col">学籍番号</th>
 								<th scope="col">氏名</th>
-								<th scope="col">所属</th>
 								<th scope="col">学部</th>
-								<th scope="col">学科</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
-								<td class="link"><a href="/admin/student/detail">11t50**</a></td>
-								<td>delihiros</td>
-								<td>学部生</td>
-								<td>工学部</td>
-								<td>情報工学科</td>
-							</tr>
+						<tbody id="student-body">
 						</tbody>
 					</table><!-- #stuTable end -->
 				</div><!-- #stuContents end -->

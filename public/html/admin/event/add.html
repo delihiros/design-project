@@ -28,7 +28,7 @@
 		    			success : function(d) {
 		    				console.log(d);
 		    				console.log($('#name').val(), $('#day').val(), $('#place').val());
-		    				$('#eveEditButton').append("登録できました。");
+		    				$('#eveEditButton').append("<a href=\"/admin/event\">登録できました。</a>");
 		    			}
 			    	});
 		    	});
@@ -40,13 +40,13 @@
 		<div id="eveEditMain"><form>
 			<div id="eventInfo">
 				<p>イベント登録</p>
-				<p>イベント名 : <input type="text" name="name" placeholder="event name" size="30" id="name"></p>
-				<p>開催日 : <input type="date" name="day" size="30" id="day">
+				<p>イベント名 : <input type="text" name="name" placeholder="event name" size="30" id="name" required></p>
+				<p>開催日 : <input type="date" name="day" size="30" id="day" required>
 				</p>
-				<p>会場 : <input type="text" name="place" placeholder="place" size="30" id="place"></p>
+				<p>会場 : <input type="text" name="place" placeholder="place" size="30" id="place" required></p>
 			</div><!-- #eventInfo -->
 			<div id="eveEditButton">
-				<input type="button" method="POST" value="register" class="editButtons" id="event-button">
+				<input type="submit" method="POST" value="register" class="editButtons" id="event-button">
 				<input type="reset" value="reset" class="editButtons">
 			</div><!-- #eveEditButtom -->
 		</div></form><!-- #eveEditMain end -->
