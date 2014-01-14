@@ -1,5 +1,6 @@
 (ns design-project.Models.study
 	(:use [design-project.Models.database])
+        [design-project.Models.valid]
 	(:require [clojure.java.jdbc :as jdbc]))
 
 
@@ -14,6 +15,11 @@
   list in study data."
   [com id]
   (send study-data conj (assoc com :id id)))
+
+(defn is-valid? [input]
+  (and ((row-exist? [:id :name]) input)
+       ((not-null? [:name]) input)
+       (valid-values? input)))
 
 ;; insert
 (defn insert 

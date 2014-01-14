@@ -1,5 +1,6 @@
 (ns design-project.Models.job
 	(:use [design-project.Models.database])
+        [design-project.Models.valid]
 	(:require [clojure.java.jdbc :as jdbc]))
 
 
@@ -15,6 +16,10 @@
   [com id]
   (send job-data conj (assoc com :id id)))
 
+(defn is-valid? [input]
+  (and ((row-exist? [:id :name]) input)
+       ((not-null? [:name]) input)
+       (valid-values? input)))
 
 ;; insert
 (defn insert 
