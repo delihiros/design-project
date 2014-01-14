@@ -105,7 +105,7 @@ ul {
 	margin: 0;
 	padding: 0;
 	width: 800px;
-	height: 1500px;
+	height: auto;
 	background-color: #fffff;
 }
 
@@ -113,7 +113,7 @@ ul {
 	margin: 5px 0 0 0;
 	padding: 0;
 	width: 800px;
-	height: 1000px;
+	height: auto;
 }
 
 #newStuEntry, #newEveEntry{
