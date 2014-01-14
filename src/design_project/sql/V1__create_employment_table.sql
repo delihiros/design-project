@@ -13,6 +13,6 @@ CREATE TABLE IF NOT EXISTS `employment` (
 	FOREIGN KEY (`industry_id`) REFERENCES `industry_type` (`id`) )
 ENGINE = InnoDB;
 
-insert into employment values(-1,-1,-1,'',-1,null,null);
+insert into employment values(-1,-1,-1,'',-1,null,'2000-01-01');
 insert into employment values(null, 1, 1, '社長', 1, 'なし', '2013-12-21 00:00:00.000');
 
