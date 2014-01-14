@@ -1,11 +1,21 @@
 (ns design-project.Models.certificate
-  (:use [design-project.Models.database])
+  (:use [design-project.Models.database]
+        [design-project.Models.valid])
   (:require [clojure.java.jdbc :as jdbc]))
 
-;; ちゃんと値のチェックもする
+;; select
+(defn select-all
+  "select from certificate table.
+  return
+   select data in map."
+  []
+  (jdbc/query my-db
+              ["select * from certificate, user 
+               where certificate.user_id = user.id"]))
+
 
 ;;  Listで
-(def certificate-data (agent ()))
+(def certificate-data (agent (select-all)))
 
 ;; onMemoryで管理するためのリストにデータを追加する
 (defn add-certificate-data
@@ -16,6 +26,11 @@
   [com id]
   (send certificate-data conj (assoc com :id id)))
 
+(defn is-valid? [input]
+  (and ((row-exist? [:id :user_id :certificate_type :completion_year :leaves :purpose :addressee]) input)
+       ((not-null? [:user_id :certificate_type]) input)
+       (valid-values? input)
+       (foreign-key-exist? :user {:id (:user_id input)})))
 
 ;; insert
 (defn insert 
@@ -31,21 +46,11 @@
   return 
    certificate-data list"
   [com-map]
-  (add-certificate-data com-map 
-                    (:generated_key 
-                      (first 
-                        (jdbc/insert! my-db :certificate com-map)))))
-
-;; select
-;; filter かけれるようにする予定
-(defn select 
-  "select from certificate table.
-  return
-   select data in map."
-  []
-  (jdbc/query my-db
-              ["select * from certificate, user 
-               where certificate.user_id = user.id"]))
+  (if (is-valid? com-map) 
+    (add-certificate-data com-map 
+                          (:generated_key 
+                            (first 
+                              (jdbc/insert! my-db :certificate com-map))))))
 
 (comment
   ;; sample 
@@ -56,4 +61,4 @@
           :purpose "出して！！"
           :addressee "住所"} )
 
-  (select))
+  (select-all))

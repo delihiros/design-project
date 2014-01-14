@@ -55,6 +55,7 @@
    :TEXT #(string? %)
    :VARCHAR #(and (string? %) (< (count %) 256))
    :DATE #(not (empty? (re-seq #"^\d\d\d\d\-\d\d\-\d\d$" %)))
+   :DATETIME (fn [_] true)
    })
 
 (defn row-exist?

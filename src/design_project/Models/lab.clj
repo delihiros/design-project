@@ -3,9 +3,16 @@
         [design-project.Models.valid])
 	(:require [clojure.java.jdbc :as jdbc]))
 
+;; select
+(defn select-all
+  "select from lab table.
+  return 
+   select data in map."
+  []
+	(jdbc/query my-db
+		["select * from lab"]))
 
-
-(def lab-data (agent ()))
+(def lab-data (agent (select-all)))
 
 ;; onMemoryで管理するためのリストにデータを追加する
 (defn add-lab-data
@@ -30,21 +37,13 @@
   return 
    generate id"
   [lab-map]
-  (add-lab-data lab-map
+  (if (is-valid? lab-map)
+    (add-lab-data lab-map
                 (:generated_key
                   (first
-                    (jdbc/insert! my-db :lab lab-map)))))
-
-;; select
-(defn select 
-  "select from lab table.
-  return 
-   select data in map."
-  []
-	(jdbc/query my-db
-		["select * from lab"]))
+                    (jdbc/insert! my-db :lab lab-map))))))
 
 (comment
   ;; sample
   (insert {:name "研究室"})
-  (select))
+  (select-all))

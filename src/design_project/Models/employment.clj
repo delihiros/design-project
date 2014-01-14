@@ -1,13 +1,26 @@
 (ns design-project.Models.employment
-  (:use [design-project.Models.database])
+  (:use [design-project.Models.database]
+        [design-project.Models.valid])
   (:require [clojure.java.jdbc :as jdbc]
             [clj-time.local :as l]
             [clj-time.format :as f]))
 
-;; ちゃんと値のチェックもする 
+
+
+;; select
+(defn select-all
+  "select from employment table.
+  return
+   select data in map."
+  []
+  (jdbc/query my-db
+              ["select * from employment, user, company
+                where employment.user_id = user.id
+                and employment.company_id = company.id"]))
+
 
 ;;  Listで
-(def employment-data (agent ()))
+(def employment-data (agent (select-all)))
 
 ;; onMemoryで管理するためのリストにデータを追加する
 (defn add-employment-data
@@ -16,6 +29,14 @@
   list in employment data."
   [com id]
   (send employment-data conj (assoc com :id id)))
+
+(defn is-valid? [input]
+  (and ((row-exist? [:id :user_id :company_id :position :industry_id :comment :uptime]) input)
+       ((not-null? [:user_id :company_id :position :industry_id]) input)
+       (valid-values? input)
+       (foreign-key-exist? :user {:id (:user_id input)})
+       (foreign-key-exist? :company {:id (:company_id input)})
+       (foreign-key-exist? :industry_type {:id (:industry_id input)})))
 
 
 
@@ -40,11 +61,11 @@
  return
   generate id" 
   [employment-map]
-  (add-employment-data employment-map
-                       (:generated_key
-                         (first
-                           (jdbc/insert! my-db :employment employment-map)))))
-
+  (if (is-valid? employment-map) 
+    (add-employment-data employment-map
+                         (:generated_key
+                           (first
+                             (jdbc/insert! my-db :employment employment-map))))))
 ;; update
 (defn update 
   "update employment table.
@@ -56,25 +77,14 @@
   [id employment-map]
   (jdbc/update! my-db :employment employment-map ["id=?" id]))
 
-;; select
-(defn select 
-  "select from employment table.
-  return
-   select data in map."
-  []
-  (jdbc/query my-db
-              ["select * from employment, user, company
-                where employment.user_id = user.id
-                and employment.company_id = company.id"]))
-
 (comment
   ;; sample
   ;; 更新日時の求め方いい方法あれば教えてください。
-  (insert {:user_id 4
+  (insert {:user_id 1
           :company_id 1
           :position "シャチョ"
           :industry_id 1
           :comment "コメントあれば"
           :uptime  (l/format-local-time (l/local-now) :mysql)})
 
-  (select))
+(select-all))

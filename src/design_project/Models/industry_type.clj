@@ -3,9 +3,19 @@
         [design-project.Models.valid])
 	(:require [clojure.java.jdbc :as jdbc]))
 
+;; select
+(defn select-all
+  "select from industry-type table.
+  return
+   select data in map."
+  []
+	(jdbc/query my-db
+		["select * from industry_type"]))
 
 
-(def industry-type-data (agent ()))
+
+
+(def industry-type-data (agent (select-all)))
 
 ;; onMemoryで管理するためのリストにデータを追加する
 (defn add-industry-type-data
@@ -30,21 +40,12 @@
   return 
    generate id"
   [industry-type-map]
-  (add-industry-type-data industry-type-map
+  (if (is-valid? industry-type-map)
+    (add-industry-type-data industry-type-map
                           (:generated_key
                             (first
-                              (jdbc/insert! my-db :industry_type industry-type-map)))))
-
-;; select
-(defn select 
-  "select from industry-type table.
-  return
-   select data in map."
-  []
-	(jdbc/query my-db
-		["select * from industry_type"]))
-
+                              (jdbc/insert! my-db :industry_type industry-type-map))))))
 (comment
   (insert {:name "業種"})
 
-  (select))
+  (select-all))
