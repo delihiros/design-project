@@ -5,5 +5,6 @@ CREATE TABLE IF NOT EXISTS `industry_type` (
 	PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
-insert into industry_type values(null, '業種1');
-insert into industry_type values(null, '業種2');
+insert into industry_type values(null, '農業');
+insert into industry_type values(null, 'サービス業');
+insert into industry_type values(null, 'その他');
