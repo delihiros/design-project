@@ -114,7 +114,7 @@
   (GET "/admin/student/detail" []
        (friend/authorize #{::admin}
                          (resp/file-response "detail.html" {:root "public/html/admin/student"})))
-  (POST "/admin/student/detail" []
+  (POST "/admin/student/detail" req
         (let [students (doall (user/select-all))
               id (Integer. (:id (walk/keywordize-keys (:multipart-params req))))]
           (json/generate-string (filter #(= (:id %) id)
