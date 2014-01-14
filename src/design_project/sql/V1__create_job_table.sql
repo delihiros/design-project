@@ -5,5 +5,7 @@ CREATE TABLE IF NOT EXISTS `job` (
 	PRIMARY KEY (`id`) )
 ENGINE = InnoDB;
 
-insert into job values(null, '仕事1');
-insert into job values(null, '仕事2');
+insert into job values(null, '学生');
+insert into job values(null, '会社員');
+insert into job values(null, '公務員');
+insert into job values(null, 'その他');
