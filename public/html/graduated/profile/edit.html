@@ -25,13 +25,14 @@
 
 <form>
 <p>住所:<input type ="text" name="address"maxlength="255"></p>
+<p>電話番号：<input type ="tel" name="phone" maxlength="255"></p>
+<p>国籍：<input type="text" name ="country" maxlength="255"></p>
 <p>保証人氏名:<input type ="text" name="guarantor_name" maxlength="255"></p>
 <p>保証人住所:<input type ="text" name="guarantor_address" maxlength="255"></p>
 <p>保証人連絡先:<input type ="tel" name="guarantor_phone" maxlength="255"></p>
 
 
 
-<p><br>電話番号：<input type ="tel" name="phone" maxlength="255"></p>
 
 
 
@@ -44,14 +45,16 @@
 <input type="radio" name="job_id" value="4">その他
 </p>
 
-<p><br>業種:<input type ="radio" name="industry_id"value="1">農業
-<input type ="radio" name="industry_id"value="2">サービス業
-<input type ="radio" name="industry_id"value="3">その他
-</p>
+<p><br>業種：<select name="industry_id">
+<option value=1>農業</option><option value=2>サービス業</option>
+<option value=3>その他</option>
+<option value="indutry_id" selected>お選びください</option>
+</select></p>
 
 
 
-<p>国籍：<input type="text" name ="country" maxlength="255"></p>
+
+
 
 </div>
 
