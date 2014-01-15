@@ -1,63 +1,88 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
+	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>profile</title>
 		<link rel="stylesheet" type="text/css" href="../../../css/main.css" media="all" />
-		<script src="../js/jquery-1.10.2.min.js"></script>
+		<script src="/js/jquery-1.10.2.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				$.ajax({
+					type:"post",
+					url:"/graduated/profile",
+					dataType:"json",
+					success : function(data) {
+						console.log(data);
+						$('p#name').append(data.name);
+						$('p#country').append(data.country);
+						$('p#address').append(data.address);
+						$('p#phone').append(data.phone);
+						$('p#birthday').append(data.birthday);
+						if(data.sex == 1){
+							$('p#sex').append("男");
+							} else {
+							$('p#sex').append("女");
+						}
+						$('p#job_id').append(data.name_3);
+						$('p#industry_id').append(data.name_4);
+						$('p#company').append(data.name_4);
+						$('p#position').append(data.name_4);
+						$('p#comment').append(data.name_4);
+						$('p#uptime').append(data.name_4);
+						$('p#finish_course_day').append(data.finish_course_day);
+					}
+				});
+			});
+		</script>
 
 
-</head>
-<body>
-	<div id ="wrap">
-	<div id = "header">
-		<ul>
-		<li><a href ="/graduated">Top</a></li>
-		<li><a href ="/graduated/profile">登録情報</a></li>
-		<li><a href ="/graduated/event">イベント</a></li>
-		<li><a href ="/logout">Logout</a></li>
-		</ul>
-	</div>
+	</head>
+	<body>
+		<div id ="wrap">
+			<div id = "header">
+				<ul>
+					<li><a href ="/graduated">Top</a></li>
+					<li><a href ="/graduated/profile">登録情報</a></li>
+					<li><a href ="/graduated/event">イベント</a></li>
+					<li><a href ="/logout">Logout</a></li>
+				</ul>
+			</div>
 
-	<INPUT type="button" class="editbtn" value="変更" onClick="location.href='/graduated/profile/edit'"><h2>登録情報</h2>
-	<div id="baseprofile">
-		<p><h2>基本情報</h2></p>
-		<div id ="profilefont">
-		 
-		
-		<p id="name">お名前:田中太郎</p>
-		<p id="country">国籍:日本</p>
-		<p id="address">住所:長野県長野市なんちゃらのなんちゃら</p>
-		<p id="phone">電話番号:0120-117-117</p>
+			<INPUT type="button" class="editbtn" value="変更" onClick="location.href='/graduated/profile/edit'"><h2>登録情報</h2>
+			<div id="baseprofile">
+				<p><h2>基本情報</h2></p>
+				<div id ="profilefont">
 
-		<p id="birthday">生年月日:3月3日</p>
-		<p id="sex">性別:男</p>
 
-		<p id="job">職業:記者<br>
-		<p id="industry">業種:111</p>
+					<p id="name">お名前:</p>
+					<p id="country">国籍:</p>
+					<p id="address">住所:</p>
+					<p id="phone">電話番号:</p>
 
-		
-		
-		
-		
-	</div>
-		
-	</div>
-		<h2>卒業後進路</h2>
-	<div id="editinfo">
-		<p>所属:・・・<br></p>
-		<p>役職:・・・</p>
-		<p>その他特記事項:・・・</p>
-		<p ="changedate">変更日時:やばい</p>
-		<p>修了日:?????</p>
-		
-	</div>
+					<p id="birthday">生年月日:</p>
+					<p id="sex">性別:</p>
 
-		<FORM>
-			<INPUT type="button" class="editbtn" value="証明書発行" onClick="location.href='/graduated/certificate'">
-		</FORM>
+					<p id="job">職業:<br>
+					<p id="industry">業種:</p>
 
-		
-	</div>
-</body>
+				</div>
+
+			</div>
+			<h2>卒業後進路</h2>
+			<div id="editinfo">
+				<p id="company">所属:</p>
+				<p id="position">役職:</p>
+				<p id="comment">その他特記事項:</p>
+				<p id="uptime">変更日時:</p>
+				<p id="finish_course_day">修了日:</p>
+
+			</div>
+
+			<FORM>
+				<INPUT type="button" class="editbtn" value="証明書発行" onClick="location.href='/graduated/certificate'">
+			</FORM>
+
+
+		</div>
+	</body>
 </html>
