@@ -1,59 +1,76 @@
 <!DOCTYPE html>
 <html lang="ja">
-<head>
+	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>profile</title>
 		<link rel="stylesheet" type="text/css" href="../../../css/main.css" media="all" />
+		<script src="/js/jquery-1.10.2.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				$.ajax({
+					type:"post",
+					url:"/participants",
+					dataType:"json",
+					success : function(data) {
+						console.log(data);
+						$('p#name').append(data.name);
+						$('p#country').append(data.country);
+						$('p#address').append(data.address);
+						$('p#phone').append(data.phone);
+						$('p#birthday').append(data.birthday);
+						if(data.sex == 1){
+							$('p#sex').append("男");
+							} else {
+							$('p#sex').append("女");
+						}
+						$('p#wish_curriculum_id').append(data.name_5);
+						$('p#wish_course_id').append(data.name_6);
+						$('p#wish_teacher').append(data.wish_teacher);
+						$('p#entrance_day').append(data.entrance_day);
+					}
+				});
+			});
+		</script>
 
 
-</head>
-<body>
-	<div id ="wrap">
-	<div id = "header">
-		<ul>
-		<li><a href ="/participants">Top</a></li>
-		<li><a href ="/participants/profile">登録情報</a></li>
-		<li><a href ="/participants/event">イベント</a></li>
-		<li><a href ="/logout">Logout</a></li>
-		</ul>
-	</div>
+	</head>
+	<body>
+		<div id ="wrap">
+			<div id = "header">
+				<ul>
+					<li><a href ="/participants">Top</a></li>
+					<li><a href ="/participants/profile">登録情報</a></li>
+					<li><a href ="/logout">Logout</a></li>
+				</ul>
+			</div>
 
-	<INPUT type="button" class="editbtn" value="変更" onClick="location.href='/participants/profile/edit'"><h2>登録情報</h2>
-	<div id="baseprofile">
-		<div id ="profilefont">
-		 
-		<p>基本情報<br><br>
-		お名前:田中太郎<br>
-		国籍:日本<br>
-		住所:長野県長野市なんちゃらのなんちゃら<br>
-		電話番号:0120-117-117</p><br><br>
+			<INPUT type="button" class="editbtn" value="変更" onClick="location.href='/participants/profile/edit'"><h2>登録情報</h2>
+			<div id="baseprofile">
+				<div id ="profilefont">
 
-		<p>生年月日:3月3日</p>
-		<p>性別:男</p>
+					<p>基本情報</p><br>
+					<p id="name">お名前:</p><br>
+					<p id="country">国籍:</p><br>
+					<p id="address">住所:</p><br>
+					<p id="phone">電話番号:</p><br>
 
-		
-	</div>
-		<div id = "profilephoto">
-			<font size = "40px">
-				写<br>真</font>
+					<p id="birthday">生年月日:</p><br>
+					<p id="sex">性別:</p>
+
+
+				</div>
+
+			</div>
+			<h2>参加者情報</h2>
+			<div id="editinfo">
+				<p id="wish_curriculum_id">希望過程:</p>
+				<p id="wish_course_id">志望コース:</p>
+				<p id="wish_teacher">志望指導教員名:</p>
+				<p id="entrance_day">入学日:</p>
+
+			</div>
+
+
 		</div>
-		<div id ="profilebtn">
-			<FORM>
-			<INPUT type="button" class="editbtn" value="変更" onClick="location.href='/participants/profile/edit'">
-		</FORM>
-		</div>
-	</div>
-		<h2>参加者情報</h2>
-	<div id="editinfo">
-		<p>希望過程:・・・・<br></p>
-		<p>志望コース:・・・・</p>
-		<p>志望指導教員名:・・・・</p>
-		<p>入学日:・・・・・</p>
-		<p>入学済み:</p>
-		
-	</div>
-
-		
-	</div>
-</body>
+	</body>
 </html>
