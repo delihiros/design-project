@@ -54,9 +54,9 @@
 (defn f-1 [ds]
   (filter #(not= -1 (:id %)) ds))
 
-(derive ::admin ::student)
-(derive ::admin ::graduated)
-(derive ::admin ::participants)
+; (derive ::admin ::student)
+; (derive ::admin ::graduated)
+; (derive ::admin ::participants)
 
 (defroutes app-routes
   (GET "/" req
@@ -68,6 +68,7 @@
                                  #{::student} "/student"
                                  #{::graduated} "/graduated"
                                  #{::participants} "/participants"
+                                 #{::nobody} "/"
                                  "/")))
            (resp/file-response "index.html" {:root "public/html"}))))
   (POST "/test" params
@@ -105,68 +106,80 @@
        (friend/authorize #{::admin}
                          (resp/file-response "top.html" {:root "public/html/admin/event"})))
   (POST "/admin/event" req
-        (json/generate-string (f-1 (event/select-all))))
+        (friend/authorize #{::admin}
+                          (json/generate-string (f-1 (event/select-all)))))
   (GET "/admin/event/add" []
        (friend/authorize #{::admin}
                          (resp/file-response "add.html" {:root "public/html/admin/event"})))
   (POST "/admin/event/add" req
-        (json/generate-string
-          {:status (not (nil? (event/insert (walk/keywordize-keys (:params req)))))}))
+        (friend/authorize #{::admin}
+                          (json/generate-string
+                            {:status (not (nil? (event/insert (walk/keywordize-keys (:params req)))))})))
   (GET "/admin/event/detail" []
        (friend/authorize #{::admin}
                          (resp/file-response "detail.html" {:root "public/html/admin/event"})))
   (POST "/admin/event/detail" req
-        (let [events (event/select-all)
-                     id (Integer. (:id (walk/keywordize-keys (:params req))))]
-          (json/generate-string (f-1 (filter #(= (:id %) id)
-                                             events)))))
+        (friend/authorize #{::admin}
+                          (let [events (event/select-all)
+                                id (Integer. (:id (walk/keywordize-keys (:params req))))]
+                            (json/generate-string (f-1 (filter #(= (:id %) id)
+                                                               events))))))
   (GET "/admin/student" []
        (friend/authorize #{::admin}
                          (resp/file-response "find.html" {:root "public/html/admin/student"})))
   (POST "/admin/student" req
-        (json/generate-string (f-1 (user/select-all))))
+        (friend/authorize #{::admin}
+                          (json/generate-string (f-1 (user/select-all)))))
   (GET "/admin/student/find" []
        (friend/authorize #{::admin}
                          (resp/file-response "find.html" {:root "public/html/admin/student"})))
   (POST "/admin/student/find" req
-        (json/generate-string (f-1 (user/select-all))))
+        (friend/authorize #{::admin}
+                          (json/generate-string (f-1 (user/select-all)))))
   (GET "/admin/student/add" []
        (friend/authorize #{::admin}
                          (resp/file-response "add.html" {:root "public/html/admin/student"})))
   (POST "/admin/student/add" req
-        (let [input (walk/keywordize-keys (:params req))
-                    status (not (nil? (user/insert input)))]
-          (when (true? status)
-            (reset! users (let [u (user/select-all)]
-                            (apply hash-map
-                                   (interleave (map :login_id u)
-                                               (map transform-user u))))))
-          (json/generate-string  {:status status})))
+        (friend/authorize #{::admin}
+                          (let [input (walk/keywordize-keys (:params req))
+                                status (not (nil? (user/insert input)))]
+                            (when (true? status)
+                              (reset! users (let [u (user/select-all)]
+                                              (apply hash-map
+                                                     (interleave (map :login_id u)
+                                                                 (map transform-user u))))))
+                            (json/generate-string  {:status status}))))
   (GET "/admin/student/detail" req
        (friend/authorize #{::admin}
                          (let [users (user/select-all)]
-                           (println (filter #(= 1 (:id %))
-                                            users))
                            (user-detail
                              (first (filter #(= (Integer. 
                                                   (:id (walk/keywordize-keys (:params req)))) (:id %))
                                             users))))))
   (POST "/admin/student/detail" req
-        (let [students (user/select-all)
-                       id (Integer. (:id (walk/keywordize-keys (:params req))))]
-          (filter #(= (:id %) id)
-                  students)))
+        (friend/authorize #{::admin}
+                          (let [students (user/select-all)
+                                id (Integer. (:id (walk/keywordize-keys (:params req))))]
+                            (filter #(= (:id %) id)
+                                    students))))
   (GET "/admin/student/edit" []
        (friend/authorize #{::admin}
                          (resp/file-response "edit.html" {:root "public/html/admin/student"})))
   (POST "/admin/student/edit" req
-        (user/update (Integer. (:id (walk/keywordize-keys (:params req))))
-                     (walk/keywordize-keys (:params req))))
+        (friend/authorize #{::admin}
+        (let [status (not (nil? (user/update (Integer. (:id (walk/keywordize-keys (:params req))))
+                                             (walk/keywordize-keys (:params req)))))]
+          (when (true? status)
+            (reset! users (let [u (user/select-all)]
+                            (apply hash-map
+                                   (interleave (map :login_id u)
+                                               (map transform-user u)))))))))
   (GET "/admin/student/delete" []
        (friend/authorize #{::admin}
                          (resp/file-response "delete.html" {:root "public/html/admin/student"})))
   (POST "/admin/student/delete" req
-        (json/generate-string {:status true}))
+        (friend/authorize #{::admin}
+        (json/generate-string {:status true})))
 
   (GET "/graduated" []
        (friend/authorize #{::graduated}
@@ -175,45 +188,52 @@
        (friend/authorize #{::graduated}
                          (resp/file-response "top.html" {:root "public/html/graduated/certificate"})))
   (POST "/graduated/certificate" req
-        (if (not (nil? (event/insert (walk/keywordize-keys (:params req)))))
-          "<h1>申請しました</h1>"
-          "<h1>不備があります</h1>"))
+        (friend/authorize #{::graduated}
+                          (if (not (nil? (event/insert (walk/keywordize-keys (:params req)))))
+                            "<h1>申請しました</h1>"
+                            "<h1>不備があります</h1>")))
   (GET "/graduated/event" []
        (friend/authorize #{::graduated}
                          (resp/file-response "top.html" {:root "public/html/graduated/event"})))
   (POST "/graduated/event" req
-        (json/generate-string (event/select-all)))
+        (friend/authorize #{::graduated}
+                          (json/generate-string (event/select-all))))
   (GET "/graduated/event/add" []
        (friend/authorize #{::graduated}
                          (resp/file-response "add.html" {:root "public/html/graduated/event"})))
   (POST "/graduated/event/add" req
-        (json/generate-string
-          {:status (not (nil? (event/insert (walk/keywordize-keys (:params req)))))}))
+        (friend/authorize #{::graduated}
+                          (json/generate-string
+                            {:status (not (nil? (event/insert (walk/keywordize-keys (:params req)))))})))
   (GET "/graduated/event/detail" []
        (friend/authorize #{::graduated}
                          (resp/file-response "detail.html" {:root "public/html/graduated/event"})))
   (POST "/graduated/event/detail" req
-        (let [events (event/select-all)
-                     id (Integer. (:id (walk/keywordize-keys (:params req))))]
-          (json/generate-string (filter #(= (:id %) id)
-                                        events))))
+        (friend/authorize #{::graduated}
+                          (let [events (event/select-all)
+                                id (Integer. (:id (walk/keywordize-keys (:params req))))]
+                            (json/generate-string (filter #(= (:id %) id)
+                                                          events)))))
   (GET "/graduated/profile" []
        (friend/authorize #{::graduated}
                          (resp/file-response "top.html" {:root "public/html/graduated/profile"})))
   (POST "/graduated/profile" req
-        (let [identity (friend/identity req)]
-          (json/generate-string (-> identity friend/current-authentication :all-info))))
+        (friend/authorize #{::graduated}
+                          (let [identity (friend/identity req)]
+                            (json/generate-string (-> identity friend/current-authentication :all-info)))))
   (GET "/graduated/profile/edit" []
        (friend/authorize #{::graduated}
                          (resp/file-response "edit.html" {:root "public/html/graduated/profile"})))
   (POST "/graduated/profile/edit" req
-        (json/generate-string (event/update (Integer. (:id (:params req))) (:params req))))
+        (friend/authorize #{::graduated}
+                          (json/generate-string (event/update (Integer. (:id (:params req))) (:params req)))))
   (GET "/participants" []
        (friend/authorize #{::participants}
                          (resp/file-response "top.html" {:root "public/html/participants"})))
   (POST "/participants" req
-        (let [identity (friend/identity req)]
-          (json/generate-string (-> identity friend/current-authentication :all-info))))
+        (friend/authorize #{::participants}
+                          (let [identity (friend/identity req)]
+                            (json/generate-string (-> identity friend/current-authentication :all-info)))))
   (GET "/participants/event" []
        (friend/authorize #{::participants}
                          (resp/file-response "top.html" {:root "public/html/participants/event"})))
@@ -227,59 +247,65 @@
        (friend/authorize #{::participants}
                          (resp/file-response "top.html" {:root "public/html/participants/profile"})))
   (GET "/participants/profile/add" []
-       (resp/file-response "add.html" {:root "public/html/participants/profile"}))
+       (friend/authorize #{::participants}
+                         (resp/file-response "add.html" {:root "public/html/participants/profile"})))
   (POST "/participants/profile/add" req
-        (let [input (walk/keywordize-keys (:params req))]
-          (json/generate-string
-            (if (= 3 (Integer. (:status input)))
-              {:status (not (nil? (user/insert input)))}
-              {:status false}))))
+        (friend/authorize #{::participants}
+                          (let [input (walk/keywordize-keys (:params req))]
+                            (json/generate-string
+                              (if (= 3 (Integer. (:status input)))
+                                {:status (not (nil? (user/insert input)))}
+                                {:status false})))))
   (GET "/participants/profile/edit" []
        (friend/authorize #{::participants}
                          (resp/file-response "edit.html" {:root "public/html/participants/profile"})))
   (POST "/participants/profile/edit" req
-        (let [input (walk/keywordize-keys (:params req))
-                    identity (friend/identity req)]
-          (json/generate-string
-            (if (= 3 (Integer. (:status input)))
-              {:status (not (nil? (user/update (-> identity friend/current-authentication :user-id) input)))}
-              {:status false}))))
+        (friend/authorize #{::participants}
+                          (let [input (walk/keywordize-keys (:params req))
+                                identity (friend/identity req)]
+                            (json/generate-string
+                              (if (= 3 (Integer. (:status input)))
+                                {:status (not (nil? (user/update (-> identity friend/current-authentication :user-id) input)))}
+                                {:status false})))))
 
   (GET "/student" []
        (friend/authorize #{::student}
                          (resp/file-response "top.html" {:root "public/html/student/profile"})))
   (POST "/student" req
-        (let [profiles (user/select-all)
-                       identity (friend/identity req)]
-          (json/generate-string (-> identity friend/current-authentication :all-info))))
+        (friend/authorize #{::student}
+                          (let [profiles (user/select-all)
+                                identity (friend/identity req)]
+                            (json/generate-string (-> identity friend/current-authentication :all-info)))))
   (GET "/student/profile" []
        (friend/authorize #{::student}
                          (resp/file-response "top.html" {:root "public/html/student/profile"})))
   (POST "/student/profile" req
-        (let [profiles (user/select-all)
-                       identity (friend/identity req)]
-          (json/generate-string (-> identity friend/current-authentication :all-info))))
+        (friend/authorize #{::student}
+                          (let [profiles (user/select-all)
+                                identity (friend/identity req)]
+                            (json/generate-string (-> identity friend/current-authentication :all-info)))))
   (GET "/student/profile/edit" []
        (friend/authorize #{::student}
                          (resp/file-response "edit.html" {:root "public/html/student/profile"})))
   (POST "/student/profile/edit" req
-        (let [input (walk/keywordize-keys (:params req))
-                    identity (friend/identity req)]
-          (json/generate-string
-            (if (< 0 (Integer. (:status input)))
-              {:status (not (nil? (user/update (-> identity friend/current-authentication :user-id) input)))}
-              {:status false}))))
+        (friend/authorize #{::student}
+                          (let [input (walk/keywordize-keys (:params req))
+                                identity (friend/identity req)]
+                            (json/generate-string
+                              (if (< 0 (Integer. (:status input)))
+                                {:status (not (nil? (user/update (-> identity friend/current-authentication :user-id) input)))}
+                                {:status false})))))
 
   (POST "/event/participate" req
-        (json/generate-string 
-          {:status
-          (not (nil? (join-event-history/insert 
-                       (walk/keywordize-keys 
-                         (conj
-                           (:params req) {:user_id
-                           (-> (friend/identity req)
-                             friend/current-authentication
-                             :user-id)})))))}))
+                          (json/generate-string 
+                            {:status
+                            (not (nil? (join-event-history/insert 
+                                         (walk/keywordize-keys 
+                                           (conj
+                                             (:params req) {:user_id
+                                             (-> (friend/identity req)
+                                               friend/current-authentication
+                                               :user-id)})))))}))
   (route/resources "/")
   (route/not-found "Not Found"))
 
