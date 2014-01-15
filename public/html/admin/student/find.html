@@ -20,7 +20,7 @@
 				    	success : function(data) {
 				    		//$('#hit').append(data.length + "人の生徒がヒットしました");
 				    		data.forEach(function(d){
-				    			$('#student-body').append("<tr><td>" + d.university_id + "</a></td><td><a href=\"/admin/student/detail?id="+ d.id + "\">"+ d.name +"</td>" + "<td>"+ d.name_7 + "</td></tr>");
+				    			$('#student-body').append("<tr><td>" + d.student_id + "</a></td><td><a href=\"/admin/student/detail?id="+ d.id + "\">"+ d.name +"</td>" + "<td>"+ d.name_7 + "</td></tr>");
 			    			});
 			    		}
 			    	});
