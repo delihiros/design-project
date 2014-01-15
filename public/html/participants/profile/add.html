@@ -4,8 +4,42 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>newentry</title>
 		<link rel="stylesheet" type="text/css" href="../../../css/main.css" media="all" />
+		<script src="/js/jquery-1.10.2.min.js"></script>
+		<script>
+			$(document).ready(function(){
+				$('#participants-button').click(function() {
+			    	// 多重送信を防ぐため通信完了までボタンをdisableにする
+			    	var button = $(this);
+		    		button.attr("disabled", true);
 
-
+			    	$.ajax({
+			    		type:'post',
+			    		url:'/participants/profile/add',
+		    			dataType:'json',
+		    			data: {
+		    				name: $('#name').val(),
+		    				address: $('#address').val(),
+		    				status: 3,
+		    				phone: $('#phone').val(),
+		    				birthday: $('#birthday').val(),
+		    				sex : $('#sex').val(),
+		    				country : $('#country').val(),
+		    				wish_curricurum : $('#wish_curricurum').val(),
+		    				wish_teacher : $('#wish_teacher').val(),
+		    				wish_course_id : $('#wish_course_id').val(),
+		    				login_id : $('#login_id').val(),
+		    				password : $('#password').val()
+		    			},
+		    			success : function(d) {
+		    				console.log(d);
+		    				console.log($('#name').val(),
+		    							$('#address').val()
+		    							);
+		    			}
+			    	});
+		    	});
+			});
+		</script>
 </head>
 <body>
 	<div id ="wrap">
@@ -13,42 +47,43 @@
 
 <h2>登録情報</h2>
 	<div id="baseprofile">
-		<div id ="profilefont">
-<INPUT type="button" class="editbtn" value="登録" >
+		<div id ="profilefont"><form action="/participants/profile/add">
+<INPUT type="submit" class="editbtn" value="登録" method="POST" id="participants-button">
 			<br>
 		
 		<p>情報を入力してください</p><br>
 
-		<p>お名前:<input type ="text" name="name"maxlength="255"><br></p>
+		<p>お名前:<input type ="text" name="name"maxlength="255" id="name"><br></p>
 
 		
-		<p>住所:<input type ="text" name="address"maxlength="255"><br></p>
+		<p>住所:<input type ="text" name="address"maxlength="255" id="address"><br></p>
 
-		<p>電話番号:<input type ="tel" name="phone"maxlength="255"></p><br>
+		<p>電話番号:<input type ="tel" name="phone"maxlength="255" id="phone"></p><br>
 
-		<p>生年月日:<input type ="date" name="birthday"maxlength="255"></p>
-		<p>性別:<input type="radio" name="sex" value="1">男
-<input type="radio" name="sex" value="2">女<br></p>
+		<p>生年月日:<input type ="date" name="birthday"maxlength="255" id="birthday"></p>
+		<p>性別:<select size="1" name="sex" id="sex">
+			<option value="1">男性</option>
+			<option value="2">女性</option>
+		</select>
+		</p>
 
-<p>国籍:<select name="country">
-<option value="1">日本</option><option value="2">中国</option>
-<option value="3">韓国</option><option value="4">英国</option>
-<option value="5">米国</option><option value="6">独国</option>
-<option value="country" selected>お選びください</option>
-</select><br></p>
+<p>国籍:<input type="text" id="country" name="country"size="30"></p><br>
 
-<p>希望課程:<select name="wish_curricurum_id">
+<p>希望課程:<select name="wish_curricurum_id" id="wish_curricurum">
 <option value="1">教養課程</option><option value="2">志望課程</option>
 <option value="country" selected>お選びください</option>
 </select></p>
 
-<p>希望指導教員:<input type ="text" name="wish_teacher"maxlength="255"></p>
-<p>希望コース:<select name="wish_course_id">
+<p>希望指導教員:<input type ="text" name="wish_teacher"maxlength="255" id="wish_teacher"></p>
+<p>希望コース:<select name="wish_course_id" id="wish_course_id">
 <option value="1">SE</option><option value="2">CE</option>
 <option value="country" selected>お選びください</option>
+</select>
 </p>
+<p>ID : <input type="text" size="30" name="login_id" id="login_id"></p>
+<p>password : <input type="password" size="30" name="password" id="password"></p>
 
-
+</form>
 
 		
 	</div>

@@ -23,11 +23,11 @@
 		    				name : $('#name').val(),
 		    				day : $('#day').val(),
 		    				place : $('#place').val(),
-		    				type_id : 1
+		    				type_id : $('#type_id').val()
 		    			},
 		    			success : function(d) {
 		    				console.log(d);
-		    				console.log($('#name').val(), $('#day').val(), $('#place').val());
+		    				console.log($('#name').val(), $('#day').val(), $('#place').val(),$('#type_id').val());
 		    				$('#eveEditButton').append("<a href=\"/admin/event\">登録できました。トップへ</a>");
 		    			}
 			    	});
@@ -44,6 +44,10 @@
 				<p>開催日 : <input type="date" name="day" size="30" id="day" required>
 				</p>
 				<p>会場 : <input type="text" name="place" placeholder="place" size="30" id="place" required></p>
+				<p>イベントの種類 : <select size="1" name="type_id" id="type_id">
+										<option value="1">説明会</option>
+										<option value="2">それ以外</option>
+								</select>
 			</div><!-- #eventInfo -->
 			<div id="eveEditButton">
 				<input type="submit" method="POST" value="register" class="editButtons" id="event-button">
