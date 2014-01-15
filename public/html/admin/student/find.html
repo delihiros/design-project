@@ -12,24 +12,18 @@
 		<script>
 			$(document).ready(function(){
 				$('#stuTable').rowClick();
-				$('#searchbutton').click(function() {
 		    	// 多重送信を防ぐため通信完了までボタンをdisableにする
-			    	var button = $(this);
-		    		button.attr("disabled", true);
-
 			    	$.ajax({
 			    		type:"post",
 				    	url: "/admin/student/find",
 				    	dataType:"json",
 				    	success : function(data) {
-				    		console.log(data);
-				    		$('#hit').append(data.length + "人の生徒がヒットしました");
+				    		//$('#hit').append(data.length + "人の生徒がヒットしました");
 				    		data.forEach(function(d){
 				    			$('#student-body').append("<tr><td>" + d.university_id + "</a></td><td><a href=\"/admin/student/detail?id="+ d.id + "\">"+ d.name +"</td>" + "<td>"+ d.name_7 + "</td></tr>");
 			    			});
 			    		}
 			    	});
-			    });
 			});
 		</script>
 		<title>学生関連ページ</title>
@@ -42,47 +36,9 @@
 					<li><a href="/admin/event">イベント情報</a></li>
 					<li><a href="/logout">logout</a></li>
 				</ul>
-			</div><!-- #header end -->
-			<div id="stuMain">
-				<form name="stuSearch" class="stuSearch">
-					<p>名前 : <input type="text" name="name" placeholder="name" size="40"></p>
-					<p>学籍番号 : <input type="text" name="university_id" placeholder="number" size="40"></p>
-					<p>性別 : 
-						<select name="sex" size="1">
-							<option value= 0>-----</option>
-							<option value= 1>男性</option>
-							<option value= 2>女性</option>
-						</select>
-					</p>
-					<p>学部 : 
-						<select name="department_id" onChange="changeform()">
-							<option value= 0 SELECTED>-------</option>
-							<option value= 1>人文学部</option>
-							<option value= 2>教育学部</option>
-							<option value= 3>経済学部</option>
-							<option value= 4>理学部</option>
-							<option value= 5>医学部</option>
-							<option value= 6>工学部</option>
-							<option value= 7>農学部</option>
-							<option value= 8>繊維学部</option>
-						</select>
-						学科 : 
-						<select name="study_course_id">
-							<option value= 0>-------</option>
-							<option value= 1></option>
-							<option value= 2></option>
-							<option value= 3></option>
-							<option value= 4></option>
-							<option value= 5></option>
-							<option value= 6></option>
-							<option value= 7></option>					
-						</select>
-					</p>
-					<!--<p>
-						説明会参加者 : <input type="checkbox" name="explain" value= 1>
-					</p>-->
-					<input type="button" value="search" method="POST" class="searchbutton" id="searchbutton">
-				</form><!-- #stuSearch end -->
+			    </div><!-- #header end -->
+			    <div id="stuMain">
+				<a href="/admin/query">白と黒のコントラストがうつくしい統計ツール</a>
 				<div id="stuContents">
 					<p id="newStuEntry"><a href="/admin/student/add">新規学生登録</a></p><!-- #newentry end -->
 					<p id="hit"></p>
