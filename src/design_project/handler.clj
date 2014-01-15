@@ -246,15 +246,13 @@
        (friend/authorize #{::participants}
                          (resp/file-response "top.html" {:root "public/html/participants/profile"})))
   (GET "/participants/profile/add" []
-       (friend/authorize #{::participants}
-                         (resp/file-response "add.html" {:root "public/html/participants/profile"})))
+                         (resp/file-response "add.html" {:root "public/html/participants/profile"}))
   (POST "/participants/profile/add" req
-        (friend/authorize #{::participants}
                           (let [input (walk/keywordize-keys (:params req))]
                             (json/generate-string
                               (if (= 3 (Integer. (:status input)))
                                 {:status (not (nil? (user/insert input)))}
-                                {:status false})))))
+                                {:status false}))))
   (GET "/participants/profile/edit" []
        (friend/authorize #{::participants}
                          (resp/file-response "edit.html" {:root "public/html/participants/profile"})))
