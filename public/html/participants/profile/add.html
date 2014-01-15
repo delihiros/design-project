@@ -17,24 +17,46 @@
 			    		url:'/participants/profile/add',
 		    			dataType:'json',
 		    			data: {
-		    				name: $('#name').val(),
-		    				address: $('#address').val(),
-		    				status: 3,
-		    				phone: $('#phone').val(),
-		    				birthday: $('#birthday').val(),
-		    				sex : $('#sex').val(),
-		    				country : $('#country').val(),
-		    				wish_curricurum : $('#wish_curricurum').val(),
-		    				wish_teacher : $('#wish_teacher').val(),
-		    				wish_course_id : $('#wish_course_id').val(),
-		    				login_id : $('#login_id').val(),
-		    				password : $('#password').val()
+		    				name:                   $('#name').val(),
+		    				address:                 $('#address').val(),
+		    				status:                   3,
+		    				phone:                   $('#phone').val(),
+		    				birthday:                  $('#birthday').val(),
+		    				sex :                      $('#sex').val(),
+		    				country :                  $('#country').val(),
+		    				wish_curriculum_id :     $('#wish_curricurum').val(),
+		    				wish_teacher :           $('#wish_teacher').val(),
+		    				wish_course_id :       $('#wish_course_id').val(),
+		    				login_id :               $('#login_id').val(),
+						password :           $('#password').val(),
+						job_id : 1,
+						industry_id : 1
+
 		    			},
 		    			success : function(d) {
-		    				console.log(d);
+					    console.log(d);
+					    if( d.status == true) location.href = "/";
 		    				console.log($('#name').val(),
 		    							$('#address').val()
-		    							);
+									);
+
+console.log([
+	     $('#name').val(),            
+	     $('#address').val(),        
+
+	     $('#phone').val(),          
+	     $('#birthday').val(),     
+	     $('#sex').val(),          
+	     $('#country').val(),      
+	     $('#wish_curricurum').val(),
+	     $('#wish_teacher').val(), 
+	     $('#wish_course_id').val(),
+	     $('#login_id').val(),    
+	     $('#password').val()]);
+
+
+
+
 		    			}
 			    	});
 		    	});
