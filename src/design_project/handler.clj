@@ -8,6 +8,8 @@
                              [credentials :as creds])
             [ring.util.response :as resp]
             [net.cgrand.enlive-html :as enlive]
+            [clojure.java.jdbc :as jdbc]
+            [design-project.Models.database :as database]
             [design-project.Models.certificate :as certificate]
             [design-project.Models.company :as company]
             [design-project.Models.course :as course]
@@ -69,7 +71,15 @@
                                  "/")))
            (resp/file-response "index.html" {:root "public/html"}))))
   (POST "/test" params
-        (json/generate-string (walk/keywordize-keys (:params params))))
+        (json/generate-string 
+          (let [ps (walk/keywordize-keys (:params params))]
+            {:given-params ps
+            :types (map (fn [[k v]]
+                          (valid/keyword-to-type k)) ps)
+            :valid-values
+            (map (fn [[k v]]
+                   ((valid/type-to-validator (valid/keyword-to-type k)) v))
+                 ps)})))
   (POST "/login" params
         params)
   (GET "/logout" req
@@ -85,6 +95,12 @@
   (GET "/admin" []
        (friend/authorize #{::admin}
                          (resp/file-response "top.html" {:root "public/html/admin"})))
+  (GET "/admin/query" []
+       (friend/authorize #{::admin}
+                         (resp/file-response "query.html" {:root "public/html/admin"})))
+  (POST "/admin/query" req
+        (friend/authorize #{::admin}
+                          (jdbc/query database/my-db [(:query (walk/keywordize-keys (:params req)))])))
   (GET "/admin/event" []
        (friend/authorize #{::admin}
                          (resp/file-response "top.html" {:root "public/html/admin/event"})))
