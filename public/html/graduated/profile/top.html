@@ -4,6 +4,7 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 		<title>profile</title>
 		<link rel="stylesheet" type="text/css" href="../../../css/main.css" media="all" />
+		<script src="../js/jquery-1.10.2.min.js"></script>
 
 
 </head>
@@ -20,43 +21,35 @@
 
 	<INPUT type="button" class="editbtn" value="変更" onClick="location.href='/graduated/profile/edit'"><h2>登録情報</h2>
 	<div id="baseprofile">
+		<p><h2>基本情報</h2></p>
 		<div id ="profilefont">
 		 
-		<p>基本情報<br><br>
-		お名前:田中太郎<br>
-		国籍:日本<br>
-		住所:長野県長野市なんちゃらのなんちゃら<br>
-		電話番号:0120-117-117</p><br><br>
+		
+		<p id="name">お名前:田中太郎</p>
+		<p id="country">国籍:日本</p>
+		<p id="address">住所:長野県長野市なんちゃらのなんちゃら</p>
+		<p id="phone">電話番号:0120-117-117</p>
 
-		<p>生年月日:3月3日</p>
-		<p>性別:男</p>
+		<p id="birthday">生年月日:3月3日</p>
+		<p id="sex">性別:男</p>
 
-		<p>職業:記者<br>
-		業種:111</p>
+		<p id="job">職業:記者<br>
+		<p id="industry">業種:111</p>
 
 		
 		
 		
 		
 	</div>
-		<div id = "profilephoto">
-			<font size = "40px">
-				写<br>真</font>
-		</div>
-		<div id ="profilebtn">
-			<FORM>
-			<INPUT type="button" class="editbtn" value="変更" onClick="location.href='/graduated/profile/edit'">
-			</FORM>
-		</div>
+		
 	</div>
 		<h2>卒業後進路</h2>
 	<div id="editinfo">
 		<p>所属:・・・<br></p>
 		<p>役職:・・・</p>
-		<p>業種:・・・</p>
 		<p>その他特記事項:・・・</p>
-		<p>変更日時:やばい</p>
-		<p>終了日:?????
+		<p ="changedate">変更日時:やばい</p>
+		<p>修了日:?????</p>
 		
 	</div>
 

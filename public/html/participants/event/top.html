@@ -4,6 +4,29 @@
 		<meta charset= "utf-8">
 		<title>Event</title>
 		<link rel="stylesheet" type="text/css" href="../../../css/main.css" media="all" />
+		<script src="../js/jquery-1.10.2.min.js"></script>
+		<script>
+	$(document).ready(function(){
+		
+		//$('#searchbutton').click(function() {
+		    	// 多重送信を防ぐため通信完了までボタンをdisableにする
+		    	var button = $(this);
+		    	button.attr("disabled", true);
+
+			    $.ajax({
+			    	type:"post",
+			    	url:"/participants/event",
+			    	dataType:"json",
+			    	success : function(data) {
+			    		
+			    		data.forEach(function(d){
+			    			$('#event-body').append("<tr><td>" + d.name + "</a></td>" + "<td>"+ d.day +"</td>" + "<td>"+ d.place +"</td></tr>");
+			    			});
+			    		}
+			    	});
+			    });
+			//});
+		</script>
 
 </head>
 <body>
@@ -12,15 +35,13 @@
 		<ul>
 		<li><a href ="/participants">Top</a></li>
 		<li><a href ="/participants/profile">登録情報</a></li>
-		<li><a href ="sankaeventN.html">イベント</a></li>
+
 		<li><a href ="/logout">Logout</a></li>
 		</ul>
 
 	</div>
 	<div id="eventdetail">
 		<h2>イベント</h2><br>
-	</div>
-	<div id ="events">
 		<a href ="/participants/event/history">過去の参加履歴</a>
 		<table id="eveTable">
 						<thead>
@@ -28,22 +49,14 @@
 								<th scope="col">イベント名</th>
 								<th scope="col">開催日</th>
 								<th scope="col">開催地区</th>
-								<th scope="col">開催時間</th>
-								<th scope="col">会場</th>
 							</tr>
 						</thead>
-						<tbody>
-							<tr>
-								<td><a href="/participants/detail">あ</a></td>
-								<td>あ</td>
-								<td>あ</td>
-								<td>あ</td>
-								<td>あ</td>
-							</tr>
+						<tbody id="event-body">
+						
 						</tbody>
 					</table>
-		<p>イベント等を表示したい</p>
 	</div>
+	
 </div>
 </body>
 </html>
