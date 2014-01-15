@@ -9,7 +9,7 @@
 			$(document).ready(function(){
 				$.ajax({
 					type:"post",
-					url:"/participants/profile",
+					url:"/participants",
 					dataType:"json",
 					success : function(data) {
 						console.log(data);
@@ -48,13 +48,13 @@
 			<div id="baseprofile">
 				<div id ="profilefont">
 
-					<p>基本情報<p>
+					<p>基本情報</p><br>
 					<p id="name">お名前:</p><br>
 					<p id="country">国籍:</p><br>
 					<p id="address">住所:</p><br>
-					<p id="phone">電話番号:</p><br><br>
+					<p id="phone">電話番号:</p><br>
 
-					<p id="birthday">生年月日:</p>
+					<p id="birthday">生年月日:</p><br>
 					<p id="sex">性別:</p>
 
 
