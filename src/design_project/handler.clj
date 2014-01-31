@@ -61,14 +61,13 @@
 (defroutes app-routes
   (GET "/" req
        (let [roles (-> (friend/identity req) friend/current-authentication :roles)]
-         (if (#{#{::admin} #{::student} #{::graduated}} roles)
+         (if (#{#{::admin} #{::student} #{::graduated} #{::participants}} roles)
            (resp/redirect (str (:context req)
                                (case (-> (friend/identity req) friend/current-authentication :roles)
                                  #{::admin} "/admin"
                                  #{::student} "/student"
                                  #{::graduated} "/graduated"
                                  #{::participants} "/participants"
-                                 #{::nobody} "/"
                                  "/")))
            (resp/file-response "index.html" {:root "public/html"}))))
   (POST "/test" params
@@ -214,9 +213,12 @@
   (POST "/graduated/event/detail" req
         (friend/authorize #{::graduated}
                           (let [events (event/select-all)
-                                id (Integer. (:id (walk/keywordize-keys (:params req))))]
-                            (json/generate-string (filter #(= (:id %) id)
-                                                          events)))))
+                                       id (Integer. (:id (walk/keywordize-keys (:params req))))
+                                       event (filter #(= (:id %) id) events)
+                                       identity (friend/identity req)
+                                       user-id (-> identity friend/current-authentication :user-id)]
+                            (event-read/insert {:user_id user-id :event_id id})
+                            (json/generate-string event))))
   (GET "/graduated/profile" []
        (friend/authorize #{::graduated}
                          (resp/file-response "top.html" {:root "public/html/graduated/profile"})))
