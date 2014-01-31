@@ -8,10 +8,6 @@
 		<script>
 	$(document).ready(function(){
 		
-		//$('#searchbutton').click(function() {
-		    	// 多重送信を防ぐため通信完了までボタンをdisableにする
-		    	var button = $(this);
-		    	button.attr("disabled", true);
 
 			    $.ajax({
 			    	type:"post",
@@ -20,12 +16,17 @@
 			    	success : function(data) {
 			    		
 			    		data.forEach(function(d){
-			    			$('#event-body').append("<tr><td>" + d.name + "</a></td>" + "<td>"+ d.day +"</td>" + "<td>"+ d.place +"</td></tr>");
+                                            $('#event-body').append("<tr class=\"event-row\"><td>"
+                                                    + "<form method=\"POST\" action=\"/participants/event/participate\">"
+                                                        + "<input type=\"hidden\" name=\"event_id\" value=\"" + d.id + "\">"
+                                                        + "<input type=\"submit\" value=\"参加\"></form></td>"
+                                                + "<td>"+ d.name + "</td>" + "<td>"+ d.day +"</td>" + "<td>"+ d.place +"</td></tr>");
 			    			});
 			    		}
-			    	});
+                                    });
+
 			    });
-			//});
+                            //});
 		</script>
 
 </head>
@@ -45,14 +46,14 @@
 		<a href ="/graduated/event/history">過去の参加履歴</a>
 		<table id="eveTable">
 						<thead>
-							<tr class="eveHead">
+                                                    <tr class="eveHead">
+                                                                <th scope="col">参加</th>
 								<th scope="col">イベント名</th>
 								<th scope="col">開催日</th>
 								<th scope="col">開催地区</th>
 							</tr>
 						</thead>
-						<tbody id="event-body">
-						
+                                                <tbody id="event-body">
 						</tbody>
 					</table>
 	</div>
