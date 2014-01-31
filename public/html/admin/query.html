@@ -3,8 +3,11 @@
     <head>
 	<meta charset='utf-8'>
 	<title>Query Throwing</title>
-	<link href="../css/style.css" rel="stylesheet" type="text/css" media="all">
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <link href="../css/style.css" rel="stylesheet" type="text/css" media="all">
+        <link rel="stylesheet" href="http://yandex.st/highlightjs/8.0/styles/default.min.css">
+        <script src="http://yandex.st/highlightjs/8.0/highlight.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script>
 	<script>
 	    $(document).ready(function(){
 		$('#submit-button').click(function(){
@@ -14,8 +17,11 @@
 			data: {
 			    query: $('#input').val()
 			},
-			success: function(data){
-			    $('#output').text(data);
+                        success: function(data){
+                            $('#output').text(data);
+                            $('#input-query').text($('#input').val());
+                            $('#input-query').each(function(i, e) {hljs.highlightBlock(e)});
+                            $('#output').each(function(i, e) {hljs.highlightBlock(e)});
 			}
 		    });
 		})
@@ -24,8 +30,9 @@
     </head>
     <body>
 	<h1>白と黒のコントラストがうつくしい統計ツール</h1>
-	<textarea id='input' rows=20 cols=80></textarea>
-	<textarea id='output' rows=20 cols=80></textarea>
+        <textarea id='input' rows=20 cols=80></textarea>
+        <pre><code id='input-query'></code></pre>
+        <pre><code id='output'></code></pre>
 	<input id='submit-button' type='submit' value="押しちゃらめえ">
     </body>
 </html>

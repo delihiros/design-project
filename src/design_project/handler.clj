@@ -1,5 +1,6 @@
 (ns design-project.handler
-  (:use [compojure.core])
+  (:use [compojure.core]
+        [clojure.pprint])
   (:require [clojure.walk :as walk]
             [compojure.handler :as handler]
             [compojure.route :as route]
@@ -99,7 +100,11 @@
                          (resp/file-response "query.html" {:root "public/html/admin"})))
   (POST "/admin/query" req
         (friend/authorize #{::admin}
-                          (jdbc/query database/my-db [(:query (walk/keywordize-keys (:params req)))])))
+                          (let [s (java.io.StringWriter.)]
+                            (binding [*out* s]
+                              (clojure.pprint/pprint
+                                (jdbc/query database/my-db [(:query (walk/keywordize-keys (:params req)))])))
+                            (.toString s))))
   (GET "/admin/event" []
        (friend/authorize #{::admin}
                          (resp/file-response "top.html" {:root "public/html/admin/event"})))
@@ -219,6 +224,15 @@
                                        user-id (-> identity friend/current-authentication :user-id)]
                             (event-read/insert {:user_id user-id :event_id id})
                             (json/generate-string event))))
+  (GET "/graduated/event/history" []
+       (friend/authorize #{::graduated}
+                         (resp/file-response "history.html" {:root "public/html/graduated/event"})))
+  (POST "/graduated/event/history" req
+       (friend/authorize #{::graduated}
+                         (let [identity (friend/identity req)]
+                           (json/generate-string
+                             (filter #(= (:user_id %) (-> identity friend/current-authentication :user-id))
+                             (join-event-history/select-all))))))
   (GET "/graduated/profile" []
        (friend/authorize #{::graduated}
                          (resp/file-response "top.html" {:root "public/html/graduated/profile"})))
@@ -242,12 +256,22 @@
   (GET "/participants/event" []
        (friend/authorize #{::participants}
                          (resp/file-response "top.html" {:root "public/html/participants/event"})))
+  (POST "/participants/event" req
+       (friend/authorize #{::participants}
+                         (json/generate-string (filter #(= (:type_id %) 1) (f-1 (event/select-all))))))
   (GET "/participants/event/detail" []
        (friend/authorize #{::participants}
                          (resp/file-response "detail.html" {:root "public/html/participants/event"})))
   (GET "/participants/event/history" []
        (friend/authorize #{::participants}
                          (resp/file-response "history.html" {:root "public/html/participants/event"})))
+  (POST "/participants/event/history" req
+       (friend/authorize #{::participants}
+                         (let [identity (friend/identity req)]
+                           (json/generate-string
+                             (filter #(= (:user_id %) (-> identity friend/current-authentication :user-id))
+                             (join-event-history/select-all))))))
+
   (GET "/participants/profile" []
        (friend/authorize #{::participants}
                          (resp/file-response "top.html" {:root "public/html/participants/profile"})))
@@ -274,7 +298,17 @@
                               (if (= 3 (Integer. (:status input)))
                                 {:status (not (nil? (user/update (-> identity friend/current-authentication :user-id) input)))}
                                 {:status false})))))
-
+  (POST "/participants/event/participate" req
+        (friend/authorize #{::participants}
+                          (join-event-history/insert 
+                            (walk/keywordize-keys 
+                              (conj
+                                (:params req)
+                                {:user_id
+                                (-> (friend/identity req)
+                                  friend/current-authentication
+                                  :user-id)})))
+                          (resp/redirect (str (:context req) "/participants/event"))))
   (GET "/student" []
        (friend/authorize #{::student}
                          (resp/file-response "top.html" {:root "public/html/student/profile"})))
@@ -302,17 +336,6 @@
                               (if (< 0 (Integer. (:status input)))
                                 {:status (not (nil? (user/update (-> identity friend/current-authentication :user-id) input)))}
                                 {:status false})))))
-
-  (POST "/event/participate" req
-                          (json/generate-string 
-                            {:status
-                            (not (nil? (join-event-history/insert 
-                                         (walk/keywordize-keys 
-                                           (conj
-                                             (:params req) {:user_id
-                                             (-> (friend/identity req)
-                                               friend/current-authentication
-                                               :user-id)})))))}))
   (route/resources "/")
   (route/not-found "Not Found"))
 
