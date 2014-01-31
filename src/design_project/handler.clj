@@ -1,6 +1,7 @@
 (ns design-project.handler
   (:use [compojure.core]
-        [clojure.pprint])
+        [clojure.pprint]
+        [ring.adapter.jetty])
   (:require [clojure.walk :as walk]
             [compojure.handler :as handler]
             [compojure.route :as route]
@@ -349,3 +350,6 @@
       :unauthorized-handler (fn [_] (resp/response "unauthorized!!!"))
       :credential-fn #(creds/bcrypt-credential-fn @users %)
       :workflows [(workflows/interactive-form)]})))
+
+(defn -main []
+  (ring.adapter.jetty/run-jetty app {:port 8080}))
