@@ -22,8 +22,8 @@
 
 ## アプリの管理ユーザー・テストユーザー等のユーザー名とパスワード
 
-|ユーザー|ID|password|
-|-------:|-:|-------:|
+|ユーザー |ID | password|
+|:-------:|:-:|:-------:|
 |大学(admin)|admin|admin|
 |修了生|graduate|graduate|
 |学生|student|student|
