@@ -54,9 +54,9 @@
 (defn f-1 [ds]
   (filter #(not= -1 (:id %)) ds))
 
-; (derive ::admin ::student)
-; (derive ::admin ::graduated)
-; (derive ::admin ::participants)
+(derive ::admin ::student)
+(derive ::admin ::graduated)
+(derive ::admin ::participants)
 
 (defroutes app-routes
   (GET "/" req
@@ -188,9 +188,13 @@
                          (resp/file-response "top.html" {:root "public/html/graduated/certificate"})))
   (POST "/graduated/certificate" req
         (friend/authorize #{::graduated}
-                          (if (not (nil? (event/insert (walk/keywordize-keys (:params req)))))
-                            "<h1>申請しました</h1>"
-                            "<h1>不備があります</h1>")))
+                          (let [data (assoc (walk/keywordize-keys (:params req))
+                                            :user_id
+                                            (let [identity (friend/identity req)]
+                                              (-> identity friend/current-authentication :user-id)))]
+                            (if (not (nil? (certificate/insert data)))
+                              "good"
+                              (str "bad : " data)))))
   (GET "/graduated/event" []
        (friend/authorize #{::graduated}
                          (resp/file-response "top.html" {:root "public/html/graduated/event"})))
@@ -248,11 +252,15 @@
   (GET "/participants/profile/add" []
                          (resp/file-response "add.html" {:root "public/html/participants/profile"}))
   (POST "/participants/profile/add" req
-                          (let [input (walk/keywordize-keys (:params req))]
-                            (json/generate-string
-                              (if (= 3 (Integer. (:status input)))
-                                {:status (not (nil? (user/insert input)))}
-                                {:status false}))))
+                          (let [input (walk/keywordize-keys (:params req))
+                                status (not (nil? (user/insert input)))]
+                            (when (true? status)
+                              (println @users)
+                              (reset! users (let [u (user/select-all)]
+                                              (apply hash-map
+                                                     (interleave (map :login_id u)
+                                                                 (map transform-user u))))))
+                            (json/generate-string  {:status status})))
   (GET "/participants/profile/edit" []
        (friend/authorize #{::participants}
                          (resp/file-response "edit.html" {:root "public/html/participants/profile"})))
